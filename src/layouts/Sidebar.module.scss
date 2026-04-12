@@ -31,7 +31,11 @@
 
     .logoSection {
       justify-content: center;
-      padding-inline: var(--spacing-sm);
+      padding-inline: 6px;
+    }
+
+    .logoIcon {
+      max-width: 40px;
     }
 
     .userSection {
@@ -48,17 +52,17 @@
 .logoSection {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-lg) var(--spacing-lg);
-  padding-block-end: var(--spacing-lg);
-  min-height: 76px;
+  justify-content: center;
+  padding: 18px 14px;
+  min-height: 70px;
 }
 
 .logoIcon {
-  width: 44px;
-  height: 44px;
+  width: 100%;
+  max-width: 170px;
+  height: auto;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) brightness(10);
+  filter: brightness(10);
   object-fit: contain;
   border-radius: 4px;
 }

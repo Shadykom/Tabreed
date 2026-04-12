@@ -36,10 +36,6 @@ export default function Sidebar() {
       <aside className={`${styles.sidebar} ${sidebarOpen ? styles.open : styles.collapsed}`}>
         <div className={styles.logoSection}>
           <img className={styles.logoIcon} src="/images/logo.png" alt="Saudi Tabreed" />
-          <div className={styles.logoText}>
-            <span className={styles.logoName}>{t('app.name')}</span>
-            <span className={styles.logoSubtitle}>{t('app.subtitle')}</span>
-          </div>
         </div>
 
         <div className={styles.divider} />
