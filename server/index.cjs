@@ -9,8 +9,40 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Security: Sanitize text input (strip HTML tags)
+function sanitize(str) {
+  if (typeof str !== 'string') return str;
+  return str.replace(/<[^>]*>/g, '').trim();
+}
+
+function sanitizeBody(req, res, next) {
+  if (req.body && typeof req.body === 'object') {
+    for (const key of Object.keys(req.body)) {
+      if (typeof req.body[key] === 'string') {
+        req.body[key] = sanitize(req.body[key]);
+      }
+    }
+  }
+  next();
+}
+app.use(sanitizeBody);
+
+// Security: Rate limiting for login (max 10 attempts per minute per IP)
+const loginAttempts = {};
+function loginRateLimit(req, res, next) {
+  const ip = req.ip || req.connection.remoteAddress;
+  const now = Date.now();
+  if (!loginAttempts[ip]) loginAttempts[ip] = [];
+  loginAttempts[ip] = loginAttempts[ip].filter(t => now - t < 60000);
+  if (loginAttempts[ip].length >= 10) {
+    return res.status(429).json({ error: 'Too many login attempts. Please wait 1 minute.' });
+  }
+  loginAttempts[ip].push(now);
+  next();
+}
 
 // Multer for file uploads
 const multer = require('multer');
@@ -716,7 +748,7 @@ const testUsers = [
   { id: 3, email: 'sara.malik@sauditabreed.com', password: bcrypt.hashSync('Tabreed@2026', 10), name: 'Sara Al-Malik', nameAr: 'سارة المالك', role: 'user', title: 'VP Human Resources', titleAr: 'نائب رئيس الموارد البشرية', department: 'HR', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face' },
 ];
 
-app.post('/api/auth/login', async (req, res) => {
+app.post('/api/auth/login', loginRateLimit, async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ error: 'Email and password are required' });

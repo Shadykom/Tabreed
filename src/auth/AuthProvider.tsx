@@ -6,32 +6,10 @@
  * 2. Local JWT auth (fallback) - uses email/password
  */
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { PublicClientApplication } from '@azure/msal-browser';
 import { msalConfig, loginRequest, graphConfig, isAzureADConfigured } from './msalConfig';
-
-interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  role: 'admin' | 'editor' | 'user';
-  department: string;
-  title: string;
-  authMethod: 'azure-ad' | 'local';
-}
-
-interface AuthContextType {
-  user: AuthUser | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  isAzureAD: boolean;
-  login: (email?: string, password?: string) => Promise<void>;
-  logout: () => void;
-  getToken: () => string | null;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+import { AuthContext, type AuthUser } from './authContextDef';
 
 let msalInstance: PublicClientApplication | null = null;
 
@@ -180,8 +158,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth must be used within AuthProvider');
-  return context;
-}
+// useAuth hook moved to hooks/useAuth.ts for fast-refresh compatibility

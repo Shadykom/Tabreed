@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, react-hooks/set-state-in-effect */
 import { useState, useEffect } from 'react';
 import {
   BarChart3, Newspaper, Megaphone, Users, DoorOpen, Calendar,
@@ -85,20 +86,29 @@ function badgeClass(val: string): string {
 // ─── Component ───
 export default function AdminNew() {
   const [section, setSection] = useState<Section>('dashboard');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any[]>([]);
   const [stats, setStats] = useState({ news: 0, announcements: 0, employees: 0, rooms: 0 });
   const [showForm, setShowForm] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [editItem, setEditItem] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [form, setForm] = useState<Record<string, any>>({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [, setChairman] = useState<any>({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [, setMotivation] = useState<any>({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [, setReminder] = useState<any>({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [bookings, setBookings] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [requests, setRequests] = useState<any[]>([]);
   const [saved, setSaved] = useState(false);
 
   // Fetch data when section changes
   useEffect(() => {
+    setShowForm(false); setEditItem(null); setSaved(false);
     const cfg = CRUD_CONFIG[section];
     if (cfg) {
       fetch(cfg.endpoint).then(r => r.json()).then(d => setData(Array.isArray(d) ? d : [])).catch(() => setData([]));
@@ -112,7 +122,6 @@ export default function AdminNew() {
     if (section === 'reminders') fetch('/api/reminder').then(r => r.json()).then(d => { setReminder(d); setForm(d); }).catch(() => {});
     if (section === 'bookings') fetch('/api/room-bookings').then(r => r.json()).then(setBookings).catch(() => setBookings([]));
     if (section === 'requests') fetch('/api/service-requests').then(r => r.json()).then(setRequests).catch(() => setRequests([]));
-    setShowForm(false); setEditItem(null); setSaved(false);
   }, [section]);
 
   // CRUD handlers

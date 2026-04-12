@@ -1,6 +1,23 @@
 {
   "news": [
     {
+      "id": 5,
+      "comments": 0,
+      "likes": 0,
+      "date": "Just now",
+      "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    {
+      "id": 4,
+      "comments": 0,
+      "likes": 0,
+      "date": "Just now",
+      "title": "<script>alert(1)</script>",
+      "summary": "test",
+      "category": "test",
+      "author": "test"
+    },
+    {
       "id": 1,
       "title": "PIF Completes Acquisition of 30% Stake in Saudi Tabreed",
       "summary": "The Public Investment Fund (PIF) has announced the completion of the acquisition of a 30% stake in Saudi Tabreed District Cooling Company, reinforcing Saudi Arabia's commitment to sustainable urban infrastructure and energy efficiency in line with Vision 2030.",
@@ -72,45 +89,250 @@
     }
   ],
   "applications": [
-    { "id": 1, "name": "Facilio", "category": "Favorites", "icon": "building", "color": "#4A90D9", "description": "Facility Management", "url": "#" },
-    { "id": 2, "name": "CyberOne", "category": "Favorites", "icon": "shield", "color": "#14B8A6", "description": "Cybersecurity", "url": "#" },
-    { "id": 3, "name": "Sign IT", "category": "Favorites", "icon": "pen-tool", "color": "#22C55E", "description": "Digital Signatures", "url": "#" },
-    { "id": 4, "name": "Outlook", "category": "Favorites", "icon": "mail", "color": "#0078D4", "description": "Email & Calendar", "url": "#" },
-    { "id": 5, "name": "Microsoft Dynamics 365", "category": "Core Systems", "icon": "box", "color": "#1B3A6B", "description": "ERP System", "url": "#" },
-    { "id": 6, "name": "SAP", "category": "Core Systems", "icon": "database", "color": "#0FAAFF", "description": "Enterprise Planning", "url": "#" },
-    { "id": 7, "name": "ManageEngine", "category": "Core Systems", "icon": "settings", "color": "#EF4444", "description": "IT Service Mgmt", "url": "#" },
-    { "id": 8, "name": "SharePoint", "category": "Tools", "icon": "layout", "color": "#0078D4", "description": "Document Mgmt", "url": "#" },
-    { "id": 9, "name": "Power BI", "category": "Tools", "icon": "bar-chart-3", "color": "#F2C811", "description": "Analytics", "url": "#" },
-    { "id": 10, "name": "Microsoft Teams", "category": "Tools", "icon": "users", "color": "#6264A7", "description": "Communication", "url": "#" }
+    {
+      "id": 1,
+      "name": "Facilio",
+      "category": "Favorites",
+      "icon": "building",
+      "color": "#4A90D9",
+      "description": "Facility Management",
+      "url": "#"
+    },
+    {
+      "id": 2,
+      "name": "CyberOne",
+      "category": "Favorites",
+      "icon": "shield",
+      "color": "#14B8A6",
+      "description": "Cybersecurity",
+      "url": "#"
+    },
+    {
+      "id": 3,
+      "name": "Sign IT",
+      "category": "Favorites",
+      "icon": "pen-tool",
+      "color": "#22C55E",
+      "description": "Digital Signatures",
+      "url": "#"
+    },
+    {
+      "id": 4,
+      "name": "Outlook",
+      "category": "Favorites",
+      "icon": "mail",
+      "color": "#0078D4",
+      "description": "Email & Calendar",
+      "url": "#"
+    },
+    {
+      "id": 5,
+      "name": "Microsoft Dynamics 365",
+      "category": "Core Systems",
+      "icon": "box",
+      "color": "#1B3A6B",
+      "description": "ERP System",
+      "url": "#"
+    },
+    {
+      "id": 6,
+      "name": "SAP",
+      "category": "Core Systems",
+      "icon": "database",
+      "color": "#0FAAFF",
+      "description": "Enterprise Planning",
+      "url": "#"
+    },
+    {
+      "id": 7,
+      "name": "ManageEngine",
+      "category": "Core Systems",
+      "icon": "settings",
+      "color": "#EF4444",
+      "description": "IT Service Mgmt",
+      "url": "#"
+    },
+    {
+      "id": 8,
+      "name": "SharePoint",
+      "category": "Tools",
+      "icon": "layout",
+      "color": "#0078D4",
+      "description": "Document Mgmt",
+      "url": "#"
+    },
+    {
+      "id": 9,
+      "name": "Power BI",
+      "category": "Tools",
+      "icon": "bar-chart-3",
+      "color": "#F2C811",
+      "description": "Analytics",
+      "url": "#"
+    },
+    {
+      "id": 10,
+      "name": "Microsoft Teams",
+      "category": "Tools",
+      "icon": "users",
+      "color": "#6264A7",
+      "description": "Communication",
+      "url": "#"
+    }
   ],
   "employees": [
-    { "id": 1, "name": "Abdulhamid Aalmansour", "department": "Executive", "title": "CEO", "avatar": "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=150&h=150&fit=crop&crop=face" },
-    { "id": 2, "name": "Khalid Al-Rashidi", "department": "Finance", "title": "VP Finance", "avatar": "https://images.unsplash.com/photo-1618568221633-0a45dd10ecb7?w=150&h=150&fit=crop&crop=face" },
-    { "id": 3, "name": "Sara Al-Malik", "department": "HR", "title": "VP Human Resources", "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face" },
-    { "id": 4, "name": "Omar Almidani", "department": "Engineering", "title": "VP Projects", "avatar": "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?w=150&h=150&fit=crop&crop=face" },
-    { "id": 5, "name": "Fatima Al-Dosari", "department": "Operations", "title": "Operations Mgr", "avatar": "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=150&h=150&fit=crop&crop=face" },
-    { "id": 6, "name": "Mohammed Al-Shehri", "department": "Engineering", "title": "Senior Engineer", "avatar": "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=150&h=150&fit=crop&crop=face" },
-    { "id": 7, "name": "Noura Al-Zahrani", "department": "HSE", "title": "HSE Manager", "avatar": "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=150&h=150&fit=crop&crop=face" },
-    { "id": 8, "name": "Ahmed Al-Qahtani", "department": "IT", "title": "IT Specialist", "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" }
+    {
+      "id": 1,
+      "name": "Abdulhamid Aalmansour",
+      "department": "Executive",
+      "title": "CEO",
+      "avatar": "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=150&h=150&fit=crop&crop=face"
+    },
+    {
+      "id": 2,
+      "name": "Khalid Al-Rashidi",
+      "department": "Finance",
+      "title": "VP Finance",
+      "avatar": "https://images.unsplash.com/photo-1618568221633-0a45dd10ecb7?w=150&h=150&fit=crop&crop=face"
+    },
+    {
+      "id": 3,
+      "name": "Sara Al-Malik",
+      "department": "HR",
+      "title": "VP Human Resources",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face"
+    },
+    {
+      "id": 4,
+      "name": "Omar Almidani",
+      "department": "Engineering",
+      "title": "VP Projects",
+      "avatar": "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?w=150&h=150&fit=crop&crop=face"
+    },
+    {
+      "id": 5,
+      "name": "Fatima Al-Dosari",
+      "department": "Operations",
+      "title": "Operations Mgr",
+      "avatar": "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=150&h=150&fit=crop&crop=face"
+    },
+    {
+      "id": 6,
+      "name": "Mohammed Al-Shehri",
+      "department": "Engineering",
+      "title": "Senior Engineer",
+      "avatar": "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=150&h=150&fit=crop&crop=face"
+    },
+    {
+      "id": 7,
+      "name": "Noura Al-Zahrani",
+      "department": "HSE",
+      "title": "HSE Manager",
+      "avatar": "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=150&h=150&fit=crop&crop=face"
+    },
+    {
+      "id": 8,
+      "name": "Ahmed Al-Qahtani",
+      "department": "IT",
+      "title": "IT Specialist",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+    }
   ],
   "meetingRooms": [
-    { "id": 1, "name": "Al Rimal", "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop", "capacity": 10, "floor": "2nd Floor", "status": "available" },
-    { "id": 2, "name": "Al Nakheel", "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=250&fit=crop", "capacity": 16, "floor": "3rd Floor", "status": "busy" },
-    { "id": 3, "name": "Al Corniche", "image": "https://images.unsplash.com/photo-1462826303086-329426d1aef5?w=400&h=250&fit=crop", "capacity": 6, "floor": "1st Floor", "status": "available" },
-    { "id": 4, "name": "Innovation Hub", "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=250&fit=crop", "capacity": 24, "floor": "4th Floor", "status": "busy" }
+    {
+      "id": 1,
+      "name": "Al Rimal",
+      "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop",
+      "capacity": 10,
+      "floor": "2nd Floor",
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "name": "Al Nakheel",
+      "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=250&fit=crop",
+      "capacity": 16,
+      "floor": "3rd Floor",
+      "status": "busy"
+    },
+    {
+      "id": 3,
+      "name": "Al Corniche",
+      "image": "https://images.unsplash.com/photo-1462826303086-329426d1aef5?w=400&h=250&fit=crop",
+      "capacity": 6,
+      "floor": "1st Floor",
+      "status": "available"
+    },
+    {
+      "id": 4,
+      "name": "Innovation Hub",
+      "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=250&fit=crop",
+      "capacity": 24,
+      "floor": "4th Floor",
+      "status": "busy"
+    }
   ],
   "officeLocations": [
-    { "id": 1, "name": "Khobar Head Office", "city": "Khobar", "address": "Eastern Province, 31952", "type": "hq" },
-    { "id": 2, "name": "Riyadh Office", "city": "Riyadh", "address": "King Fahd Road", "type": "branch" },
-    { "id": 3, "name": "Dhahran Plant", "city": "Dhahran", "address": "Aramco Complex", "type": "plant" },
-    { "id": 4, "name": "Makkah Plant", "city": "Makkah", "address": "Jabal Omar Development", "type": "plant" }
+    {
+      "id": 1,
+      "name": "Khobar Head Office",
+      "city": "Khobar",
+      "address": "Eastern Province, 31952",
+      "type": "hq"
+    },
+    {
+      "id": 2,
+      "name": "Riyadh Office",
+      "city": "Riyadh",
+      "address": "King Fahd Road",
+      "type": "branch"
+    },
+    {
+      "id": 3,
+      "name": "Dhahran Plant",
+      "city": "Dhahran",
+      "address": "Aramco Complex",
+      "type": "plant"
+    },
+    {
+      "id": 4,
+      "name": "Makkah Plant",
+      "city": "Makkah",
+      "address": "Jabal Omar Development",
+      "type": "plant"
+    }
   ],
   "safeLocations": [
-    { "id": 1, "name": "Khobar HQ Assembly", "address": "Main Parking Area", "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=200&h=120&fit=crop" },
-    { "id": 2, "name": "Dhahran Emergency Zone", "address": "Gate 2 Assembly", "image": "https://images.unsplash.com/photo-1546412414-e1885259563a?w=200&h=120&fit=crop" },
-    { "id": 3, "name": "Riyadh Safe Zone", "address": "Ground Floor Lobby", "image": "https://images.unsplash.com/photo-1518684079-3c830dcef090?w=200&h=120&fit=crop" },
-    { "id": 4, "name": "Makkah Muster Point", "address": "North Gate Area", "image": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=200&h=120&fit=crop" },
-    { "id": 5, "name": "KAFD Emergency Exit", "address": "Parking Level B1", "image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=200&h=120&fit=crop" }
+    {
+      "id": 1,
+      "name": "Khobar HQ Assembly",
+      "address": "Main Parking Area",
+      "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=200&h=120&fit=crop"
+    },
+    {
+      "id": 2,
+      "name": "Dhahran Emergency Zone",
+      "address": "Gate 2 Assembly",
+      "image": "https://images.unsplash.com/photo-1546412414-e1885259563a?w=200&h=120&fit=crop"
+    },
+    {
+      "id": 3,
+      "name": "Riyadh Safe Zone",
+      "address": "Ground Floor Lobby",
+      "image": "https://images.unsplash.com/photo-1518684079-3c830dcef090?w=200&h=120&fit=crop"
+    },
+    {
+      "id": 4,
+      "name": "Makkah Muster Point",
+      "address": "North Gate Area",
+      "image": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=200&h=120&fit=crop"
+    },
+    {
+      "id": 5,
+      "name": "KAFD Emergency Exit",
+      "address": "Parking Level B1",
+      "image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=200&h=120&fit=crop"
+    }
   ],
   "chairman": {
     "name": "Mohammed Abunayyan",
@@ -140,9 +362,24 @@
         "title": "Chief Executive Officer",
         "avatar": "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=80&h=80&fit=crop&crop=face",
         "children": [
-          { "id": 3, "name": "Omar Almidani", "title": "Board Member / Strategy", "avatar": "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?w=80&h=80&fit=crop&crop=face" },
-          { "id": 4, "name": "Khalid Al-Rashidi", "title": "VP Finance", "avatar": "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=80&h=80&fit=crop&crop=face" },
-          { "id": 5, "name": "Sara Al-Malik", "title": "VP Human Resources", "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face" }
+          {
+            "id": 3,
+            "name": "Omar Almidani",
+            "title": "Board Member / Strategy",
+            "avatar": "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?w=80&h=80&fit=crop&crop=face"
+          },
+          {
+            "id": 4,
+            "name": "Khalid Al-Rashidi",
+            "title": "VP Finance",
+            "avatar": "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=80&h=80&fit=crop&crop=face"
+          },
+          {
+            "id": 5,
+            "name": "Sara Al-Malik",
+            "title": "VP Human Resources",
+            "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face"
+          }
         ]
       }
     ]
