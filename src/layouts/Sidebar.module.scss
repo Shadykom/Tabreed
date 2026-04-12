@@ -114,11 +114,13 @@
   margin-inline: 4px;
   border-radius: var(--radius-md);
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.8375rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   transition: all var(--transition-normal);
   cursor: pointer;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-decoration: none;
   position: relative;
 
