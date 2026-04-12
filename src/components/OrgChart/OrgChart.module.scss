@@ -3,8 +3,9 @@
   flex-direction: column;
   align-items: center;
   overflow-x: auto;
-  padding: 20px 10px;
-  min-width: min-content;
+  overflow-y: hidden;
+  padding: 10px 4px 4px;
+  width: 100%;
 }
 
 .node {
@@ -13,200 +14,139 @@
   align-items: center;
 }
 
-/* ── Card shared ── */
 .nodeCard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 16px 22px 14px;
+  gap: 4px;
+  padding: 10px 12px 8px;
   background: white;
-  border-radius: 16px;
+  border-radius: 12px;
   text-align: center;
-  min-width: 130px;
-  max-width: 170px;
-  border: 1.5px solid var(--color-border-light);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.25s ease;
+  min-width: 0;
+  width: max-content;
+  max-width: 120px;
+  border: 1px solid var(--color-border-light);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
   cursor: pointer;
-  position: relative;
 
   &:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 8px 24px rgba(74, 127, 212, 0.15);
-    transform: translateY(-4px);
+    box-shadow: 0 4px 14px rgba(74, 127, 212, 0.12);
+    transform: translateY(-2px);
   }
 }
 
-/* ── Root (Chairman) ── */
 .root {
-  background: linear-gradient(145deg, #0f2240 0%, #1a3f7a 50%, #4A7FD4 100%);
+  background: linear-gradient(145deg, #0f2240, #1a3f7a);
   color: white;
   border: none;
-  min-width: 160px;
-  max-width: 200px;
-  padding: 20px 28px 16px;
-  box-shadow:
-    0 8px 30px rgba(15, 34, 64, 0.35),
-    0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 130px;
+  padding: 12px 14px 10px;
+  box-shadow: 0 4px 16px rgba(15, 34, 64, 0.3);
 
-  .nodeName { color: white; font-size: 0.8125rem; }
-  .nodeTitle { color: rgba(255, 255, 255, 0.7); }
+  .nodeName { color: white; font-size: 0.6875rem; }
+  .nodeTitle { color: rgba(255, 255, 255, 0.7); background: rgba(255, 255, 255, 0.15); }
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      0 12px 40px rgba(15, 34, 64, 0.4),
-      0 4px 10px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(15, 34, 64, 0.35);
     border-color: transparent;
   }
-
-  /* Glow ring */
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, rgba(74, 127, 212, 0.5), rgba(46, 196, 182, 0.3), rgba(74, 127, 212, 0.5));
-    z-index: -1;
-    opacity: 0.6;
-  }
-}
-
-/* ── Avatar ring for root ── */
-.root .avatarWrap {
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
 .avatarWrap {
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.root .avatarWrap {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
 }
 
 .nodeName {
-  font-size: 0.75rem;
+  font-size: 0.625rem;
   font-weight: 700;
   color: var(--color-text);
   white-space: nowrap;
-  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
 }
 
 .nodeTitle {
-  font-size: 0.625rem;
+  font-size: 0.5625rem;
   font-weight: 500;
   color: var(--color-text-secondary);
   white-space: nowrap;
-  padding: 2px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  padding: 1px 8px;
   background: rgba(0, 0, 0, 0.04);
   border-radius: 20px;
 }
 
-.root .nodeTitle {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-/* ── Connector lines ── */
 .connector {
-  width: 2px;
-  height: 28px;
-  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-border) 100%);
+  width: 1.5px;
+  height: 16px;
+  background: var(--color-accent);
   margin: 0 auto;
-  position: relative;
-
-  /* Animated pulse dot */
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    box-shadow: 0 0 6px rgba(74, 127, 212, 0.4);
-  }
+  opacity: 0.5;
 }
 
-/* ── Children container ── */
 .children {
   display: flex;
-  gap: 20px;
+  gap: 8px;
   position: relative;
-  padding-block-start: 20px;
+  padding-block-start: 14px;
 
-  /* Horizontal line connecting children */
   &::before {
     content: '';
     position: absolute;
     top: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, var(--color-accent) 20%, var(--color-accent) 80%, transparent 100%);
-    border-radius: 1px;
+    inset-inline-start: 30px;
+    inset-inline-end: 30px;
+    height: 1.5px;
+    background: var(--color-accent);
+    opacity: 0.4;
   }
-}
-
-/* Calculate horizontal line width based on children */
-.children::before {
-  left: calc(50% - (50% - 40px));
-  right: calc(50% - (50% - 40px));
-  inset-inline-start: 50px;
-  inset-inline-end: 50px;
 }
 
 .childBranch {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 
-  /* Vertical line from horizontal bar to card */
   &::before {
     content: '';
-    width: 2px;
-    height: 20px;
+    width: 1.5px;
+    height: 14px;
     background: var(--color-accent);
-    opacity: 0.5;
+    opacity: 0.4;
   }
 }
 
-/* ── Stagger animation for children ── */
-.childBranch:nth-child(1) { animation: nodeIn 0.4s ease 0.1s both; }
-.childBranch:nth-child(2) { animation: nodeIn 0.4s ease 0.2s both; }
-.childBranch:nth-child(3) { animation: nodeIn 0.4s ease 0.3s both; }
-.childBranch:nth-child(4) { animation: nodeIn 0.4s ease 0.4s both; }
-.childBranch:nth-child(5) { animation: nodeIn 0.4s ease 0.5s both; }
+.childBranch:nth-child(1) { animation: nodeIn 0.3s ease 0.1s both; }
+.childBranch:nth-child(2) { animation: nodeIn 0.3s ease 0.15s both; }
+.childBranch:nth-child(3) { animation: nodeIn 0.3s ease 0.2s both; }
+.childBranch:nth-child(4) { animation: nodeIn 0.3s ease 0.25s both; }
+.childBranch:nth-child(5) { animation: nodeIn 0.3s ease 0.3s both; }
 
 @keyframes nodeIn {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Responsive ── */
 @media (max-width: 700px) {
-  .tree {
-    padding: 12px 4px;
-  }
-
   .children {
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding-block-start: 12px;
-
+    gap: 4px;
+    padding-block-start: 8px;
     &::before { display: none; }
   }
-
   .childBranch::before { display: none; }
-
-  .nodeCard {
-    min-width: 110px;
-    padding: 12px 16px 10px;
-  }
-
-  .root {
-    min-width: 140px;
-    padding: 16px 20px 12px;
-  }
 }

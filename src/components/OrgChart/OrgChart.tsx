@@ -11,7 +11,7 @@ function OrgNode({ member, isRoot = false }: { member: OrgMember; isRoot?: boole
     <div className={styles.node}>
       <div className={`${styles.nodeCard} ${isRoot ? styles.root : ''}`}>
         <div className={styles.avatarWrap}>
-          <Avatar name={member.name} src={member.avatar || undefined} size={isRoot ? 'lg' : 'md'} />
+          <Avatar name={member.name} src={member.avatar || undefined} size={isRoot ? 'md' : 'sm'} />
         </div>
         <div className={styles.nodeName}>{member.name}</div>
         <div className={styles.nodeTitle}>{member.title}</div>
