@@ -7,13 +7,13 @@ USE TabreedPortal;
 GO
 
 -- ============================================
--- Admin User (password: Admin@Tabreed2024)
+-- Admin User (password: Tabreed@2026)
 -- ============================================
 INSERT INTO Users (EmployeeId, Email, PasswordHash, FullNameEn, FullNameAr, TitleEn, TitleAr, Department, Role)
 VALUES
-('EMP001', 'admin@sauditabreed.com', '$2b$10$xJ8K1z5hQ9rZ3vE7wT6yGOmN4pL2kI0jHgFdSaQwErTyUiOpAsDf', 'System Administrator', N'مدير النظام', 'IT Administrator', N'مدير تقنية المعلومات', 'IT', 'admin'),
-('EMP002', 'ahmed.qahtani@sauditabreed.com', '$2b$10$xJ8K1z5hQ9rZ3vE7wT6yGOmN4pL2kI0jHgFdSaQwErTyUiOpAsDf', 'Ahmed Al-Qahtani', N'أحمد القحطاني', 'IT Specialist', N'أخصائي تقنية المعلومات', 'IT', 'editor'),
-('EMP003', 'sara.malik@sauditabreed.com', '$2b$10$xJ8K1z5hQ9rZ3vE7wT6yGOmN4pL2kI0jHgFdSaQwErTyUiOpAsDf', 'Sara Al-Malik', N'سارة المالك', 'HR Manager', N'مديرة الموارد البشرية', 'HR', 'user');
+('EMP001', 'admin@sauditabreed.com', '$2b$10$eo51qIJLt.ww1T/rsYInxOGzP8.Vgys8pF0SbGZsew0xMsy0dYor2', 'System Administrator', N'مدير النظام', 'IT Administrator', N'مدير تقنية المعلومات', 'IT', 'admin'),
+('EMP002', 'ahmed.qahtani@sauditabreed.com', '$2b$10$eo51qIJLt.ww1T/rsYInxOGzP8.Vgys8pF0SbGZsew0xMsy0dYor2', 'Ahmed Al-Qahtani', N'أحمد القحطاني', 'IT Specialist', N'أخصائي تقنية المعلومات', 'IT', 'editor'),
+('EMP003', 'sara.malik@sauditabreed.com', '$2b$10$eo51qIJLt.ww1T/rsYInxOGzP8.Vgys8pF0SbGZsew0xMsy0dYor2', 'Sara Al-Malik', N'سارة المالك', 'HR Manager', N'مديرة الموارد البشرية', 'HR', 'user');
 GO
 
 -- ============================================

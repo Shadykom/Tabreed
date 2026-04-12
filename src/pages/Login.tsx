@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.scss';
 
 const TEST_USERS = [
-  { email: 'admin@sauditabreed.com', password: 'Admin@2024', role: 'Admin' },
-  { email: 'ahmed.qahtani@sauditabreed.com', password: 'Editor@2024', role: 'Editor' },
-  { email: 'sara.malik@sauditabreed.com', password: 'User@2024', role: 'User' },
+  { email: 'admin@sauditabreed.com', password: 'Tabreed@2026', role: 'Admin' },
+  { email: 'ahmed.qahtani@sauditabreed.com', password: 'Tabreed@2026', role: 'Editor' },
+  { email: 'sara.malik@sauditabreed.com', password: 'Tabreed@2026', role: 'User' },
 ];
 
 export default function Login() {

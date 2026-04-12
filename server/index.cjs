@@ -423,9 +423,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'tabreed-portal-secret';
 
 // Test users for JSON fallback mode
 const testUsers = [
-  { id: 1, email: 'admin@sauditabreed.com', password: bcrypt.hashSync('Admin@2024', 10), name: 'System Administrator', nameAr: 'مدير النظام', role: 'admin', title: 'IT Administrator', titleAr: 'مدير تقنية المعلومات', department: 'IT', avatar: '' },
-  { id: 2, email: 'ahmed.qahtani@sauditabreed.com', password: bcrypt.hashSync('Editor@2024', 10), name: 'Ahmed Al-Qahtani', nameAr: 'أحمد القحطاني', role: 'editor', title: 'IT Specialist', titleAr: 'أخصائي تقنية المعلومات', department: 'IT', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face' },
-  { id: 3, email: 'sara.malik@sauditabreed.com', password: bcrypt.hashSync('User@2024', 10), name: 'Sara Al-Malik', nameAr: 'سارة المالك', role: 'user', title: 'VP Human Resources', titleAr: 'نائب رئيس الموارد البشرية', department: 'HR', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face' },
+  { id: 1, email: 'admin@sauditabreed.com', password: bcrypt.hashSync('Tabreed@2026', 10), name: 'System Administrator', nameAr: 'مدير النظام', role: 'admin', title: 'IT Administrator', titleAr: 'مدير تقنية المعلومات', department: 'IT', avatar: '' },
+  { id: 2, email: 'ahmed.qahtani@sauditabreed.com', password: bcrypt.hashSync('Tabreed@2026', 10), name: 'Ahmed Al-Qahtani', nameAr: 'أحمد القحطاني', role: 'editor', title: 'IT Specialist', titleAr: 'أخصائي تقنية المعلومات', department: 'IT', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face' },
+  { id: 3, email: 'sara.malik@sauditabreed.com', password: bcrypt.hashSync('Tabreed@2026', 10), name: 'Sara Al-Malik', nameAr: 'سارة المالك', role: 'user', title: 'VP Human Resources', titleAr: 'نائب رئيس الموارد البشرية', department: 'HR', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face' },
 ];
 
 app.post('/api/auth/login', async (req, res) => {
