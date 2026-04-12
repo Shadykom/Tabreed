@@ -38,6 +38,17 @@ const upload = multer({
 // Try SQL Server, fall back to JSON file data
 let useSQL = false;
 
+// In-memory data cache for JSON fallback CRUD
+let memoryData = null;
+function getData() {
+  if (!memoryData) {
+    const fs = require('fs');
+    const dbPath = path.join(__dirname, '..', 'db.json');
+    memoryData = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+  }
+  return memoryData;
+}
+
 async function initDB() {
   try {
     const { getPool } = require('./db.cjs');
@@ -76,7 +87,7 @@ app.get('/api/news', async (req, res) => {
       );
       res.json(result.recordset);
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.news);
     }
   } catch (err) {
@@ -95,62 +106,9 @@ app.get('/api/news/:id', async (req, res) => {
       await query('UPDATE News SET ViewCount = ViewCount + 1 WHERE Id = @id', { id: parseInt(req.params.id) });
       res.json(result.recordset[0]);
     } else {
-      const data = loadJsonData();
+      const data = getData();
       const item = data.news.find(n => n.id == req.params.id);
       item ? res.json(item) : res.status(404).json({ error: 'Not found' });
-    }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.post('/api/news', async (req, res) => {
-  try {
-    if (useSQL) {
-      const { query } = require('./db.cjs');
-      const { title, titleAr, summary, summaryAr, content, contentAr, image, category, author } = req.body;
-      const result = await query(
-        `INSERT INTO News (TitleEn, TitleAr, SummaryEn, SummaryAr, ContentEn, ContentAr, ImageUrl, Category, Author)
-         OUTPUT INSERTED.Id VALUES (@title, @titleAr, @summary, @summaryAr, @content, @contentAr, @image, @category, @author)`,
-        { title, titleAr, summary, summaryAr, content, contentAr, image, category, author }
-      );
-      res.status(201).json({ id: result.recordset[0].Id, message: 'News created' });
-    } else {
-      res.status(501).json({ error: 'CMS requires SQL Server connection' });
-    }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.put('/api/news/:id', async (req, res) => {
-  try {
-    if (useSQL) {
-      const { query } = require('./db.cjs');
-      const { title, titleAr, summary, summaryAr, content, contentAr, image, category, author, isPublished } = req.body;
-      await query(
-        `UPDATE News SET TitleEn=@title, TitleAr=@titleAr, SummaryEn=@summary, SummaryAr=@summaryAr,
-         ContentEn=@content, ContentAr=@contentAr, ImageUrl=@image, Category=@category, Author=@author,
-         IsPublished=@isPublished, UpdatedAt=GETUTCDATE() WHERE Id=@id`,
-        { title, titleAr, summary, summaryAr, content, contentAr, image, category, author, isPublished: isPublished ? 1 : 0, id: parseInt(req.params.id) }
-      );
-      res.json({ message: 'News updated' });
-    } else {
-      res.status(501).json({ error: 'CMS requires SQL Server connection' });
-    }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.delete('/api/news/:id', async (req, res) => {
-  try {
-    if (useSQL) {
-      const { query } = require('./db.cjs');
-      await query('DELETE FROM News WHERE Id = @id', { id: parseInt(req.params.id) });
-      res.json({ message: 'News deleted' });
-    } else {
-      res.status(501).json({ error: 'CMS requires SQL Server connection' });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -169,7 +127,7 @@ app.get('/api/announcements', async (req, res) => {
       );
       res.json(result.recordset);
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.announcements);
     }
   } catch (err) {
@@ -177,7 +135,7 @@ app.get('/api/announcements', async (req, res) => {
   }
 });
 
-app.post('/api/announcements', async (req, res) => {
+app.post('/api/announcements-legacy', async (req, res) => {
   try {
     if (useSQL) {
       const { query } = require('./db.cjs');
@@ -208,7 +166,7 @@ app.get('/api/applications', async (req, res) => {
       );
       res.json(result.recordset);
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.applications);
     }
   } catch (err) {
@@ -228,7 +186,7 @@ app.get('/api/employees', async (req, res) => {
       );
       res.json(result.recordset);
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.employees);
     }
   } catch (err) {
@@ -253,7 +211,7 @@ app.get('/api/meetingRooms', async (req, res) => {
       );
       res.json(result.recordset);
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.meetingRooms);
     }
   } catch (err) {
@@ -272,7 +230,7 @@ app.get('/api/officeLocations', async (req, res) => {
       );
       res.json(result.recordset);
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.officeLocations);
     }
   } catch (err) {
@@ -291,7 +249,7 @@ app.get('/api/safeLocations', async (req, res) => {
       );
       res.json(result.recordset);
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.safeLocations);
     }
   } catch (err) {
@@ -310,7 +268,7 @@ app.get('/api/chairman', async (req, res) => {
       );
       res.json(result.recordset[0] || {});
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.chairman);
     }
   } catch (err) {
@@ -331,11 +289,105 @@ app.put('/api/chairman', async (req, res) => {
       );
       res.json({ message: 'Chairman message updated' });
     } else {
-      res.status(501).json({ error: 'CMS requires SQL Server' });
+      const data = getData();
+      Object.assign(data.chairman, req.body);
+      res.json({ message: 'Chairman message updated' });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// --- JSON Fallback CRUD for News ---
+app.post('/api/news', (req, res) => {
+  const data = getData();
+  const maxId = data.news.reduce((m, n) => Math.max(m, n.id), 0);
+  const item = { id: maxId + 1, comments: 0, likes: 0, date: 'Just now', ...req.body };
+  data.news.unshift(item);
+  res.status(201).json(item);
+});
+
+app.put('/api/news/:id', (req, res) => {
+  const data = getData();
+  const idx = data.news.findIndex(n => n.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  data.news[idx] = { ...data.news[idx], ...req.body };
+  res.json(data.news[idx]);
+});
+
+app.delete('/api/news/:id', (req, res) => {
+  const data = getData();
+  data.news = data.news.filter(n => n.id != req.params.id);
+  res.json({ message: 'Deleted' });
+});
+
+// --- JSON Fallback CRUD for Announcements ---
+app.post('/api/announcements', (req, res) => {
+  const data = getData();
+  const maxId = data.announcements.reduce((m, a) => Math.max(m, a.id), 0);
+  const item = { id: maxId + 1, date: 'Just now', ...req.body };
+  data.announcements.unshift(item);
+  res.status(201).json(item);
+});
+
+app.put('/api/announcements/:id', (req, res) => {
+  const data = getData();
+  const idx = data.announcements.findIndex(a => a.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  data.announcements[idx] = { ...data.announcements[idx], ...req.body };
+  res.json(data.announcements[idx]);
+});
+
+app.delete('/api/announcements/:id', (req, res) => {
+  const data = getData();
+  data.announcements = data.announcements.filter(a => a.id != req.params.id);
+  res.json({ message: 'Deleted' });
+});
+
+// --- JSON Fallback CRUD for Employees ---
+app.post('/api/employees', (req, res) => {
+  const data = getData();
+  const maxId = data.employees.reduce((m, e) => Math.max(m, e.id), 0);
+  const item = { id: maxId + 1, ...req.body };
+  data.employees.push(item);
+  res.status(201).json(item);
+});
+
+app.put('/api/employees/:id', (req, res) => {
+  const data = getData();
+  const idx = data.employees.findIndex(e => e.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  data.employees[idx] = { ...data.employees[idx], ...req.body };
+  res.json(data.employees[idx]);
+});
+
+app.delete('/api/employees/:id', (req, res) => {
+  const data = getData();
+  data.employees = data.employees.filter(e => e.id != req.params.id);
+  res.json({ message: 'Deleted' });
+});
+
+// --- JSON Fallback CRUD for Meeting Rooms ---
+app.post('/api/meetingRooms', (req, res) => {
+  const data = getData();
+  const maxId = data.meetingRooms.reduce((m, r) => Math.max(m, r.id), 0);
+  const item = { id: maxId + 1, status: 'available', ...req.body };
+  data.meetingRooms.push(item);
+  res.status(201).json(item);
+});
+
+app.put('/api/meetingRooms/:id', (req, res) => {
+  const data = getData();
+  const idx = data.meetingRooms.findIndex(r => r.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  data.meetingRooms[idx] = { ...data.meetingRooms[idx], ...req.body };
+  res.json(data.meetingRooms[idx]);
+});
+
+app.delete('/api/meetingRooms/:id', (req, res) => {
+  const data = getData();
+  data.meetingRooms = data.meetingRooms.filter(r => r.id != req.params.id);
+  res.json({ message: 'Deleted' });
 });
 
 // --- Reminder ---
@@ -349,7 +401,7 @@ app.get('/api/reminder', async (req, res) => {
       );
       res.json(result.recordset[0] || { id: 0, message: '', active: false });
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.reminder);
     }
   } catch (err) {
@@ -368,7 +420,7 @@ app.get('/api/motivation', async (req, res) => {
       );
       res.json(result.recordset[0] || {});
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.motivation);
     }
   } catch (err) {
@@ -398,7 +450,7 @@ app.get('/api/orgChart', async (req, res) => {
       });
       res.json(root || {});
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json(data.orgChart);
     }
   } catch (err) {
@@ -422,7 +474,7 @@ app.get('/api/admin/stats', async (req, res) => {
         rooms: rooms.recordset[0].count,
       });
     } else {
-      const data = loadJsonData();
+      const data = getData();
       res.json({
         news: data.news.length,
         announcements: data.announcements.length,
