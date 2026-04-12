@@ -32,14 +32,7 @@ export default function Sidebar() {
       />
       <aside className={`${styles.sidebar} ${sidebarOpen ? styles.open : styles.collapsed}`}>
         <div className={styles.logoSection}>
-          <svg className={styles.logoIcon} viewBox="0 0 40 44" fill="none">
-            {/* ST Logo Mark - matching real Saudi Tabreed brand */}
-            <path d="M2,30 C2,30 2,19 10,13 C18,7 22,12 22,18 C22,24 14,26 10,30 C6,34 2,36 2,42 L22,42"
-              fill="none" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.95"/>
-            <line x1="24" y1="4" x2="40" y2="4" stroke="white" strokeWidth="4.5" strokeLinecap="round" opacity="0.95"/>
-            <line x1="32" y1="4" x2="32" y2="42" stroke="white" strokeWidth="4.5" strokeLinecap="round" opacity="0.95"/>
-            <rect x="36" y="0" width="6" height="6" rx="1" fill="#2EC4B6"/>
-          </svg>
+          <img className={styles.logoIcon} src="/images/logo.png" alt="Saudi Tabreed" />
           <div className={styles.logoText}>
             <span className={styles.logoName}>{t('app.name')}</span>
             <span className={styles.logoSubtitle}>{t('app.subtitle')}</span>

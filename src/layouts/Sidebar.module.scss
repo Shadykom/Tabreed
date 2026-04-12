@@ -55,10 +55,12 @@
 }
 
 .logoIcon {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) brightness(10);
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 .logoText {
