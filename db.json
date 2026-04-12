@@ -84,7 +84,7 @@
     { "id": 10, "name": "Microsoft Teams", "category": "Tools", "icon": "users", "color": "#6264A7", "description": "Communication", "url": "#" }
   ],
   "employees": [
-    { "id": 1, "name": "Abdulhamid Aalmansour", "department": "Executive", "title": "CEO", "avatar": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face" },
+    { "id": 1, "name": "Abdulhamid Aalmansour", "department": "Executive", "title": "CEO", "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face" },
     { "id": 2, "name": "Khalid Al-Rashidi", "department": "Finance", "title": "VP Finance", "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" },
     { "id": 3, "name": "Sara Al-Malik", "department": "HR", "title": "VP Human Resources", "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face" },
     { "id": 4, "name": "Omar Al-Harbi", "department": "Engineering", "title": "VP Projects", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" },
@@ -116,7 +116,7 @@
     "name": "Mohammed Abunayyan",
     "title": "Chairman of the Board",
     "message": "We are committed to working together as we move forward in our mission to enhance Saudi Arabia's urban development through innovative, advanced, and highly efficient district cooling solutions. Our position as a market leader continues to strengthen as we support the country's energy transition and sustainability targets aligned with Vision 2030.",
-    "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=400&fit=crop&crop=face"
+    "image": "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=300&h=400&fit=crop&crop=face"
   },
   "reminder": {
     "id": 1,
@@ -131,17 +131,17 @@
   "orgChart": {
     "id": 1,
     "name": "Mohammed Abunayyan",
-    "title": "Chairman",
-    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
+    "title": "Chairman of the Board",
+    "avatar": "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=80&h=80&fit=crop&crop=face",
     "children": [
       {
         "id": 2,
         "name": "Abdulhamid Aalmansour",
         "title": "Chief Executive Officer",
-        "avatar": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&h=80&fit=crop&crop=face",
+        "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face",
         "children": [
-          { "id": 3, "name": "Khalid Al-Rashidi", "title": "VP Finance", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" },
-          { "id": 4, "name": "Omar Al-Harbi", "title": "VP Projects & Engineering", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" },
+          { "id": 3, "name": "Omar Almidani", "title": "Board Member / Strategy", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" },
+          { "id": 4, "name": "Khalid Al-Rashidi", "title": "VP Finance", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" },
           { "id": 5, "name": "Sara Al-Malik", "title": "VP Human Resources", "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" }
         ]
       }

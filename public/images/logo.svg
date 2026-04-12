@@ -1,17 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50">
   <defs>
     <linearGradient id="snowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#88BBFF"/>
-      <stop offset="100%" style="stop-color:#FFFFFF"/>
+      <stop offset="0%" style="stop-color:#4A90D9"/>
+      <stop offset="100%" style="stop-color:#88CCFF"/>
     </linearGradient>
   </defs>
-  <!-- Snowflake icon -->
+  <!-- Tabreed snowflake/cooling symbol -->
   <g transform="translate(25, 25)">
-    <!-- Main star -->
-    <path d="M0,-12 L2,-4 L10,-8 L4,-2 L12,0 L4,2 L10,8 L2,4 L0,12 L-2,4 L-10,8 L-4,2 L-12,0 L-4,-2 L-10,-8 L-2,-4Z" fill="url(#snowGrad)" opacity="0.95"/>
-    <circle cx="0" cy="0" r="3" fill="white"/>
+    <!-- 6-pointed snowflake -->
+    <line x1="0" y1="-13" x2="0" y2="13" stroke="url(#snowGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="-11.3" y1="-6.5" x2="11.3" y2="6.5" stroke="url(#snowGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="-11.3" y1="6.5" x2="11.3" y2="-6.5" stroke="url(#snowGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Branches -->
+    <line x1="0" y1="-13" x2="-3.5" y2="-9" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="0" y1="-13" x2="3.5" y2="-9" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="0" y1="13" x2="-3.5" y2="9" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="0" y1="13" x2="3.5" y2="9" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="-11.3" y1="-6.5" x2="-7.8" y2="-8.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="-11.3" y1="-6.5" x2="-10" y2="-2.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="11.3" y1="6.5" x2="7.8" y2="8.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="11.3" y1="6.5" x2="10" y2="2.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="11.3" y1="-6.5" x2="7.8" y2="-8.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="11.3" y1="-6.5" x2="10" y2="-2.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="-11.3" y1="6.5" x2="-7.8" y2="8.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="-11.3" y1="6.5" x2="-10" y2="2.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="2.5" fill="#4A90D9"/>
   </g>
-  <!-- Tabreed text -->
-  <text x="48" y="22" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="white">Tabreed</text>
-  <text x="48" y="38" font-family="Inter, Arial, sans-serif" font-size="8" font-weight="400" fill="rgba(255,255,255,0.7)" letter-spacing="0.5">Tabreed Saudi Arabia</text>
+  <!-- Saudi Tabreed text -->
+  <text x="48" y="20" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="white" letter-spacing="0.5">Saudi Tabreed</text>
+  <text x="48" y="36" font-family="Inter, Arial, sans-serif" font-size="7.5" font-weight="400" fill="rgba(255,255,255,0.6)" letter-spacing="1">DISTRICT COOLING COMPANY</text>
 </svg>

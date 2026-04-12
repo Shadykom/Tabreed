@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../hooks/useApp';
 import {
   Menu, Search, ChevronDown, Bell, User, Settings,
@@ -16,6 +17,7 @@ const notifications = [
 
 export default function Header() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { toggleSidebar, toggleLanguage, user, isRTL } = useApp();
   const [showProfile, setShowProfile] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
@@ -118,11 +120,11 @@ export default function Header() {
                 </div>
               </div>
               <div className={styles.dropdownItems}>
-                <button className={styles.dropdownItem}><User size={16} /> My Profile</button>
-                <button className={styles.dropdownItem}><Settings size={16} /> Account Settings</button>
-                <button className={styles.dropdownItem}><HelpCircle size={16} /> Help & Support</button>
+                <button className={styles.dropdownItem} onClick={() => { setShowProfile(false); navigate('/account'); }}><User size={16} /> My Profile</button>
+                <button className={styles.dropdownItem} onClick={() => { setShowProfile(false); navigate('/settings'); }}><Settings size={16} /> Account Settings</button>
+                <button className={styles.dropdownItem} onClick={() => { setShowProfile(false); navigate('/policies'); }}><HelpCircle size={16} /> Help & Support</button>
                 <div className={styles.dropdownDivider} />
-                <button className={styles.dropdownItemDanger}><LogOut size={16} /> Sign Out</button>
+                <button className={styles.dropdownItemDanger} onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('user'); navigate('/login'); }}><LogOut size={16} /> Sign Out</button>
               </div>
             </div>
           )}
