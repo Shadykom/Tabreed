@@ -71,7 +71,11 @@ export default function Sidebar() {
         </button>
 
         <div className={styles.userSection}>
-          <div className={`${styles.userAvatar} ${styles.onlineDot}`}>{initials}</div>
+          {user.avatar ? (
+            <img src={user.avatar} alt={user.name} className={`${styles.userAvatarImg} ${styles.onlineDot}`} />
+          ) : (
+            <div className={`${styles.userAvatar} ${styles.onlineDot}`}>{initials}</div>
+          )}
           <div className={styles.userInfo}>
             <span className={styles.userName}>{isRTL ? user.nameAr : user.name}</span>
             <span className={styles.userTitle}>{isRTL ? user.titleAr : user.title}</span>
