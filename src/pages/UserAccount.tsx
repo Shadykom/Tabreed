@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Mail, Phone, Building2, Calendar, Hash, Camera,
   FileText, Users, BarChart3, Clock,
-  CheckCircle, Bell, Eye, LogIn,
+  CheckCircle, Bell, Eye, LogIn, MessageCircle,
 } from 'lucide-react';
 import Card from '../components/common/Card';
 import Avatar from '../components/common/Avatar';
@@ -82,6 +82,7 @@ export default function UserAccount() {
   const { i18n } = useTranslation();
   const { user, setUserAvatar } = useApp();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [emailPopupOpen, setEmailPopupOpen] = useState(false);
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -114,36 +115,47 @@ export default function UserAccount() {
   const displayName = isAR ? user.nameAr : user.name;
   const displayTitle = isAR ? user.titleAr : user.title;
 
+  const userEmail = `${user.name.toLowerCase().replace(' ', '.')}@sauditabreed.com`;
+  const teamsLink = `https://teams.microsoft.com/l/chat/0/0?users=${userEmail}`;
+  const mailtoLink = `mailto:${userEmail}`;
+  const telLink = `tel:+96650000001`;
+
   const profileFields = [
     {
       icon: Hash,
       label: 'Employee ID',
       value: `EMP-${String(user.id).padStart(4, '0')}`,
+      isEmail: false,
     },
     {
       icon: Building2,
       label: 'Department',
       value: user.department,
+      isEmail: false,
     },
     {
       icon: Mail,
       label: 'Email',
-      value: `${user.name.toLowerCase().replace(' ', '.')}@tabreed.sa`,
+      value: userEmail,
+      isEmail: true,
     },
     {
       icon: Phone,
       label: 'Phone',
       value: '+966 50 000 0001',
+      isEmail: false,
     },
     {
       icon: Calendar,
       label: 'Join Date',
       value: 'March 12, 2019',
+      isEmail: false,
     },
     {
       icon: Clock,
       label: 'Last Active',
       value: 'Today, 09:12 AM',
+      isEmail: false,
     },
   ];
 
@@ -195,7 +207,51 @@ export default function UserAccount() {
                     </div>
                     <div className={styles.profileField}>
                       <span className={styles.fieldLabel}>{field.label}</span>
-                      <span className={styles.fieldValue}>{field.value}</span>
+                      {field.isEmail ? (
+                        <div style={{ position: 'relative', display: 'inline-block' }}>
+                          <span
+                            className={styles.fieldValue}
+                            style={{ cursor: 'pointer', textDecoration: 'underline dotted', color: '#4A7FD4' }}
+                            onClick={() => setEmailPopupOpen((v) => !v)}
+                          >
+                            {field.value}
+                          </span>
+                          {emailPopupOpen && (
+                            <div style={{
+                              position: 'absolute',
+                              top: '100%',
+                              left: 0,
+                              zIndex: 100,
+                              background: '#fff',
+                              border: '1px solid #e5e7eb',
+                              borderRadius: 8,
+                              boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
+                              minWidth: 200,
+                              padding: '6px 0',
+                              marginTop: 4,
+                            }}>
+                              <a
+                                href={mailtoLink}
+                                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px', textDecoration: 'none', color: '#1B3A6B', fontSize: 13 }}
+                                onClick={() => setEmailPopupOpen(false)}
+                              >
+                                <Mail size={14} /> Open in Outlook
+                              </a>
+                              <a
+                                href={teamsLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px', textDecoration: 'none', color: '#1B3A6B', fontSize: 13 }}
+                                onClick={() => setEmailPopupOpen(false)}
+                              >
+                                <MessageCircle size={14} /> Chat on Teams
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <span className={styles.fieldValue}>{field.value}</span>
+                      )}
                     </div>
                   </div>
                 );
@@ -221,6 +277,32 @@ export default function UserAccount() {
                   </div>
                 );
               })}
+            </div>
+          </Card>
+
+          {/* Contact */}
+          <Card title="Contact" className={styles.statsCard}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <a
+                href={mailtoLink}
+                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: '#EBF3FF', borderRadius: 8, textDecoration: 'none', color: '#1B3A6B', fontWeight: 500, fontSize: 14 }}
+              >
+                <Mail size={16} color="#4A7FD4" /> Send Email
+              </a>
+              <a
+                href={teamsLink}
+                target="_blank"
+                rel="noreferrer"
+                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: '#EDE9FE', borderRadius: 8, textDecoration: 'none', color: '#1B3A6B', fontWeight: 500, fontSize: 14 }}
+              >
+                <MessageCircle size={16} color="#8B5CF6" /> Teams Chat
+              </a>
+              <a
+                href={telLink}
+                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: '#DCFCE7', borderRadius: 8, textDecoration: 'none', color: '#1B3A6B', fontWeight: 500, fontSize: 14 }}
+              >
+                <Phone size={16} color="#22C55E" /> Call
+              </a>
             </div>
           </Card>
         </div>

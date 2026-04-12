@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Crown, Wrench, Settings2, DollarSign, Users, Monitor,
-  ShieldCheck, Megaphone, X, User, Mail, Phone,
+  ShieldCheck, Megaphone, X, User, Mail, Phone, MessageCircle,
 } from 'lucide-react';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
@@ -110,6 +110,9 @@ export default function Departments() {
   const getDeptEmployees = (deptId: string) =>
     (employees || []).filter((e) => e.department === deptId);
 
+  const getEmpEmail = (name: string) =>
+    `${name.toLowerCase().replace(/\s+/g, '.')}@sauditabreed.com`;
+
   return (
     <div className={styles.page}>
       <div className={styles.pageHeader}>
@@ -195,12 +198,32 @@ export default function Departments() {
                           <span className={styles.empTitle}>{emp.title}</span>
                         </div>
                         <div className={styles.empActions}>
-                          <button className={styles.empAction} aria-label="Email">
+                          <a
+                            href={`mailto:${getEmpEmail(emp.name)}`}
+                            className={styles.empAction}
+                            aria-label="Email"
+                            title={`Email ${emp.name}`}
+                          >
                             <Mail size={15} />
-                          </button>
-                          <button className={styles.empAction} aria-label="Call">
+                          </a>
+                          <a
+                            href={`https://teams.microsoft.com/l/chat/0/0?users=${getEmpEmail(emp.name)}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.empAction}
+                            aria-label="Teams Chat"
+                            title={`Chat with ${emp.name} on Teams`}
+                          >
+                            <MessageCircle size={15} />
+                          </a>
+                          <a
+                            href={`tel:+966500000000`}
+                            className={styles.empAction}
+                            aria-label="Call"
+                            title={`Call ${emp.name}`}
+                          >
                             <Phone size={15} />
-                          </button>
+                          </a>
                         </div>
                       </div>
                     </Card>

@@ -7,9 +7,9 @@
   "nav": {
     "home": "Home",
     "departments": "Departments",
-    "policies": "Policies",
+    "policies": "Policies & Docs",
     "applications": "Applications",
-    "services": "Service Requests",
+    "services": "Services",
     "rooms": "Meeting Rooms",
     "settings": "Settings",
     "userAccount": "User Account"

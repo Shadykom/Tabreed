@@ -13,19 +13,31 @@ export default function OfficeLocations() {
   return (
     <Card title={t('locations.title')} viewAllText={t('locations.viewAll')}>
       <div className={styles.list}>
-        {(locations || []).map((loc) => (
-          <div key={loc.id} className={styles.item}>
-            <div className={`${styles.icon} ${styles[loc.type]}`}>
-              {loc.type === 'hq' ? <MapPin size={16} /> : <Building2 size={16} />}
-            </div>
-            <div className={styles.info}>
-              <div className={styles.name}>{loc.name}</div>
-              <div className={styles.address}>{loc.address}</div>
-            </div>
-            <span className={styles.city}>{loc.city}</span>
-            <div className={styles.status} />
-          </div>
-        ))}
+        {(locations || []).map((loc) => {
+          const mapsQuery = encodeURIComponent(`${loc.name}, ${loc.address}, ${loc.city}`);
+          const mapsUrl = `https://maps.google.com/?q=${mapsQuery}`;
+          return (
+            <a
+              key={loc.id}
+              href={mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.item}
+              style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}
+              title={`Open ${loc.name} in Google Maps`}
+            >
+              <div className={`${styles.icon} ${styles[loc.type]}`}>
+                {loc.type === 'hq' ? <MapPin size={16} /> : <Building2 size={16} />}
+              </div>
+              <div className={styles.info}>
+                <div className={styles.name}>{loc.name}</div>
+                <div className={styles.address}>{loc.address}</div>
+              </div>
+              <span className={styles.city}>{loc.city}</span>
+              <div className={styles.status} />
+            </a>
+          );
+        })}
       </div>
     </Card>
   );

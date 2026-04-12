@@ -17,7 +17,7 @@ export default function MeetingRooms() {
     <Card title={t('rooms.title')}>
       <div className={styles.grid}>
         {(rooms || []).map((room) => (
-          <div key={room.id} className={styles.roomCard}>
+          <div key={room.id} className={styles.roomCard} style={{ cursor: 'pointer' }} onClick={() => navigate('/rooms')}>
             <div className={styles.roomImageWrap}>
               <img
                 className={styles.roomImage}
@@ -44,7 +44,7 @@ export default function MeetingRooms() {
                   variant={room.status === 'available' ? 'success' : 'danger'}
                   size="sm"
                   fullWidth
-                  onClick={() => navigate('/rooms')}
+                  onClick={(e) => { e.stopPropagation(); navigate('/rooms'); }}
                 >
                   {room.status === 'available' ? t('rooms.reserve') : t('rooms.busy')}
                 </Button>
