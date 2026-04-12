@@ -9,6 +9,7 @@ import ApplicationsPage from './pages/ApplicationsPage';
 import SettingsPage from './pages/SettingsPage';
 import UserAccount from './pages/UserAccount';
 import ServiceRequest from './pages/ServiceRequest';
+import ChairmanPage from './pages/ChairmanPage';
 import Login from './pages/Login';
 import Admin from './pages/admin/Admin';
 import './i18n';
@@ -32,6 +33,7 @@ export default function App() {
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/account" element={<UserAccount />} />
                 <Route path="/services" element={<ServiceRequest />} />
+                <Route path="/chairman" element={<ChairmanPage />} />
               </Routes>
             </MainLayout>
           } />

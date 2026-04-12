@@ -906,6 +906,11 @@ export default function Admin() {
   // ── Chairman ──
   function handleSaveChairman(e: React.FormEvent) {
     e.preventDefault();
+    fetch('/api/chairman', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(chairmanForm),
+    });
     setChairman(chairmanForm);
     setChairmanSaved(true);
     setTimeout(() => setChairmanSaved(false), 2500);
