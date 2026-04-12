@@ -1,64 +1,454 @@
+/* ═══════════════════════════════════════════════════════════════
+   Home Dashboard — Premium Layout
+   Brand palette: navy #1B3A6B → accent #4A7FD4
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes sectionReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes welcomePulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.85; }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   WELCOME BAR
+   ══════════════════════════════════════════════════════════════ */
+.welcomeBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  margin-block-end: 12px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    120deg,
+    var(--color-primary-dark) 0%,
+    var(--color-primary) 40%,
+    var(--color-primary-light) 70%,
+    var(--color-accent) 100%
+  );
+  background-size: 200% 200%;
+  animation:
+    sectionReveal 0.45s cubic-bezier(0.4, 0, 0.2, 1) both,
+    gradientShift 12s ease infinite;
+  box-shadow:
+    0 4px 20px rgba(27, 58, 107, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+
+  /* subtle diagonal shine stripe */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.055) 50%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+}
+
+.welcomeText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+
+  h2 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  p {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    white-space: nowrap;
+  }
+}
+
+.quickStats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.statBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  cursor: default;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
+}
+
+.statIcon {
+  color: rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.statValue {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DASHBOARD GRID  —  explicit row placement keeps layout stable
+   ══════════════════════════════════════════════════════════════ */
 .dashboard {
   display: grid;
-  grid-template-columns: 5fr 3fr;
-  gap: 16px;
+
+  /*
+    3-column base: roughly 3fr 2fr (news/chairman) then full-width rows
+    We use a 12-unit grid to allow 60/40 splits cleanly.
+  */
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  grid-template-rows: auto; /* rows size to content */
+  gap: 12px;
   max-width: 1440px;
+  width: 100%;
   margin: 0 auto;
+
+  /* Smooth scroll is handled by the parent .content container,
+     but keep this here for safety */
+  scroll-behavior: smooth;
 }
 
-/* Row 1: Latest News spans left, Chairman + Announcements stack right */
-.newsSection {
-  grid-row: span 2;
-  min-height: 0;
-}
-
-.chairmanSection {
-  /* right column, row 1 */
-}
-
-.announcementsSection {
-  /* right column, row 2 */
-}
-
-/* Full width rows */
-.appsSection {
-  grid-column: 1 / -1;
-}
-
-/* 2-column rows */
-.motivationSection {
-  grid-column: 1 / -1;
-}
-
+/* ── Shared animation base for every section ── */
+.newsSection,
+.chairmanSection,
+.announcementsSection,
+.appsSection,
+.motivationSection,
 .locationsSection,
 .orgChartSection,
 .directorySection,
-.safeSection,
-.roomsSection {
-  /* auto 2-col flow */
+.roomsSection,
+.safeSection {
+  opacity: 0;
+  animation: sectionReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  /* Children fill the cell height so cards don't float */
+  display: flex;
+  flex-direction: column;
+
+  /* Pass height down so child card can stretch */
+  > * {
+    flex: 1;
+    min-height: 0;
+  }
 }
 
-/* ── Tablet ── */
-@media (max-width: 1024px) {
-  .dashboard {
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
+/* ── Staggered delays ── */
+.newsSection          { animation-delay: 0.05s; }
+.chairmanSection      { animation-delay: 0.10s; }
+.announcementsSection { animation-delay: 0.15s; }
+.appsSection          { animation-delay: 0.20s; }
+.motivationSection    { animation-delay: 0.25s; }
+.locationsSection     { animation-delay: 0.30s; }
+.orgChartSection      { animation-delay: 0.35s; }
+.directorySection     { animation-delay: 0.40s; }
+.roomsSection         { animation-delay: 0.45s; }
+.safeSection          { animation-delay: 0.50s; }
+
+/* ── Row 1: News (left, ~60%) + Chairman (right, ~40%) ── */
+.newsSection {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.chairmanSection {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+/* ── Row 2: Announcements full width ── */
+.announcementsSection {
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+}
+
+/* ── Row 3: Application List full width ── */
+.appsSection {
+  grid-column: 1 / -1;
+  grid-row: 3 / 4;
+}
+
+/* ── Row 4: Weekly Motivation — full-width hero ── */
+.motivationSection {
+  grid-column: 1 / -1;
+  grid-row: 4 / 5;
+  /* Give the motivation banner a little extra oomph */
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+
+  /* Gradient accent border effect */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-xl);
+    padding: 1.5px;
+    background: linear-gradient(
+      135deg,
+      rgba(74, 127, 212, 0.6),
+      rgba(27, 58, 107, 0.2),
+      rgba(74, 127, 212, 0.5)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
   }
 
-  .newsSection { grid-column: 1 / -1; grid-row: span 1; }
-  .chairmanSection { grid-column: 1 / -1; }
-  .announcementsSection { grid-column: 1 / -1; }
-  .appsSection { grid-column: 1 / -1; }
-  .motivationSection { grid-column: 1 / -1; }
+  > * {
+    border-radius: var(--radius-xl);
+  }
 }
 
-/* ── Mobile ── */
+/* ── Row 5: Office Locations + Org Chart (50/50) ── */
+.locationsSection {
+  grid-column: 1 / 2;
+  grid-row: 5 / 6;
+}
+
+.orgChartSection {
+  grid-column: 2 / 3;
+  grid-row: 5 / 6;
+}
+
+/* ── Row 6: Employee Directory + Meeting Rooms (50/50) ── */
+.directorySection {
+  grid-column: 1 / 2;
+  grid-row: 6 / 7;
+}
+
+.roomsSection {
+  grid-column: 2 / 3;
+  grid-row: 6 / 7;
+}
+
+/* ── Row 7: Safe Locations full width ── */
+.safeSection {
+  grid-column: 1 / -1;
+  grid-row: 7 / 8;
+  /* No bottom gap wasted */
+  margin-block-end: 0;
+}
+
+/* ── Hover glass morphism accent on every section ── */
+.newsSection,
+.chairmanSection,
+.announcementsSection,
+.appsSection,
+.locationsSection,
+.orgChartSection,
+.directorySection,
+.roomsSection,
+.safeSection {
+  > * {
+    transition:
+      box-shadow var(--transition-normal),
+      transform var(--transition-normal);
+  }
+
+  &:hover > * {
+    box-shadow:
+      0 8px 28px rgba(27, 58, 107, 0.1),
+      0 2px 6px rgba(0, 0, 0, 0.04);
+    transform: translateY(-1px);
+  }
+}
+
+/* ── Gradient-border accent on News & Chairman (Row 1) ── */
+.newsSection > *,
+.chairmanSection > * {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(74, 127, 212, 0.12);
+    pointer-events: none;
+    transition: box-shadow var(--transition-normal);
+  }
+
+  &:hover::after {
+    box-shadow: inset 0 0 0 1.5px rgba(74, 127, 212, 0.28);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TABLET  (≤ 1024 px)
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .welcomeBar {
+    padding: 12px 16px;
+  }
+
+  .welcomeText h2 {
+    font-size: 0.9375rem;
+  }
+
+  .statBadge {
+    padding: 5px 10px;
+  }
+
+  .statValue {
+    font-size: 0.75rem;
+  }
+
+  .statLabel {
+    display: none; /* hide the sub-label on tablet to save space */
+  }
+
+  .dashboard {
+    gap: 10px;
+  }
+
+  /* Row 1: stack News above Chairman */
+  .newsSection {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .chairmanSection {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  /* Rows 2-7 all become auto (natural flow, full width or 2-col) */
+  .announcementsSection,
+  .appsSection,
+  .motivationSection {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  /* Row 5 & 6 keep 2-col on tablet */
+  .locationsSection,
+  .orgChartSection,
+  .directorySection,
+  .roomsSection {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .safeSection {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  /* Reset hover lift — too jumpy on tablets */
+  .newsSection:hover > *,
+  .chairmanSection:hover > *,
+  .announcementsSection:hover > *,
+  .appsSection:hover > *,
+  .locationsSection:hover > *,
+  .orgChartSection:hover > *,
+  .directorySection:hover > *,
+  .roomsSection:hover > *,
+  .safeSection:hover > * {
+    transform: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE  (≤ 640 px)
+   ══════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
+  .welcomeBar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .quickStats {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .statBadge {
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+    padding: 5px 8px;
+  }
+
+  .statLabel {
+    display: none;
+  }
+
+  .statValue {
+    font-size: 0.6875rem;
+  }
+
   .dashboard {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 
+  /* Everything becomes single column on mobile */
   .newsSection,
   .chairmanSection,
   .announcementsSection,
@@ -67,9 +457,32 @@
   .locationsSection,
   .orgChartSection,
   .directorySection,
-  .safeSection,
-  .roomsSection {
-    grid-column: span 1;
-    grid-row: span 1;
+  .roomsSection,
+  .safeSection {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  /* Shorter animation on mobile for performance */
+  .newsSection,
+  .chairmanSection,
+  .announcementsSection,
+  .appsSection,
+  .motivationSection,
+  .locationsSection,
+  .orgChartSection,
+  .directorySection,
+  .roomsSection,
+  .safeSection {
+    animation-duration: 0.35s;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LARGE SCREENS  (≥ 1440 px) — a little breathing room
+   ══════════════════════════════════════════════════════════════ */
+@media (min-width: 1440px) {
+  .dashboard {
+    gap: 14px;
   }
 }

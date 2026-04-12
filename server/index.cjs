@@ -41,13 +41,29 @@ let useSQL = false;
 
 // In-memory data cache for JSON fallback CRUD
 let memoryData = null;
+const dbFilePath = path.join(__dirname, '..', 'db.json');
+
 function getData() {
   if (!memoryData) {
     const fs = require('fs');
-    const dbPath = path.join(__dirname, '..', 'db.json');
-    memoryData = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+    memoryData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
   }
   return memoryData;
+}
+
+// Persist changes to db.json (debounced to avoid excessive writes)
+let saveTimer = null;
+function saveData() {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      const fs = require('fs');
+      fs.writeFileSync(dbFilePath, JSON.stringify(memoryData, null, 2), 'utf8');
+      console.log('Data saved to db.json');
+    } catch (err) {
+      console.error('Failed to save db.json:', err.message);
+    }
+  }, 500);
 }
 
 async function initDB() {
@@ -288,11 +304,11 @@ app.put('/api/chairman', async (req, res) => {
          WHERE IsActive = 1`,
         { name, nameAr, title, titleAr, message, messageAr, image }
       );
-      res.json({ message: 'Chairman message updated' });
+      res.json({ message: 'Chairman message updated' }); saveData();
     } else {
       const data = getData();
       Object.assign(data.chairman, req.body);
-      res.json({ message: 'Chairman message updated' });
+      res.json({ message: 'Chairman message updated' }); saveData();
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -305,7 +321,7 @@ app.post('/api/news', (req, res) => {
   const maxId = data.news.reduce((m, n) => Math.max(m, n.id), 0);
   const item = { id: maxId + 1, comments: 0, likes: 0, date: 'Just now', ...req.body };
   data.news.unshift(item);
-  res.status(201).json(item);
+  res.status(201).json(item); saveData();
 });
 
 app.put('/api/news/:id', (req, res) => {
@@ -313,13 +329,13 @@ app.put('/api/news/:id', (req, res) => {
   const idx = data.news.findIndex(n => n.id == req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   data.news[idx] = { ...data.news[idx], ...req.body };
-  res.json(data.news[idx]);
+  res.json(data.news[idx]); saveData();
 });
 
 app.delete('/api/news/:id', (req, res) => {
   const data = getData();
   data.news = data.news.filter(n => n.id != req.params.id);
-  res.json({ message: 'Deleted' });
+  res.json({ message: 'Deleted' }); saveData();
 });
 
 // --- JSON Fallback CRUD for Announcements ---
@@ -328,7 +344,7 @@ app.post('/api/announcements', (req, res) => {
   const maxId = data.announcements.reduce((m, a) => Math.max(m, a.id), 0);
   const item = { id: maxId + 1, date: 'Just now', ...req.body };
   data.announcements.unshift(item);
-  res.status(201).json(item);
+  res.status(201).json(item); saveData();
 });
 
 app.put('/api/announcements/:id', (req, res) => {
@@ -336,13 +352,13 @@ app.put('/api/announcements/:id', (req, res) => {
   const idx = data.announcements.findIndex(a => a.id == req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   data.announcements[idx] = { ...data.announcements[idx], ...req.body };
-  res.json(data.announcements[idx]);
+  res.json(data.announcements[idx]); saveData();
 });
 
 app.delete('/api/announcements/:id', (req, res) => {
   const data = getData();
   data.announcements = data.announcements.filter(a => a.id != req.params.id);
-  res.json({ message: 'Deleted' });
+  res.json({ message: 'Deleted' }); saveData();
 });
 
 // --- JSON Fallback CRUD for Employees ---
@@ -351,7 +367,7 @@ app.post('/api/employees', (req, res) => {
   const maxId = data.employees.reduce((m, e) => Math.max(m, e.id), 0);
   const item = { id: maxId + 1, ...req.body };
   data.employees.push(item);
-  res.status(201).json(item);
+  res.status(201).json(item); saveData();
 });
 
 app.put('/api/employees/:id', (req, res) => {
@@ -359,13 +375,13 @@ app.put('/api/employees/:id', (req, res) => {
   const idx = data.employees.findIndex(e => e.id == req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   data.employees[idx] = { ...data.employees[idx], ...req.body };
-  res.json(data.employees[idx]);
+  res.json(data.employees[idx]); saveData();
 });
 
 app.delete('/api/employees/:id', (req, res) => {
   const data = getData();
   data.employees = data.employees.filter(e => e.id != req.params.id);
-  res.json({ message: 'Deleted' });
+  res.json({ message: 'Deleted' }); saveData();
 });
 
 // --- JSON Fallback CRUD for Meeting Rooms ---
@@ -374,7 +390,7 @@ app.post('/api/meetingRooms', (req, res) => {
   const maxId = data.meetingRooms.reduce((m, r) => Math.max(m, r.id), 0);
   const item = { id: maxId + 1, status: 'available', ...req.body };
   data.meetingRooms.push(item);
-  res.status(201).json(item);
+  res.status(201).json(item); saveData();
 });
 
 app.put('/api/meetingRooms/:id', (req, res) => {
@@ -382,13 +398,13 @@ app.put('/api/meetingRooms/:id', (req, res) => {
   const idx = data.meetingRooms.findIndex(r => r.id == req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   data.meetingRooms[idx] = { ...data.meetingRooms[idx], ...req.body };
-  res.json(data.meetingRooms[idx]);
+  res.json(data.meetingRooms[idx]); saveData();
 });
 
 app.delete('/api/meetingRooms/:id', (req, res) => {
   const data = getData();
   data.meetingRooms = data.meetingRooms.filter(r => r.id != req.params.id);
-  res.json({ message: 'Deleted' });
+  res.json({ message: 'Deleted' }); saveData();
 });
 
 // --- Reminder ---
@@ -465,7 +481,7 @@ app.post('/api/applications', (req, res) => {
   const maxId = data.applications.reduce((m, a) => Math.max(m, a.id), 0);
   const item = { id: maxId + 1, ...req.body };
   data.applications.push(item);
-  res.status(201).json(item);
+  res.status(201).json(item); saveData();
 });
 
 app.put('/api/applications/:id', (req, res) => {
@@ -473,13 +489,13 @@ app.put('/api/applications/:id', (req, res) => {
   const idx = data.applications.findIndex(a => a.id == req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   data.applications[idx] = { ...data.applications[idx], ...req.body };
-  res.json(data.applications[idx]);
+  res.json(data.applications[idx]); saveData();
 });
 
 app.delete('/api/applications/:id', (req, res) => {
   const data = getData();
   data.applications = data.applications.filter(a => a.id != req.params.id);
-  res.json({ message: 'Deleted' });
+  res.json({ message: 'Deleted' }); saveData();
 });
 
 // --- JSON Fallback CRUD for Office Locations ---
@@ -488,7 +504,7 @@ app.post('/api/officeLocations', (req, res) => {
   const maxId = data.officeLocations.reduce((m, l) => Math.max(m, l.id), 0);
   const item = { id: maxId + 1, ...req.body };
   data.officeLocations.push(item);
-  res.status(201).json(item);
+  res.status(201).json(item); saveData();
 });
 
 app.put('/api/officeLocations/:id', (req, res) => {
@@ -496,13 +512,13 @@ app.put('/api/officeLocations/:id', (req, res) => {
   const idx = data.officeLocations.findIndex(l => l.id == req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   data.officeLocations[idx] = { ...data.officeLocations[idx], ...req.body };
-  res.json(data.officeLocations[idx]);
+  res.json(data.officeLocations[idx]); saveData();
 });
 
 app.delete('/api/officeLocations/:id', (req, res) => {
   const data = getData();
   data.officeLocations = data.officeLocations.filter(l => l.id != req.params.id);
-  res.json({ message: 'Deleted' });
+  res.json({ message: 'Deleted' }); saveData();
 });
 
 // --- JSON Fallback CRUD for Safe Locations ---
@@ -511,7 +527,7 @@ app.post('/api/safeLocations', (req, res) => {
   const maxId = data.safeLocations.reduce((m, l) => Math.max(m, l.id), 0);
   const item = { id: maxId + 1, ...req.body };
   data.safeLocations.push(item);
-  res.status(201).json(item);
+  res.status(201).json(item); saveData();
 });
 
 app.put('/api/safeLocations/:id', (req, res) => {
@@ -519,13 +535,13 @@ app.put('/api/safeLocations/:id', (req, res) => {
   const idx = data.safeLocations.findIndex(l => l.id == req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   data.safeLocations[idx] = { ...data.safeLocations[idx], ...req.body };
-  res.json(data.safeLocations[idx]);
+  res.json(data.safeLocations[idx]); saveData();
 });
 
 app.delete('/api/safeLocations/:id', (req, res) => {
   const data = getData();
   data.safeLocations = data.safeLocations.filter(l => l.id != req.params.id);
-  res.json({ message: 'Deleted' });
+  res.json({ message: 'Deleted' }); saveData();
 });
 
 // --- PUT for Motivation ---
@@ -539,11 +555,11 @@ app.put('/api/motivation', async (req, res) => {
          WHERE IsActive = 1`,
         { quote, author, backgroundImage }
       );
-      res.json({ message: 'Motivation updated' });
+      res.json({ message: 'Motivation updated' }); saveData();
     } else {
       const data = getData();
       Object.assign(data.motivation, req.body);
-      res.json({ message: 'Motivation updated' });
+      res.json({ message: 'Motivation updated' }); saveData();
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -561,11 +577,11 @@ app.put('/api/reminder', async (req, res) => {
          WHERE IsActive = 1`,
         { message, type: type || 'info', active: active ? 1 : 0 }
       );
-      res.json({ message: 'Reminder updated' });
+      res.json({ message: 'Reminder updated' }); saveData();
     } else {
       const data = getData();
       Object.assign(data.reminder, req.body);
-      res.json({ message: 'Reminder updated' });
+      res.json({ message: 'Reminder updated' }); saveData();
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -639,7 +655,7 @@ app.put('/api/orgChart/:id', (req, res) => {
   }
   const found = updateInTree(data.orgChart);
   if (!found) return res.status(404).json({ error: 'Not found' });
-  res.json({ message: 'Updated' });
+  res.json({ message: 'Updated' }); saveData();
 });
 
 app.delete('/api/orgChart/:id', (req, res) => {
@@ -651,7 +667,7 @@ app.delete('/api/orgChart/:id', (req, res) => {
     }
   }
   removeFromTree(data.orgChart);
-  res.json({ message: 'Deleted' });
+  res.json({ message: 'Deleted' }); saveData();
 });
 
 // --- CMS: Dashboard Stats ---
