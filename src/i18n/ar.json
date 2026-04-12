@@ -1,0 +1,80 @@
+{
+  "app": {
+    "name": "تبريد",
+    "subtitle": "تبريد السعودية",
+    "oneTeamApp": "تطبيق فريق واحد"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "departments": "الأقسام",
+    "policies": "السياسات والإجراءات",
+    "applications": "التطبيقات",
+    "settings": "الإعدادات",
+    "userAccount": "حساب المستخدم"
+  },
+  "header": {
+    "search": "بحث...",
+    "language": "English"
+  },
+  "reminder": {
+    "message": "يرجى تقديم تقارير نهاية الربع بحلول يوم الجمعة."
+  },
+  "news": {
+    "title": "آخر الأخبار",
+    "search": "البحث في الأخبار...",
+    "readMore": "اقرأ المزيد",
+    "daysAgo": "منذ {{count}} أيام",
+    "comments": "{{count}}"
+  },
+  "chairman": {
+    "title": "رسالة الرئيس",
+    "readFull": "اقرأ الرسالة كاملة"
+  },
+  "announcements": {
+    "title": "الإعلانات",
+    "viewAll": "عرض الكل",
+    "search": "بحث",
+    "department": "القسم",
+    "type": "النوع",
+    "account": "الحساب",
+    "important": "مهم",
+    "scheduled": "مجدول",
+    "announcement": "إعلان",
+    "hoursAgo": "منذ {{count}} ساعات",
+    "daysAgo": "منذ {{count}} أيام"
+  },
+  "apps": {
+    "title": "قائمة التطبيقات",
+    "favorites": "المفضلة",
+    "coreSystems": "الأنظمة الأساسية",
+    "tools": "الأدوات",
+    "open": "فتح",
+    "details": "تفاصيل",
+    "viewAll": "عرض جميع التطبيقات"
+  },
+  "motivation": {
+    "title": "تحفيز الأسبوع",
+    "cta": "ابدأ الأسبوع بقوة"
+  },
+  "locations": {
+    "title": "مواقع المكاتب",
+    "viewAll": "عرض الكل"
+  },
+  "hierarchy": {
+    "title": "الهيكل التنظيمي لتبريد"
+  },
+  "directory": {
+    "title": "دليل الموظفين",
+    "global": "عالمي",
+    "open": "فتح"
+  },
+  "safety": {
+    "title": "مواقع الأمان",
+    "viewAll": "عرض الكل"
+  },
+  "rooms": {
+    "title": "غرف الاجتماعات",
+    "reserve": "حجز",
+    "busy": "مشغول"
+  }
+}

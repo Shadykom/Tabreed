@@ -1,0 +1,87 @@
+.filters {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-block-end: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.filterSelect {
+  flex: 1;
+  min-width: 100px;
+  height: 32px;
+  padding-inline: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  background: var(--color-card);
+  outline: none;
+  cursor: pointer;
+
+  &:focus {
+    border-color: var(--color-accent);
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-block-end: 1px solid var(--color-border-light);
+
+  &:last-child {
+    border-block-end: none;
+  }
+}
+
+.itemIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+.itemContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemSub {
+  font-size: 0.6875rem;
+  color: var(--color-text-light);
+}
+
+.itemRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.itemDate {
+  font-size: 0.6875rem;
+  color: var(--color-text-light);
+  white-space: nowrap;
+}

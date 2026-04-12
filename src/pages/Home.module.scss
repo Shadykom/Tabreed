@@ -1,0 +1,92 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--spacing-lg);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Row 1: Latest News (left) + Chairman + Announcements (right) */
+.newsSection {
+  grid-row: span 2;
+}
+
+.chairmanSection {
+  /* auto-placed on right */
+}
+
+.announcementsSection {
+  /* auto-placed on right, below chairman */
+}
+
+/* Row 3: Application List (full width) */
+.appsSection {
+  grid-column: 1 / -1;
+}
+
+/* Row 4: Weekly Motivation (left) + Office Locations (right) */
+.motivationSection {
+  /* left column */
+}
+
+.locationsSection {
+  /* right column */
+}
+
+/* Row 5: OrgChart (left) + Employee Directory (right) */
+.orgChartSection {
+  /* left column */
+}
+
+.directorySection {
+  /* right column */
+}
+
+/* Row 6: Safe Locations (left) + Meeting Rooms (right) */
+.safeSection {
+  /* left column */
+}
+
+.roomsSection {
+  /* right column */
+}
+
+/* Tablet: stack everything */
+@media (max-width: 1024px) {
+  .dashboard {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .newsSection { grid-column: span 2; grid-row: span 1; }
+  .chairmanSection { grid-column: span 2; }
+  .announcementsSection { grid-column: span 2; }
+  .appsSection { grid-column: span 2; }
+  .motivationSection { grid-column: span 2; }
+  .locationsSection { grid-column: span 2; }
+  .orgChartSection { grid-column: span 2; }
+  .directorySection { grid-column: span 2; }
+  .safeSection { grid-column: span 2; }
+  .roomsSection { grid-column: span 2; }
+}
+
+/* Mobile: single column */
+@media (max-width: 640px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .newsSection,
+  .chairmanSection,
+  .announcementsSection,
+  .appsSection,
+  .motivationSection,
+  .locationsSection,
+  .orgChartSection,
+  .directorySection,
+  .safeSection,
+  .roomsSection {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}

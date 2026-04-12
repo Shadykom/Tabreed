@@ -1,0 +1,325 @@
+{
+  "news": [
+    {
+      "id": 1,
+      "title": "Server Maintenance Scheduled for Tonight",
+      "summary": "Scheduled maintenance for infrastructure services is being set up. The system will be temporarily unavailable tonight between 11 PM and 2 AM for critical updates.",
+      "image": "/images/news/news1.jpg",
+      "category": "IMPORTANT NOTICE",
+      "date": "3 days ago",
+      "comments": 2
+    },
+    {
+      "id": 2,
+      "title": "New Health & Safety Guidelines Released",
+      "summary": "Updated guidelines and maintenance procedures have been released regarding workplace safety protocols, including enhanced safety procedures and emergency protocols.",
+      "image": "/images/news/news2.jpg",
+      "category": "Newsletter",
+      "date": "5 days ago",
+      "comments": 0
+    },
+    {
+      "id": 3,
+      "title": "Tabreed Expands District Cooling Operations",
+      "summary": "Tabreed announces major expansion of district cooling services across the Kingdom, enhancing sustainable urban infrastructure for the future.",
+      "image": "/images/news/news3.jpg",
+      "category": "Corporate",
+      "date": "1 week ago",
+      "comments": 5
+    }
+  ],
+  "announcements": [
+    {
+      "id": 1,
+      "title": "Target: Ban System Access",
+      "type": "Important",
+      "department": "System",
+      "date": "2 hours ago"
+    },
+    {
+      "id": 2,
+      "title": "New Recreation Area Opening",
+      "type": "Scheduled",
+      "department": "System (company)",
+      "date": "1 day ago"
+    },
+    {
+      "id": 3,
+      "title": "Task Maintenance Scheduled",
+      "type": "Announcement",
+      "department": "Announcement",
+      "date": "2 days ago"
+    },
+    {
+      "id": 4,
+      "title": "Quarterly Performance Reviews",
+      "type": "Important",
+      "department": "HR",
+      "date": "3 days ago"
+    }
+  ],
+  "applications": [
+    {
+      "id": 1,
+      "name": "Facilio",
+      "category": "Favorites",
+      "icon": "building",
+      "description": "Systems",
+      "url": "#"
+    },
+    {
+      "id": 2,
+      "name": "CyberOne",
+      "category": "Favorites",
+      "icon": "shield",
+      "description": "Systems",
+      "url": "#"
+    },
+    {
+      "id": 3,
+      "name": "Sign IT",
+      "category": "Favorites",
+      "icon": "pen-tool",
+      "description": "Systems",
+      "url": "#"
+    },
+    {
+      "id": 4,
+      "name": "E-mail",
+      "category": "Favorites",
+      "icon": "mail",
+      "description": "Systems",
+      "url": "#"
+    },
+    {
+      "id": 5,
+      "name": "Microsoft Dynamics 365",
+      "category": "Core Systems",
+      "icon": "box",
+      "description": "Systems",
+      "url": "#"
+    },
+    {
+      "id": 6,
+      "name": "Microsoft Dynamics 365",
+      "category": "Core Systems",
+      "icon": "database",
+      "description": "Awareness",
+      "url": "#"
+    },
+    {
+      "id": 7,
+      "name": "ManageEngine",
+      "category": "Core Systems",
+      "icon": "settings",
+      "description": "Systems",
+      "url": "#"
+    },
+    {
+      "id": 8,
+      "name": "SharePoint",
+      "category": "Tools",
+      "icon": "layout",
+      "description": "Collaboration",
+      "url": "#"
+    }
+  ],
+  "employees": [
+    {
+      "id": 1,
+      "name": "Sarah Johnson",
+      "department": "Business Development",
+      "title": "Senior Manager",
+      "avatar": "",
+      "managerId": null
+    },
+    {
+      "id": 2,
+      "name": "Mark Davis",
+      "department": "IT Department",
+      "title": "IT Lead",
+      "avatar": "",
+      "managerId": null
+    },
+    {
+      "id": 3,
+      "name": "Fatima Ali",
+      "department": "IT Department",
+      "title": "Developer",
+      "avatar": "",
+      "managerId": 2
+    },
+    {
+      "id": 4,
+      "name": "David Martin",
+      "department": "Finance",
+      "title": "Financial Analyst",
+      "avatar": "",
+      "managerId": null
+    },
+    {
+      "id": 5,
+      "name": "Alice Wilson",
+      "department": "HR",
+      "title": "HR Specialist",
+      "avatar": "",
+      "managerId": null
+    },
+    {
+      "id": 6,
+      "name": "Aisha Abdullah",
+      "department": "Customer Care",
+      "title": "Customer Relations",
+      "avatar": "",
+      "managerId": null
+    }
+  ],
+  "meetingRooms": [
+    {
+      "id": 1,
+      "name": "Burt Room",
+      "image": "/images/rooms/room1.jpg",
+      "capacity": 8,
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "name": "Creek Room",
+      "image": "/images/rooms/room2.jpg",
+      "capacity": 12,
+      "status": "busy"
+    },
+    {
+      "id": 3,
+      "name": "Palm Room",
+      "image": "/images/rooms/room3.jpg",
+      "capacity": 6,
+      "status": "available"
+    },
+    {
+      "id": 4,
+      "name": "Innovation Hub",
+      "image": "/images/rooms/room4.jpg",
+      "capacity": 20,
+      "status": "busy"
+    }
+  ],
+  "officeLocations": [
+    {
+      "id": 1,
+      "name": "Al Maryah Island HQ",
+      "city": "Abu Dhabi",
+      "address": "Branch headquarters",
+      "type": "hq"
+    },
+    {
+      "id": 2,
+      "name": "Abu Dhabi Branch",
+      "city": "Abu Dhabi",
+      "address": "West Corniche",
+      "type": "branch"
+    },
+    {
+      "id": 3,
+      "name": "Sharjah Branch",
+      "city": "Dubai",
+      "address": "King Faisal St",
+      "type": "branch"
+    },
+    {
+      "id": 4,
+      "name": "Ras Al Khaimah Branch",
+      "city": "Ajman",
+      "address": "Deira city environment",
+      "type": "branch"
+    }
+  ],
+  "safeLocations": [
+    {
+      "id": 1,
+      "name": "Al Maryah Island HQ",
+      "address": "Album Health",
+      "image": "/images/locations/loc1.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Abu Dhabi Branch",
+      "address": "32 km south",
+      "image": "/images/locations/loc2.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Sharjah Branch",
+      "address": "Buruai south",
+      "image": "/images/locations/loc3.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Ras Al Khaimah Branch",
+      "address": "Sharmeesah",
+      "image": "/images/locations/loc4.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Almah Branch",
+      "address": "Ali en breath",
+      "image": "/images/locations/loc5.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Masdar City",
+      "address": "Sharmeesah",
+      "image": "/images/locations/loc6.jpg"
+    }
+  ],
+  "chairman": {
+    "name": "Khaled Al-Mansoori",
+    "title": "CEO",
+    "message": "Together, we are building a company that values innovation, collaboration, and sustainability. Thank you for your continued dedication and work.",
+    "image": "/images/ceo.jpg"
+  },
+  "reminder": {
+    "id": 1,
+    "message": "Please submit your end-of-quarter reports by Friday.",
+    "active": true
+  },
+  "motivation": {
+    "quote": "Great things never come from comfort zones, keep pushing boundaries!",
+    "author": "Tabreed Leadership",
+    "backgroundImage": "/images/motivation-bg.jpg"
+  },
+  "orgChart": {
+    "id": 1,
+    "name": "Abdul Aziz Al Jaber",
+    "title": "Chairman",
+    "avatar": "",
+    "children": [
+      {
+        "id": 2,
+        "name": "Khaled Al-Mansoori",
+        "title": "Vice President / CEO / TREA",
+        "avatar": "",
+        "children": [
+          {
+            "id": 3,
+            "name": "Sarah Johnson",
+            "title": "Business Development",
+            "avatar": ""
+          },
+          {
+            "id": 4,
+            "name": "Mark Davis",
+            "title": "IT Department",
+            "avatar": ""
+          },
+          {
+            "id": 5,
+            "name": "Fatima Ali",
+            "title": "IT Department Head",
+            "avatar": ""
+          }
+        ]
+      }
+    ]
+  }
+}

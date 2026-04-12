@@ -1,0 +1,80 @@
+{
+  "app": {
+    "name": "Tabreed",
+    "subtitle": "Tabreed Saudi Arabia",
+    "oneTeamApp": "One Team App"
+  },
+  "nav": {
+    "home": "Home",
+    "departments": "Departments",
+    "policies": "Policies & Procedures",
+    "applications": "Applications",
+    "settings": "Settings",
+    "userAccount": "User Account"
+  },
+  "header": {
+    "search": "Search...",
+    "language": "العربية"
+  },
+  "reminder": {
+    "message": "Please submit your end-of-quarter reports by Friday."
+  },
+  "news": {
+    "title": "Latest News",
+    "search": "Search news...",
+    "readMore": "Read More",
+    "daysAgo": "{{count}} days ago",
+    "comments": "{{count}}"
+  },
+  "chairman": {
+    "title": "Chairman's Message",
+    "readFull": "Read Full Message"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "viewAll": "View All",
+    "search": "Search",
+    "department": "Department",
+    "type": "Type",
+    "account": "Account",
+    "important": "Important",
+    "scheduled": "Scheduled",
+    "announcement": "Announcement",
+    "hoursAgo": "{{count}} hours ago",
+    "daysAgo": "{{count}} days ago"
+  },
+  "apps": {
+    "title": "Application List",
+    "favorites": "Favorites",
+    "coreSystems": "Core Systems",
+    "tools": "Tools",
+    "open": "Open",
+    "details": "Details",
+    "viewAll": "View All Applications"
+  },
+  "motivation": {
+    "title": "Weekly Motivation",
+    "cta": "Start The Week Strong"
+  },
+  "locations": {
+    "title": "Office Locations",
+    "viewAll": "View All"
+  },
+  "hierarchy": {
+    "title": "Tabreed Hierarchy"
+  },
+  "directory": {
+    "title": "Employee Directory",
+    "global": "Global",
+    "open": "Open"
+  },
+  "safety": {
+    "title": "Safe Locations",
+    "viewAll": "View All"
+  },
+  "rooms": {
+    "title": "Meeting Rooms",
+    "reserve": "Reserve",
+    "busy": "Busy"
+  }
+}

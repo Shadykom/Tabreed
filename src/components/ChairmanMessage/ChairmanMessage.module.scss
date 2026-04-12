@@ -1,0 +1,96 @@
+.container {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+  height: 100%;
+}
+
+.textSide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.quote {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  font-style: italic;
+  margin-block-end: var(--spacing-md);
+  position: relative;
+  padding-inline-start: var(--spacing-md);
+
+  &::before {
+    content: '\201C';
+    font-size: 3rem;
+    color: var(--color-accent);
+    opacity: 0.3;
+    position: absolute;
+    top: -12px;
+    inset-inline-start: -4px;
+    font-style: normal;
+    line-height: 1;
+  }
+}
+
+.name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.title {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-block-end: var(--spacing-lg);
+}
+
+.readButton {
+  margin-block-start: auto;
+}
+
+.photoSide {
+  flex-shrink: 0;
+  width: 140px;
+}
+
+.photoPlaceholder {
+  width: 140px;
+  height: 180px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #d4e4fd 0%, #f0f4ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.placeholderIcon {
+  color: var(--color-accent);
+  opacity: 0.4;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+
+  .photoSide {
+    width: 100px;
+  }
+
+  .photoPlaceholder {
+    width: 100px;
+    height: 120px;
+  }
+
+  .quote {
+    padding-inline-start: 0;
+
+    &::before {
+      display: none;
+    }
+  }
+}
