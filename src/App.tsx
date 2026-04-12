@@ -8,6 +8,7 @@ import PoliciesPage from './pages/PoliciesPage';
 import ApplicationsPage from './pages/ApplicationsPage';
 import SettingsPage from './pages/SettingsPage';
 import UserAccount from './pages/UserAccount';
+import ServiceRequest from './pages/ServiceRequest';
 import Login from './pages/Login';
 import Admin from './pages/admin/Admin';
 import './i18n';
@@ -30,6 +31,7 @@ export default function App() {
                 <Route path="/applications" element={<ApplicationsPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/account" element={<UserAccount />} />
+                <Route path="/services" element={<ServiceRequest />} />
               </Routes>
             </MainLayout>
           } />

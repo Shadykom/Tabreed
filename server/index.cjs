@@ -1,5 +1,6 @@
 require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
+const nodemailer = require('nodemailer');
 const cors = require('cors');
 const path = require('path');
 
@@ -795,6 +796,364 @@ app.get('/api/policies', (req, res) => {
     { id: 9, title: 'Plant Operations Manual', category: 'Operations', date: '2025-10-20', fileUrl: '#' },
     { id: 10, title: 'Vendor Management Policy', category: 'Operations', date: '2025-07-15', fileUrl: '#' },
   ]);
+});
+
+// --- Service Requests ---
+
+const deptEmails = {
+  'IT':          'it@sauditabreed.com',
+  'HR':          'hr@sauditabreed.com',
+  'Finance':     'finance@sauditabreed.com',
+  'Engineering': 'engineering@sauditabreed.com',
+  'Operations':  'operations@sauditabreed.com',
+  'HSE':         'hse@sauditabreed.com',
+  'Marketing':   'marketing@sauditabreed.com',
+  'Executive':   'executive@sauditabreed.com',
+};
+
+const serviceRequests = [];
+
+/**
+ * Build a branded HTML email for a new service request.
+ */
+function buildServiceRequestEmail(req) {
+  const priorityColors = {
+    Urgent: { bg: '#FEE2E2', text: '#DC2626', dot: '#EF4444' },
+    High:   { bg: '#FEF3C7', text: '#D97706', dot: '#F59E0B' },
+    Normal: { bg: '#DBEAFE', text: '#2563EB', dot: '#3B82F6' },
+  };
+  const pc = priorityColors[req.priority] || priorityColors.Normal;
+
+  const attachmentsHtml = req.attachments && req.attachments.length
+    ? `<p style="margin:0 0 6px;color:#6B7280;font-size:13px;">
+         <strong style="color:#374151;">Attachments:</strong>
+         ${req.attachments.map(a => a.originalname || a).join(', ')}
+       </p>`
+    : '';
+
+  const portalUrl = process.env.PORTAL_URL || 'http://localhost:5173';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Service Request – Saudi Tabreed</title>
+</head>
+<body style="margin:0;padding:0;background:#EEF2FB;font-family:'Segoe UI',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#EEF2FB;padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+          <!-- Header -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#1B3A6B 0%,#2E5BA0 100%);
+                        border-radius:16px 16px 0 0;padding:32px 40px;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="background:rgba(255,255,255,0.15);
+                                    border-radius:12px;padding:10px;
+                                    vertical-align:middle;margin-right:14px;">
+                          <!-- Snowflake SVG -->
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                               xmlns="http://www.w3.org/2000/svg" style="display:block;">
+                            <line x1="12" y1="2" x2="12" y2="22"
+                                  stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="2" y1="12" x2="22" y2="12"
+                                  stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"
+                                  stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="19.07" y1="4.93" x2="4.93" y2="19.07"
+                                  stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="2"  r="1.5" fill="white"/>
+                            <circle cx="12" cy="22" r="1.5" fill="white"/>
+                            <circle cx="2"  cy="12" r="1.5" fill="white"/>
+                            <circle cx="22" cy="12" r="1.5" fill="white"/>
+                          </svg>
+                        </td>
+                        <td style="padding-left:14px;">
+                          <div style="color:white;font-size:20px;font-weight:700;
+                                      letter-spacing:-0.3px;">Saudi Tabreed</div>
+                          <div style="color:rgba(255,255,255,0.7);font-size:13px;
+                                      margin-top:2px;">Internal Portal</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td align="right">
+                    <div style="background:rgba(255,255,255,0.15);
+                                border-radius:8px;padding:8px 14px;
+                                display:inline-block;">
+                      <div style="color:rgba(255,255,255,0.8);font-size:11px;
+                                  text-transform:uppercase;letter-spacing:0.08em;">
+                        New Request</div>
+                      <div style="color:white;font-size:14px;font-weight:700;
+                                  margin-top:2px;">${req.id}</div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <div style="margin-top:24px;">
+                <div style="color:rgba(255,255,255,0.8);font-size:13px;
+                            text-transform:uppercase;letter-spacing:0.1em;
+                            margin-bottom:6px;">New Service Request</div>
+                <div style="color:white;font-size:24px;font-weight:700;
+                            line-height:1.3;">${req.summary}</div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="background:#FFFFFF;padding:36px 40px;">
+
+              <!-- Requester Info -->
+              <table width="100%" cellpadding="0" cellspacing="0"
+                     style="background:#F8FAFF;border-radius:12px;
+                            padding:20px;margin-bottom:24px;
+                            border:1px solid #E8F0FE;">
+                <tr>
+                  <td>
+                    <div style="font-size:11px;font-weight:700;
+                                color:#4A7FD4;text-transform:uppercase;
+                                letter-spacing:0.08em;margin-bottom:14px;">
+                      Requester Information
+                    </div>
+                    <table width="100%" cellpadding="0" cellspacing="6">
+                      <tr>
+                        <td width="50%" style="padding:4px 0;">
+                          <span style="color:#6B7280;font-size:13px;">Name</span><br/>
+                          <span style="color:#111827;font-size:14px;font-weight:600;">
+                            ${req.requesterName || 'Not specified'}
+                          </span>
+                        </td>
+                        <td width="50%" style="padding:4px 0;">
+                          <span style="color:#6B7280;font-size:13px;">Department</span><br/>
+                          <span style="color:#111827;font-size:14px;font-weight:600;">
+                            ${req.requesterDepartment || 'Not specified'}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="padding:8px 0 0;">
+                          <span style="color:#6B7280;font-size:13px;">Email</span><br/>
+                          <span style="color:#111827;font-size:14px;font-weight:600;">
+                            ${req.requesterEmail || 'Not specified'}
+                          </span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Request Details -->
+              <div style="font-size:11px;font-weight:700;color:#4A7FD4;
+                          text-transform:uppercase;letter-spacing:0.08em;
+                          margin-bottom:16px;">Request Details</div>
+
+              <table width="100%" cellpadding="0" cellspacing="0"
+                     style="margin-bottom:20px;">
+                <tr>
+                  <td width="50%" style="padding:0 12px 16px 0;">
+                    <div style="background:#F9FAFB;border-radius:10px;
+                                padding:14px 16px;border:1px solid #E5E7EB;">
+                      <div style="color:#9CA3AF;font-size:11px;
+                                  text-transform:uppercase;letter-spacing:0.06em;
+                                  margin-bottom:6px;">Target Department</div>
+                      <div style="color:#111827;font-size:15px;font-weight:700;">
+                        ${req.department}
+                      </div>
+                    </div>
+                  </td>
+                  <td width="50%" style="padding:0 0 16px 0;">
+                    <div style="background:#F9FAFB;border-radius:10px;
+                                padding:14px 16px;border:1px solid #E5E7EB;">
+                      <div style="color:#9CA3AF;font-size:11px;
+                                  text-transform:uppercase;letter-spacing:0.06em;
+                                  margin-bottom:6px;">Service Type</div>
+                      <div style="color:#111827;font-size:15px;font-weight:700;">
+                        ${req.service}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <div style="background:#F9FAFB;border-radius:10px;
+                                padding:14px 16px;border:1px solid #E5E7EB;
+                                margin-bottom:16px;">
+                      <div style="color:#9CA3AF;font-size:11px;
+                                  text-transform:uppercase;letter-spacing:0.06em;
+                                  margin-bottom:8px;">Priority</div>
+                      <span style="background:${pc.bg};color:${pc.text};
+                                   border-radius:20px;padding:5px 14px;
+                                   font-size:13px;font-weight:700;
+                                   display:inline-flex;align-items:center;gap:6px;">
+                        <span style="display:inline-block;width:8px;height:8px;
+                                     border-radius:50%;background:${pc.dot};"></span>
+                        ${req.priority}
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Description -->
+              ${req.description ? `
+              <div style="background:#F9FAFB;border-radius:10px;
+                          padding:16px 18px;border:1px solid #E5E7EB;
+                          margin-bottom:20px;">
+                <div style="color:#9CA3AF;font-size:11px;text-transform:uppercase;
+                            letter-spacing:0.06em;margin-bottom:10px;">Description</div>
+                <div style="color:#374151;font-size:14px;line-height:1.7;
+                            white-space:pre-wrap;">${req.description.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+              </div>` : ''}
+
+              <!-- Attachments note -->
+              ${attachmentsHtml ? `
+              <div style="background:#F0FDF4;border-radius:10px;
+                          padding:14px 16px;border:1px solid #BBF7D0;
+                          margin-bottom:24px;">
+                <div style="color:#15803D;font-size:13px;">${attachmentsHtml}</div>
+              </div>` : ''}
+
+              <!-- CTA Button -->
+              <div style="text-align:center;margin:32px 0 8px;">
+                <a href="${portalUrl}/services"
+                   style="background:linear-gradient(135deg,#1B3A6B,#2E5BA0);
+                          color:white;text-decoration:none;
+                          padding:14px 36px;border-radius:10px;
+                          font-size:15px;font-weight:700;
+                          display:inline-block;
+                          box-shadow:0 4px 14px rgba(27,58,107,0.35);">
+                  View Request in Portal
+                </a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#F3F4F6;border-radius:0 0 16px 16px;
+                        padding:20px 40px;text-align:center;">
+              <p style="color:#9CA3AF;font-size:12px;margin:0 0 4px;">
+                System Notification &ndash; Saudi Tabreed Portal
+              </p>
+              <p style="color:#D1D5DB;font-size:11px;margin:0;">
+                This is an automated message. Please do not reply directly to this email.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+/**
+ * Send (or log) a service-request notification email.
+ */
+async function sendServiceRequestEmail(reqData) {
+  const toEmail = deptEmails[reqData.department];
+
+  const mailOptions = {
+    from: `"Saudi Tabreed Portal" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+    to: toEmail || 'admin@sauditabreed.com',
+    cc: reqData.requesterEmail || undefined,
+    subject: `[${reqData.priority}] New ${reqData.department} Request: ${reqData.summary}`,
+    html: buildServiceRequestEmail(reqData),
+  };
+
+  const smtpConfigured =
+    process.env.SMTP_HOST &&
+    process.env.SMTP_USER &&
+    process.env.SMTP_PASS;
+
+  if (!smtpConfigured) {
+    console.log('\n--- Service Request Email (SMTP not configured) ---');
+    console.log('To:     ', mailOptions.to);
+    console.log('Subject:', mailOptions.subject);
+    console.log('ID:     ', reqData.id);
+    console.log('---------------------------------------------------\n');
+    return;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT || '587', 10),
+    secure: process.env.SMTP_PORT === '465',
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+    tls: { rejectUnauthorized: false },
+  });
+
+  await transporter.sendMail(mailOptions);
+  console.log(`Service request email sent to ${mailOptions.to}`);
+}
+
+// GET /api/service-requests
+app.get('/api/service-requests', (req, res) => {
+  res.json(serviceRequests);
+});
+
+// POST /api/service-requests
+app.post('/api/service-requests', upload.array('attachments', 5), async (req, res) => {
+  try {
+    const {
+      department,
+      service,
+      priority = 'Normal',
+      summary,
+      description = '',
+      requesterName = '',
+      requesterEmail = '',
+      requesterDepartment = '',
+    } = req.body;
+
+    if (!department || !service || !summary) {
+      return res.status(400).json({ error: 'department, service, and summary are required.' });
+    }
+
+    const id = `SR-${Date.now()}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
+    const submittedAt = new Date().toISOString();
+
+    const reqData = {
+      id,
+      department,
+      service,
+      priority,
+      summary,
+      description,
+      requesterName,
+      requesterEmail,
+      requesterDepartment,
+      attachments: (req.files || []).map(f => ({ originalname: f.originalname, path: f.path, size: f.size })),
+      status: 'Pending',
+      submittedAt,
+    };
+
+    serviceRequests.unshift(reqData);
+
+    // Send email (non-blocking – failure does not fail the request)
+    sendServiceRequestEmail(reqData).catch(err => {
+      console.error('Email send error:', err.message);
+    });
+
+    res.status(201).json({ id, submittedAt, status: 'Pending' });
+  } catch (err) {
+    console.error('Service request error:', err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Start
