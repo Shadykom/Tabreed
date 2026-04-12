@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Users } from 'lucide-react';
 import Card from '../common/Card';
 import Button from '../common/Button';
@@ -9,6 +10,7 @@ import styles from './MeetingRooms.module.scss';
 
 export default function MeetingRooms() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { data: rooms } = useApi<MeetingRoom[]>(api.getMeetingRooms);
 
   return (
@@ -42,6 +44,7 @@ export default function MeetingRooms() {
                   variant={room.status === 'available' ? 'success' : 'danger'}
                   size="sm"
                   fullWidth
+                  onClick={() => navigate('/rooms')}
                 >
                   {room.status === 'available' ? t('rooms.reserve') : t('rooms.busy')}
                 </Button>

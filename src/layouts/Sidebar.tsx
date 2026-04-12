@@ -4,6 +4,7 @@ import { useApp } from '../hooks/useApp';
 import {
   Home, Building2, FileText, LayoutGrid, Settings,
   UserCircle, ChevronsLeft, ChevronsRight,
+  Headphones, DoorOpen,
 } from 'lucide-react';
 import styles from './Sidebar.module.scss';
 
@@ -12,6 +13,8 @@ const navItems = [
   { id: 'departments', labelKey: 'nav.departments', icon: Building2, path: '/departments', notif: 0 },
   { id: 'policies', labelKey: 'nav.policies', icon: FileText, path: '/policies', notif: 3 },
   { id: 'applications', labelKey: 'nav.applications', icon: LayoutGrid, path: '/applications', notif: 0 },
+  { id: 'services', labelKey: 'nav.services', icon: Headphones, path: '/services', notif: 0 },
+  { id: 'rooms', labelKey: 'nav.rooms', icon: DoorOpen, path: '/rooms', notif: 0 },
   { id: 'settings', labelKey: 'nav.settings', icon: Settings, path: '/settings', notif: 0 },
   { id: 'userAccount', labelKey: 'nav.userAccount', icon: UserCircle, path: '/account', notif: 0 },
 ];

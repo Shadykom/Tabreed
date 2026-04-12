@@ -10,6 +10,7 @@ import SettingsPage from './pages/SettingsPage';
 import UserAccount from './pages/UserAccount';
 import ServiceRequest from './pages/ServiceRequest';
 import ChairmanPage from './pages/ChairmanPage';
+import RoomBooking from './pages/RoomBooking';
 import Login from './pages/Login';
 import Admin from './pages/admin/Admin';
 import './i18n';
@@ -34,6 +35,7 @@ export default function App() {
                 <Route path="/account" element={<UserAccount />} />
                 <Route path="/services" element={<ServiceRequest />} />
                 <Route path="/chairman" element={<ChairmanPage />} />
+                <Route path="/rooms" element={<RoomBooking />} />
               </Routes>
             </MainLayout>
           } />

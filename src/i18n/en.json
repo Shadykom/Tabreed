@@ -9,6 +9,8 @@
     "departments": "Departments",
     "policies": "Policies & Procedures",
     "applications": "Applications",
+    "services": "Service Requests",
+    "rooms": "Meeting Rooms",
     "settings": "Settings",
     "userAccount": "User Account"
   },

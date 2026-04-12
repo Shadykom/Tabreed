@@ -1172,6 +1172,94 @@ app.post('/api/service-requests', upload.array('attachments', 5), async (req, re
   }
 });
 
+// --- Room Bookings ---
+const todayDate = new Date().toISOString().split('T')[0];
+const tomorrowDate = (() => {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split('T')[0];
+})();
+
+const roomBookings = [
+  {
+    id: 1,
+    roomId: 1,
+    roomName: 'Al Rimal',
+    date: todayDate,
+    startTime: '09:00',
+    endTime: '10:00',
+    title: 'Engineering Review',
+    attendees: 6,
+    bookedBy: 'Ahmed Al-Qahtani',
+    status: 'confirmed',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 2,
+    roomId: 2,
+    roomName: 'Al Nakheel',
+    date: todayDate,
+    startTime: '14:00',
+    endTime: '15:30',
+    title: 'Finance Quarterly Update',
+    attendees: 10,
+    bookedBy: 'Sara Al-Malik',
+    status: 'confirmed',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 3,
+    roomId: 3,
+    roomName: 'Al Corniche',
+    date: todayDate,
+    startTime: '10:00',
+    endTime: '11:00',
+    title: 'Operations Standup',
+    attendees: 4,
+    bookedBy: 'Omar Almidani',
+    status: 'confirmed',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 4,
+    roomId: 1,
+    roomName: 'Al Rimal',
+    date: tomorrowDate,
+    startTime: '11:00',
+    endTime: '12:00',
+    title: 'Project Kick-off',
+    attendees: 8,
+    bookedBy: 'Mohammed Al-Shehri',
+    status: 'confirmed',
+    createdAt: new Date().toISOString(),
+  },
+];
+
+app.get('/api/room-bookings', (req, res) => {
+  const { date, roomId } = req.query;
+  let filtered = roomBookings;
+  if (date) filtered = filtered.filter(b => b.date === date);
+  if (roomId) filtered = filtered.filter(b => b.roomId == roomId);
+  res.json(filtered);
+});
+
+app.post('/api/room-bookings', (req, res) => {
+  const booking = {
+    id: roomBookings.length + 1,
+    ...req.body,
+    status: 'confirmed',
+    createdAt: new Date().toISOString(),
+  };
+  roomBookings.push(booking);
+  res.status(201).json(booking);
+});
+
+app.delete('/api/room-bookings/:id', (req, res) => {
+  const idx = roomBookings.findIndex(b => b.id == req.params.id);
+  if (idx !== -1) roomBookings.splice(idx, 1);
+  res.json({ message: 'Cancelled' });
+});
+
 // Start
 initDB().then(() => {
   app.listen(PORT, () => {
