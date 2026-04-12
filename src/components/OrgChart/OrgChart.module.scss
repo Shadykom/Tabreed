@@ -16,17 +16,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-md);
+  gap: 6px;
+  padding: var(--spacing-md) var(--spacing-lg);
   background: var(--color-accent-light);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   text-align: center;
-  min-width: 100px;
+  min-width: 110px;
+  transition: all var(--transition-fast);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+  }
 }
 
-.nodeCard.root {
-  background: var(--color-primary);
+.root {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
   color: white;
+  box-shadow: 0 4px 15px rgba(27, 58, 107, 0.3);
 
   .nodeName {
     color: white;
@@ -35,11 +45,15 @@
   .nodeTitle {
     color: rgba(255, 255, 255, 0.7);
   }
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
 }
 
 .nodeName {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
   white-space: nowrap;
 }
@@ -52,8 +66,8 @@
 
 .connector {
   width: 2px;
-  height: 20px;
-  background: var(--color-border);
+  height: 24px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-border));
   margin: 0 auto;
 }
 
@@ -67,8 +81,8 @@
     content: '';
     position: absolute;
     top: 0;
-    inset-inline-start: 50px;
-    inset-inline-end: 50px;
+    inset-inline-start: 55px;
+    inset-inline-end: 55px;
     height: 2px;
     background: var(--color-border);
   }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Card from '../common/Card';
 import Avatar from '../common/Avatar';
@@ -10,6 +11,7 @@ import styles from './EmployeeDirectory.module.scss';
 export default function EmployeeDirectory() {
   const { t } = useTranslation();
   const { data: employees } = useApi<Employee[]>(api.getEmployees);
+  const [activeDot, setActiveDot] = useState(0);
 
   return (
     <Card title={t('directory.title')}>
@@ -33,9 +35,13 @@ export default function EmployeeDirectory() {
       </div>
 
       <div className={styles.pagination}>
-        <div className={`${styles.dot} ${styles.active}`} />
-        <div className={styles.dot} />
-        <div className={styles.dot} />
+        {[0, 1, 2].map((i) => (
+          <button
+            key={i}
+            className={`${styles.dot} ${activeDot === i ? styles.active : ''}`}
+            onClick={() => setActiveDot(i)}
+          />
+        ))}
       </div>
     </Card>
   );

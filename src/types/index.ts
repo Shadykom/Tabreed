@@ -6,6 +6,8 @@ export interface NewsArticle {
   category: string;
   date: string;
   comments: number;
+  author?: string;
+  likes?: number;
 }
 
 export type AnnouncementType = 'Important' | 'Scheduled' | 'Announcement';
@@ -25,6 +27,7 @@ export interface Application {
   name: string;
   category: AppCategory;
   icon: string;
+  color?: string;
   description: string;
   url: string;
 }
@@ -53,6 +56,7 @@ export interface MeetingRoom {
   name: string;
   image: string;
   capacity: number;
+  floor?: string;
   status: RoomStatus;
 }
 

@@ -3,29 +3,35 @@
     {
       "id": 1,
       "title": "Server Maintenance Scheduled for Tonight",
-      "summary": "Scheduled maintenance for infrastructure services is being set up. The system will be temporarily unavailable tonight between 11 PM and 2 AM for critical updates.",
-      "image": "/images/news/news1.jpg",
+      "summary": "Scheduled maintenance for infrastructure services is being set up. The system will be temporarily unavailable tonight between 11 PM and 2 AM for critical security updates and performance improvements.",
+      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=250&fit=crop",
       "category": "IMPORTANT NOTICE",
       "date": "3 days ago",
-      "comments": 2
+      "comments": 2,
+      "author": "IT Department",
+      "likes": 14
     },
     {
       "id": 2,
       "title": "New Health & Safety Guidelines Released",
-      "summary": "Updated guidelines and maintenance procedures have been released regarding workplace safety protocols, including enhanced safety procedures and emergency protocols.",
-      "image": "/images/news/news2.jpg",
+      "summary": "Updated guidelines and maintenance procedures have been released regarding workplace safety protocols, including enhanced emergency procedures and updated compliance requirements for all departments.",
+      "image": "https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=400&h=250&fit=crop",
       "category": "Newsletter",
       "date": "5 days ago",
-      "comments": 0
+      "comments": 8,
+      "author": "HSE Team",
+      "likes": 23
     },
     {
       "id": 3,
       "title": "Tabreed Expands District Cooling Operations",
-      "summary": "Tabreed announces major expansion of district cooling services across the Kingdom, enhancing sustainable urban infrastructure for the future.",
-      "image": "/images/news/news3.jpg",
+      "summary": "Tabreed announces major expansion of district cooling services across the Kingdom of Saudi Arabia, enhancing sustainable urban infrastructure for the future and reinforcing commitment to Vision 2030.",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop",
       "category": "Corporate",
       "date": "1 week ago",
-      "comments": 5
+      "comments": 15,
+      "author": "Communications",
+      "likes": 47
     }
   ],
   "announcements": [
@@ -52,10 +58,17 @@
     },
     {
       "id": 4,
-      "title": "Quarterly Performance Reviews",
+      "title": "Quarterly Performance Reviews Due",
       "type": "Important",
       "department": "HR",
       "date": "3 days ago"
+    },
+    {
+      "id": 5,
+      "title": "Office Deep Cleaning Weekend",
+      "type": "Scheduled",
+      "department": "Facilities",
+      "date": "4 days ago"
     }
   ],
   "applications": [
@@ -64,6 +77,7 @@
       "name": "Facilio",
       "category": "Favorites",
       "icon": "building",
+      "color": "#4A90D9",
       "description": "Systems",
       "url": "#"
     },
@@ -72,6 +86,7 @@
       "name": "CyberOne",
       "category": "Favorites",
       "icon": "shield",
+      "color": "#14B8A6",
       "description": "Systems",
       "url": "#"
     },
@@ -80,6 +95,7 @@
       "name": "Sign IT",
       "category": "Favorites",
       "icon": "pen-tool",
+      "color": "#22C55E",
       "description": "Systems",
       "url": "#"
     },
@@ -88,6 +104,7 @@
       "name": "E-mail",
       "category": "Favorites",
       "icon": "mail",
+      "color": "#8B5CF6",
       "description": "Systems",
       "url": "#"
     },
@@ -96,6 +113,7 @@
       "name": "Microsoft Dynamics 365",
       "category": "Core Systems",
       "icon": "box",
+      "color": "#1B3A6B",
       "description": "Systems",
       "url": "#"
     },
@@ -104,6 +122,7 @@
       "name": "Microsoft Dynamics 365",
       "category": "Core Systems",
       "icon": "database",
+      "color": "#2E5BA0",
       "description": "Awareness",
       "url": "#"
     },
@@ -112,6 +131,7 @@
       "name": "ManageEngine",
       "category": "Core Systems",
       "icon": "settings",
+      "color": "#EF4444",
       "description": "Systems",
       "url": "#"
     },
@@ -120,7 +140,26 @@
       "name": "SharePoint",
       "category": "Tools",
       "icon": "layout",
+      "color": "#0078D4",
       "description": "Collaboration",
+      "url": "#"
+    },
+    {
+      "id": 9,
+      "name": "Power BI",
+      "category": "Tools",
+      "icon": "bar-chart-3",
+      "color": "#F2C811",
+      "description": "Analytics",
+      "url": "#"
+    },
+    {
+      "id": 10,
+      "name": "Teams",
+      "category": "Tools",
+      "icon": "users",
+      "color": "#6264A7",
+      "description": "Communication",
       "url": "#"
     }
   ],
@@ -130,7 +169,7 @@
       "name": "Sarah Johnson",
       "department": "Business Development",
       "title": "Senior Manager",
-      "avatar": "",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
       "managerId": null
     },
     {
@@ -138,15 +177,15 @@
       "name": "Mark Davis",
       "department": "IT Department",
       "title": "IT Lead",
-      "avatar": "",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
       "managerId": null
     },
     {
       "id": 3,
       "name": "Fatima Ali",
       "department": "IT Department",
-      "title": "Developer",
-      "avatar": "",
+      "title": "Senior Developer",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
       "managerId": 2
     },
     {
@@ -154,23 +193,39 @@
       "name": "David Martin",
       "department": "Finance",
       "title": "Financial Analyst",
-      "avatar": "",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
       "managerId": null
     },
     {
       "id": 5,
       "name": "Alice Wilson",
-      "department": "HR",
-      "title": "HR Specialist",
-      "avatar": "",
+      "department": "Customer Care",
+      "title": "Customer Relations",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
       "managerId": null
     },
     {
       "id": 6,
       "name": "Aisha Abdullah",
-      "department": "Customer Care",
-      "title": "Customer Relations",
-      "avatar": "",
+      "department": "HR Department",
+      "title": "HR Specialist",
+      "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face",
+      "managerId": null
+    },
+    {
+      "id": 7,
+      "name": "Omar Hassan",
+      "department": "Operations",
+      "title": "Operations Manager",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      "managerId": null
+    },
+    {
+      "id": 8,
+      "name": "Layla Ahmed",
+      "department": "Marketing",
+      "title": "Marketing Lead",
+      "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
       "managerId": null
     }
   ],
@@ -178,29 +233,33 @@
     {
       "id": 1,
       "name": "Burt Room",
-      "image": "/images/rooms/room1.jpg",
+      "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop",
       "capacity": 8,
+      "floor": "2nd Floor",
       "status": "available"
     },
     {
       "id": 2,
       "name": "Creek Room",
-      "image": "/images/rooms/room2.jpg",
+      "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=250&fit=crop",
       "capacity": 12,
+      "floor": "3rd Floor",
       "status": "busy"
     },
     {
       "id": 3,
       "name": "Palm Room",
-      "image": "/images/rooms/room3.jpg",
+      "image": "https://images.unsplash.com/photo-1462826303086-329426d1aef5?w=400&h=250&fit=crop",
       "capacity": 6,
+      "floor": "1st Floor",
       "status": "available"
     },
     {
       "id": 4,
       "name": "Innovation Hub",
-      "image": "/images/rooms/room4.jpg",
+      "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=250&fit=crop",
       "capacity": 20,
+      "floor": "4th Floor",
       "status": "busy"
     }
   ],
@@ -210,73 +269,77 @@
       "name": "Al Maryah Island HQ",
       "city": "Abu Dhabi",
       "address": "Branch headquarters",
-      "type": "hq"
+      "type": "hq",
+      "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=100&h=100&fit=crop"
     },
     {
       "id": 2,
       "name": "Abu Dhabi Branch",
       "city": "Abu Dhabi",
       "address": "West Corniche",
-      "type": "branch"
+      "type": "branch",
+      "image": "https://images.unsplash.com/photo-1546412414-e1885259563a?w=100&h=100&fit=crop"
     },
     {
       "id": 3,
       "name": "Sharjah Branch",
       "city": "Dubai",
-      "address": "King Faisal St",
-      "type": "branch"
+      "address": "King Faisal Street",
+      "type": "branch",
+      "image": "https://images.unsplash.com/photo-1518684079-3c830dcef090?w=100&h=100&fit=crop"
     },
     {
       "id": 4,
       "name": "Ras Al Khaimah Branch",
       "city": "Ajman",
       "address": "Deira city environment",
-      "type": "branch"
+      "type": "branch",
+      "image": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=100&h=100&fit=crop"
     }
   ],
   "safeLocations": [
     {
       "id": 1,
       "name": "Al Maryah Island HQ",
-      "address": "Album Health",
-      "image": "/images/locations/loc1.jpg"
+      "address": "Main Assembly Point",
+      "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=200&h=120&fit=crop"
     },
     {
       "id": 2,
       "name": "Abu Dhabi Branch",
-      "address": "32 km south",
-      "image": "/images/locations/loc2.jpg"
+      "address": "Parking Lot B",
+      "image": "https://images.unsplash.com/photo-1546412414-e1885259563a?w=200&h=120&fit=crop"
     },
     {
       "id": 3,
       "name": "Sharjah Branch",
-      "address": "Buruai south",
-      "image": "/images/locations/loc3.jpg"
+      "address": "Garden Area",
+      "image": "https://images.unsplash.com/photo-1518684079-3c830dcef090?w=200&h=120&fit=crop"
     },
     {
       "id": 4,
       "name": "Ras Al Khaimah Branch",
-      "address": "Sharmeesah",
-      "image": "/images/locations/loc4.jpg"
+      "address": "Front Gate Area",
+      "image": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=200&h=120&fit=crop"
     },
     {
       "id": 5,
       "name": "Almah Branch",
-      "address": "Ali en breath",
-      "image": "/images/locations/loc5.jpg"
+      "address": "West Wing Exit",
+      "image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=200&h=120&fit=crop"
     },
     {
       "id": 6,
       "name": "Masdar City",
-      "address": "Sharmeesah",
-      "image": "/images/locations/loc6.jpg"
+      "address": "Emergency Zone C",
+      "image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=200&h=120&fit=crop"
     }
   ],
   "chairman": {
     "name": "Khaled Al-Mansoori",
     "title": "CEO",
     "message": "Together, we are building a company that values innovation, collaboration, and sustainability. Thank you for your continued dedication and work.",
-    "image": "/images/ceo.jpg"
+    "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=400&fit=crop&crop=face"
   },
   "reminder": {
     "id": 1,
@@ -286,40 +349,46 @@
   "motivation": {
     "quote": "Great things never come from comfort zones, keep pushing boundaries!",
     "author": "Tabreed Leadership",
-    "backgroundImage": "/images/motivation-bg.jpg"
+    "backgroundImage": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop"
   },
   "orgChart": {
     "id": 1,
     "name": "Abdul Aziz Al Jaber",
     "title": "Chairman",
-    "avatar": "",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
     "children": [
       {
         "id": 2,
         "name": "Khaled Al-Mansoori",
-        "title": "Vice President / CEO / TREA",
-        "avatar": "",
+        "title": "Vice President / CEO",
+        "avatar": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&h=80&fit=crop&crop=face",
         "children": [
           {
             "id": 3,
             "name": "Sarah Johnson",
             "title": "Business Development",
-            "avatar": ""
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face"
           },
           {
             "id": 4,
             "name": "Mark Davis",
             "title": "IT Department",
-            "avatar": ""
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face"
           },
           {
             "id": 5,
             "name": "Fatima Ali",
-            "title": "IT Department Head",
-            "avatar": ""
+            "title": "Operations Head",
+            "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face"
           }
         ]
       }
     ]
-  }
+  },
+  "notifications": [
+    { "id": 1, "text": "New comment on your report", "time": "5 min ago", "read": false },
+    { "id": 2, "text": "Meeting rescheduled to 3 PM", "time": "1 hour ago", "read": false },
+    { "id": 3, "text": "System update completed", "time": "2 hours ago", "read": true },
+    { "id": 4, "text": "Leave request approved", "time": "Yesterday", "read": true }
+  ]
 }

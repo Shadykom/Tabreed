@@ -19,6 +19,12 @@ const typeBadgeVariant: Record<AnnouncementType, 'important' | 'scheduled' | 'an
   Announcement: 'announcement',
 };
 
+const typeIconClass: Record<AnnouncementType, string> = {
+  Important: 'itemIconImportant',
+  Scheduled: 'itemIconScheduled',
+  Announcement: 'itemIconAnnouncement',
+};
+
 export default function Announcements() {
   const { t } = useTranslation();
   const { data: announcements } = useApi<Announcement[]>(api.getAnnouncements);
@@ -31,9 +37,15 @@ export default function Announcements() {
         </select>
         <select className={styles.filterSelect}>
           <option>{t('announcements.department')}</option>
+          <option>IT</option>
+          <option>HR</option>
+          <option>Facilities</option>
         </select>
         <select className={styles.filterSelect}>
           <option>{t('announcements.type')}</option>
+          <option>Important</option>
+          <option>Scheduled</option>
+          <option>Announcement</option>
         </select>
         <select className={styles.filterSelect}>
           <option>{t('announcements.account')}</option>
@@ -45,7 +57,7 @@ export default function Announcements() {
           const Icon = typeIcons[item.type] || Bell;
           return (
             <div key={item.id} className={styles.item}>
-              <div className={styles.itemIcon}>
+              <div className={styles[typeIconClass[item.type] || 'itemIconAnnouncement']}>
                 <Icon size={18} />
               </div>
               <div className={styles.itemContent}>

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
   Building2, Shield, PenTool, Mail, Box,
   Database, Settings, Layout, ChevronLeft, ChevronRight, Check,
+  BarChart3, Users,
 } from 'lucide-react';
 import Card from '../common/Card';
 import Button from '../common/Button';
@@ -20,12 +21,9 @@ const iconMap: Record<string, typeof Building2> = {
   database: Database,
   settings: Settings,
   layout: Layout,
+  'bar-chart-3': BarChart3,
+  users: Users,
 };
-
-const iconColors = [
-  '#4A7FD4', '#14B8A6', '#22C55E', '#8B5CF6',
-  '#1B3A6B', '#2E5BA0', '#F59E0B', '#EC4899',
-];
 
 const tabs: { key: AppCategory; labelKey: string }[] = [
   { key: 'Favorites', labelKey: 'apps.favorites' },
@@ -65,24 +63,20 @@ export default function ApplicationList() {
       </div>
 
       <div className={styles.grid}>
-        {filtered.map((app, index) => {
+        {filtered.map((app) => {
           const Icon = iconMap[app.icon] || Box;
-          const color = iconColors[index % iconColors.length];
+          const color = app.color || '#4A7FD4';
           return (
             <div key={app.id} className={styles.appCard}>
-              <div
-                className={styles.appIcon}
-                style={{ background: color }}
-              >
-                <Icon size={22} />
+              <div className={styles.appIcon} style={{ background: color }}>
+                <Icon size={24} />
               </div>
               <div className={styles.appName}>{app.name}</div>
               <div className={styles.appDesc}>{app.description}</div>
               <div className={styles.appActions}>
                 <span className={styles.detailsLink}>{t('apps.details')}</span>
                 <Button variant="primary" size="sm" className={styles.openButton}>
-                  <Check size={14} />
-                  {t('apps.open')}
+                  <Check size={14} /> {t('apps.open')}
                 </Button>
               </div>
             </div>

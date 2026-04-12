@@ -5,9 +5,10 @@
   display: flex;
   align-items: center;
   padding-inline: var(--spacing-lg);
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
   flex-shrink: 0;
   z-index: 20;
+  box-shadow: var(--shadow-xs);
 }
 
 .menuButton {
@@ -42,12 +43,15 @@
   gap: var(--spacing-xs);
   font-size: 0.8125rem;
   color: var(--color-text-secondary);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-light);
   cursor: pointer;
 
   &:hover {
     background: var(--color-accent-light);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 }
 
@@ -56,22 +60,22 @@
 }
 
 .searchContainer {
-  flex: 0 1 360px;
+  flex: 0 1 380px;
   position: relative;
 }
 
 .searchInput {
   width: 100%;
-  height: 36px;
-  padding-inline-start: 36px;
+  height: 40px;
+  padding-inline-start: 40px;
   padding-inline-end: var(--spacing-md);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-full);
   background: var(--color-bg);
   font-size: 0.8125rem;
   color: var(--color-text);
   outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: all var(--transition-fast);
 
   &::placeholder {
     color: var(--color-text-light);
@@ -79,13 +83,14 @@
 
   &:focus {
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(74, 127, 212, 0.1);
+    box-shadow: 0 0 0 4px rgba(74, 127, 212, 0.1);
+    background: var(--color-card);
   }
 }
 
 .searchIcon {
   position: absolute;
-  inset-inline-start: 12px;
+  inset-inline-start: 14px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--color-text-light);
@@ -95,31 +100,66 @@
 .headerActions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: 6px;
 }
 
 .langToggle {
-  padding: var(--spacing-xs) var(--spacing-md);
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-accent);
   background: var(--color-accent-light);
-  transition: background var(--transition-fast);
+  border: 1px solid transparent;
 
   &:hover {
     background: #d4e4fd;
+    border-color: var(--color-accent);
   }
+}
+
+.iconButton {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+
+  &:hover {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+  }
+}
+
+.notifBadge {
+  position: absolute;
+  top: 4px;
+  inset-inline-end: 4px;
+  width: 8px;
+  height: 8px;
+  background: var(--color-danger);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-card);
+}
+
+.dividerV {
+  width: 1px;
+  height: 28px;
+  background: var(--color-border);
+  margin-inline: 4px;
 }
 
 .userProfile {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-xs) var(--spacing-sm);
+  padding: 4px 8px 4px 4px;
   border-radius: var(--radius-full);
   cursor: pointer;
-  transition: background var(--transition-fast);
+  position: relative;
 
   &:hover {
     background: var(--color-accent-light);
@@ -127,39 +167,219 @@
 }
 
 .userAvatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-full);
-  background: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(27, 58, 107, 0.25);
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
 }
 
 .userName {
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
+  line-height: 1.2;
 }
 
 .userRole {
   font-size: 0.6875rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text-light);
+  line-height: 1.2;
+}
+
+.chevron {
+  color: var(--color-text-light);
+  transition: transform var(--transition-fast);
+}
+
+/* Dropdown menus */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  inset-inline-end: 0;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-dropdown);
+  min-width: 280px;
+  z-index: 100;
+  animation: slideDown 0.2s ease;
+  overflow: hidden;
+}
+
+.dropdownHeader {
+  padding: var(--spacing-md);
+  border-block-end: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.dropdownAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.dropdownUserInfo {
+  flex: 1;
+}
+
+.dropdownName {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.dropdownEmail {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.dropdownItems {
+  padding: var(--spacing-sm);
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: 0.8125rem;
+  width: 100%;
+  text-align: start;
+
+  &:hover {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+  }
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: var(--color-border-light);
+  margin: var(--spacing-xs) var(--spacing-sm);
+}
+
+.dropdownItemDanger {
+  composes: dropdownItem;
+  color: var(--color-danger);
+
+  &:hover {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+  }
+}
+
+/* Notification dropdown */
+.notifDropdown {
+  composes: dropdown;
+  min-width: 340px;
+}
+
+.notifTitle {
+  padding: var(--spacing-md);
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-block-end: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notifList {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.notifItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-block-end: 1px solid var(--color-border-light);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-accent-light);
+  }
+
+  &:last-child {
+    border-block-end: none;
+  }
+}
+
+.notifDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.notifDotRead {
+  composes: notifDot;
+  background: var(--color-border);
+}
+
+.notifText {
+  flex: 1;
+  font-size: 0.8125rem;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.notifTime {
+  font-size: 0.6875rem;
+  color: var(--color-text-light);
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.notifFooter {
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: center;
+  border-block-start: 1px solid var(--color-border-light);
+}
+
+.notifFooterBtn {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 768px) {
-  .searchContainer {
-    flex: 1;
-  }
-
-  .breadcrumb,
-  .appSelector,
-  .userName,
-  .userRole {
-    display: none;
-  }
+  .searchContainer { flex: 1; }
+  .breadcrumb, .appSelector, .userDetails, .dividerV { display: none; }
 }

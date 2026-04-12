@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, Clock, MessageSquare } from 'lucide-react';
+import { Search, Clock, MessageSquare, Share2 } from 'lucide-react';
 import Card from '../common/Card';
 import { useApi } from '../../hooks/useApi';
 import { api } from '../../services/api';
@@ -34,24 +34,29 @@ export default function LatestNews() {
       <div className={styles.newsList}>
         {filtered.map((article) => (
           <div key={article.id} className={styles.newsItem}>
-            <div
+            <img
               className={styles.thumbnail}
-              role="img"
-              aria-label={article.title}
+              src={article.image}
+              alt={article.title}
+              loading="lazy"
             />
             <div className={styles.newsContent}>
-              <div className={styles.category}>{article.category}</div>
+              <div className={styles.topRow}>
+                <span className={styles.category}>{article.category}</span>
+                <span className={styles.shareCount}>
+                  <Share2 size={11} /> {article.likes || 0}
+                </span>
+              </div>
               <div className={styles.newsTitle}>{article.title}</div>
               <div className={styles.newsSummary}>{article.summary}</div>
               <div className={styles.newsMeta}>
                 <div className={styles.metaLeft}>
+                  <span className={styles.authorTag}>{article.author}</span>
                   <span className={styles.metaItem}>
-                    <Clock size={12} />
-                    {article.date}
+                    <Clock size={11} /> {article.date}
                   </span>
                   <span className={styles.metaItem}>
-                    <MessageSquare size={12} />
-                    {article.comments}
+                    <MessageSquare size={11} /> {article.comments}
                   </span>
                 </div>
                 <button className={styles.readMore}>{t('news.readMore')}</button>

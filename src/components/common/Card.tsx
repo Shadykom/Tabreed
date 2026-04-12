@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { ChevronRight } from 'lucide-react';
 import styles from './Card.module.scss';
 
 interface CardProps {
@@ -17,7 +18,7 @@ export default function Card({ title, viewAllText, onViewAll, children, classNam
           <h3 className={styles.cardTitle}>{title}</h3>
           {viewAllText && (
             <button className={styles.viewAll} onClick={onViewAll}>
-              {viewAllText}
+              {viewAllText} <ChevronRight size={14} />
             </button>
           )}
         </div>

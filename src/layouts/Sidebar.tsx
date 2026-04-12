@@ -1,33 +1,25 @@
 import { useTranslation } from 'react-i18next';
 import { useApp } from '../hooks/useApp';
 import {
-  Home,
-  Building2,
-  FileText,
-  LayoutGrid,
-  Settings,
-  UserCircle,
+  Home, Building2, FileText, LayoutGrid, Settings,
+  UserCircle, ChevronsLeft, ChevronsRight,
 } from 'lucide-react';
 import styles from './Sidebar.module.scss';
 
 const navItems = [
-  { id: 'home', labelKey: 'nav.home', icon: Home, path: '/' },
-  { id: 'departments', labelKey: 'nav.departments', icon: Building2, path: '/departments' },
-  { id: 'policies', labelKey: 'nav.policies', icon: FileText, path: '/policies' },
-  { id: 'applications', labelKey: 'nav.applications', icon: LayoutGrid, path: '/applications' },
-  { id: 'settings', labelKey: 'nav.settings', icon: Settings, path: '/settings' },
-  { id: 'userAccount', labelKey: 'nav.userAccount', icon: UserCircle, path: '/account' },
+  { id: 'home', labelKey: 'nav.home', icon: Home, path: '/', notif: 0 },
+  { id: 'departments', labelKey: 'nav.departments', icon: Building2, path: '/departments', notif: 0 },
+  { id: 'policies', labelKey: 'nav.policies', icon: FileText, path: '/policies', notif: 3 },
+  { id: 'applications', labelKey: 'nav.applications', icon: LayoutGrid, path: '/applications', notif: 0 },
+  { id: 'settings', labelKey: 'nav.settings', icon: Settings, path: '/settings', notif: 0 },
+  { id: 'userAccount', labelKey: 'nav.userAccount', icon: UserCircle, path: '/account', notif: 0 },
 ];
 
 export default function Sidebar() {
   const { t } = useTranslation();
-  const { sidebarOpen, setSidebarOpen, user, isRTL } = useApp();
+  const { sidebarOpen, setSidebarOpen, toggleSidebar, user, isRTL } = useApp();
 
-  const initials = user.name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .slice(0, 2);
+  const initials = user.name.split(' ').map((n) => n[0]).join('').slice(0, 2);
 
   return (
     <>
@@ -35,22 +27,25 @@ export default function Sidebar() {
         className={`${styles.overlay} ${sidebarOpen ? styles.visible : ''}`}
         onClick={() => setSidebarOpen(false)}
       />
-      <aside
-        className={`${styles.sidebar} ${sidebarOpen ? styles.open : styles.collapsed}`}
-      >
+      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.open : styles.collapsed}`}>
         <div className={styles.logoSection}>
-          <svg className={styles.logoIcon} viewBox="0 0 36 36" fill="none">
-            <path
-              d="M18 2l4 7h8l-6 5 3 8-9-6-9 6 3-8-6-5h8z"
-              fill="rgba(255,255,255,0.9)"
-            />
-            <circle cx="18" cy="18" r="4" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" fill="none" />
+          <svg className={styles.logoIcon} viewBox="0 0 40 40" fill="none">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#88BBFF" />
+                <stop offset="100%" stopColor="#FFFFFF" />
+              </linearGradient>
+            </defs>
+            <path d="M20 2l5 8h10l-8 6 3 10-10-7-10 7 3-10-8-6h10z" fill="url(#logoGrad)" opacity="0.95" />
+            <circle cx="20" cy="20" r="5" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" fill="none" />
           </svg>
-          <div className={styles.logo}>
-            <span>{t('app.name')}</span>
-            <span>{t('app.subtitle')}</span>
+          <div className={styles.logoText}>
+            <span className={styles.logoName}>{t('app.name')}</span>
+            <span className={styles.logoSubtitle}>{t('app.subtitle')}</span>
           </div>
         </div>
+
+        <div className={styles.divider} />
 
         <nav className={styles.nav}>
           {navItems.map((item) => {
@@ -68,20 +63,24 @@ export default function Sidebar() {
               >
                 <Icon className={styles.navIcon} size={20} />
                 <span className={styles.navLabel}>{t(item.labelKey)}</span>
+                {item.notif > 0 && (
+                  <span className={styles.notifCount}>{item.notif}</span>
+                )}
               </a>
             );
           })}
         </nav>
 
+        <button className={styles.collapseBtn} onClick={toggleSidebar}>
+          {sidebarOpen ? <ChevronsLeft size={16} /> : <ChevronsRight size={16} />}
+          {sidebarOpen && <span>Collapse</span>}
+        </button>
+
         <div className={styles.userSection}>
-          <div className={styles.userAvatar}>{initials}</div>
+          <div className={`${styles.userAvatar} ${styles.onlineDot}`}>{initials}</div>
           <div className={styles.userInfo}>
-            <span className={styles.userName}>
-              {isRTL ? user.nameAr : user.name}
-            </span>
-            <span className={styles.userTitle}>
-              {isRTL ? user.titleAr : user.title}
-            </span>
+            <span className={styles.userName}>{isRTL ? user.nameAr : user.name}</span>
+            <span className={styles.userTitle}>{isRTL ? user.titleAr : user.title}</span>
           </div>
         </div>
       </aside>

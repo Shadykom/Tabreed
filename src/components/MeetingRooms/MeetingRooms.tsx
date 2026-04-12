@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Monitor, Users } from 'lucide-react';
+import { Users } from 'lucide-react';
 import Card from '../common/Card';
 import Button from '../common/Button';
 import { useApi } from '../../hooks/useApi';
@@ -16,14 +16,26 @@ export default function MeetingRooms() {
       <div className={styles.grid}>
         {(rooms || []).map((room) => (
           <div key={room.id} className={styles.roomCard}>
-            <div className={styles.roomImage}>
-              <Monitor className={styles.roomIcon} size={32} />
+            <div className={styles.roomImageWrap}>
+              <img
+                className={styles.roomImage}
+                src={room.image}
+                alt={room.name}
+                loading="lazy"
+              />
+              <div className={`${styles.statusBadge} ${styles[room.status]}`}>
+                {room.status === 'available' ? 'Available' : 'In Use'}
+              </div>
             </div>
             <div className={styles.roomInfo}>
               <div className={styles.roomName}>{room.name}</div>
-              <div className={styles.roomCapacity}>
-                <Users size={12} />
-                {room.capacity} people
+              <div className={styles.roomMeta}>
+                <span className={styles.roomCapacity}>
+                  <Users size={13} /> {room.capacity}
+                </span>
+                <span className={styles.roomFloor}>
+                  {room.floor || ''}
+                </span>
               </div>
               <div className={styles.roomStatus}>
                 <Button

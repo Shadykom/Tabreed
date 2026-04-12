@@ -1,33 +1,59 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--spacing-md);
 }
 
 .roomCard {
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--color-border-light);
-  transition: all var(--transition-fast);
+  border: 1.5px solid var(--color-border-light);
+  transition: all var(--transition-normal);
 
   &:hover {
     border-color: var(--color-accent);
     box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
   }
+}
+
+.roomImageWrap {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
 }
 
 .roomImage {
   width: 100%;
-  height: 100px;
-  background: linear-gradient(135deg, #d4e4fd 0%, #e8f0fe 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+
+  .roomCard:hover & {
+    transform: scale(1.05);
+  }
 }
 
-.roomIcon {
-  color: var(--color-accent);
-  opacity: 0.3;
+.statusBadge {
+  position: absolute;
+  top: var(--spacing-sm);
+  inset-inline-end: var(--spacing-sm);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.available {
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.busy {
+  background: var(--color-danger-light);
+  color: var(--color-danger);
 }
 
 .roomInfo {
@@ -38,15 +64,28 @@
 }
 
 .roomName {
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.9375rem;
+  font-weight: 700;
   color: var(--color-text);
+}
+
+.roomMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--spacing-xs);
 }
 
 .roomCapacity {
   display: flex;
   align-items: center;
   gap: 4px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.roomFloor {
   font-size: 0.6875rem;
   color: var(--color-text-light);
 }

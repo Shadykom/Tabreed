@@ -1,10 +1,21 @@
 .card {
   background: var(--color-card);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-card);
   padding: var(--spacing-lg);
-  transition: box-shadow var(--transition-fast);
+  transition: box-shadow var(--transition-normal), transform var(--transition-normal);
   overflow: hidden;
+  animation: fadeIn 0.4s ease both;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+
+  &:hover {
+    box-shadow: var(--shadow-hover);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .cardHeader {
@@ -15,18 +26,28 @@
 }
 
 .cardTitle {
-  font-size: 1rem;
+  font-size: 1.0625rem;
   font-weight: 700;
   color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .viewAll {
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-accent);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
 
   &:hover {
-    text-decoration: underline;
+    background: var(--color-accent-light);
+    text-decoration: none;
   }
 }
