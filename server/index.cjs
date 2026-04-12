@@ -458,6 +458,201 @@ app.get('/api/orgChart', async (req, res) => {
   }
 });
 
+// --- JSON Fallback CRUD for Applications ---
+app.post('/api/applications', (req, res) => {
+  const data = getData();
+  const maxId = data.applications.reduce((m, a) => Math.max(m, a.id), 0);
+  const item = { id: maxId + 1, ...req.body };
+  data.applications.push(item);
+  res.status(201).json(item);
+});
+
+app.put('/api/applications/:id', (req, res) => {
+  const data = getData();
+  const idx = data.applications.findIndex(a => a.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  data.applications[idx] = { ...data.applications[idx], ...req.body };
+  res.json(data.applications[idx]);
+});
+
+app.delete('/api/applications/:id', (req, res) => {
+  const data = getData();
+  data.applications = data.applications.filter(a => a.id != req.params.id);
+  res.json({ message: 'Deleted' });
+});
+
+// --- JSON Fallback CRUD for Office Locations ---
+app.post('/api/officeLocations', (req, res) => {
+  const data = getData();
+  const maxId = data.officeLocations.reduce((m, l) => Math.max(m, l.id), 0);
+  const item = { id: maxId + 1, ...req.body };
+  data.officeLocations.push(item);
+  res.status(201).json(item);
+});
+
+app.put('/api/officeLocations/:id', (req, res) => {
+  const data = getData();
+  const idx = data.officeLocations.findIndex(l => l.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  data.officeLocations[idx] = { ...data.officeLocations[idx], ...req.body };
+  res.json(data.officeLocations[idx]);
+});
+
+app.delete('/api/officeLocations/:id', (req, res) => {
+  const data = getData();
+  data.officeLocations = data.officeLocations.filter(l => l.id != req.params.id);
+  res.json({ message: 'Deleted' });
+});
+
+// --- JSON Fallback CRUD for Safe Locations ---
+app.post('/api/safeLocations', (req, res) => {
+  const data = getData();
+  const maxId = data.safeLocations.reduce((m, l) => Math.max(m, l.id), 0);
+  const item = { id: maxId + 1, ...req.body };
+  data.safeLocations.push(item);
+  res.status(201).json(item);
+});
+
+app.put('/api/safeLocations/:id', (req, res) => {
+  const data = getData();
+  const idx = data.safeLocations.findIndex(l => l.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  data.safeLocations[idx] = { ...data.safeLocations[idx], ...req.body };
+  res.json(data.safeLocations[idx]);
+});
+
+app.delete('/api/safeLocations/:id', (req, res) => {
+  const data = getData();
+  data.safeLocations = data.safeLocations.filter(l => l.id != req.params.id);
+  res.json({ message: 'Deleted' });
+});
+
+// --- PUT for Motivation ---
+app.put('/api/motivation', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { quote, author, backgroundImage } = req.body;
+      await query(
+        `UPDATE WeeklyMotivation SET QuoteEn=@quote, Author=@author, BackgroundImageUrl=@backgroundImage
+         WHERE IsActive = 1`,
+        { quote, author, backgroundImage }
+      );
+      res.json({ message: 'Motivation updated' });
+    } else {
+      const data = getData();
+      Object.assign(data.motivation, req.body);
+      res.json({ message: 'Motivation updated' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- PUT for Reminder ---
+app.put('/api/reminder', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { message, type, active } = req.body;
+      await query(
+        `UPDATE Reminders SET MessageEn=@message, Type=@type, IsActive=@active
+         WHERE IsActive = 1`,
+        { message, type: type || 'info', active: active ? 1 : 0 }
+      );
+      res.json({ message: 'Reminder updated' });
+    } else {
+      const data = getData();
+      Object.assign(data.reminder, req.body);
+      res.json({ message: 'Reminder updated' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- Org Chart flat endpoint & CRUD ---
+app.get('/api/orgChart/flat', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const result = await query(
+        'SELECT Id as id, NameEn as name, TitleEn as title, Avatar as avatar, ParentId as parentId FROM OrgChart ORDER BY SortOrder'
+      );
+      res.json(result.recordset);
+    } else {
+      const data = getData();
+      // Flatten the tree from db.json
+      const flat = [];
+      function flattenNode(node, parentId) {
+        const { children, ...rest } = node;
+        flat.push({ ...rest, parentId: parentId || null });
+        if (children) children.forEach(c => flattenNode(c, node.id));
+      }
+      if (data.orgChart && data.orgChart.id) flattenNode(data.orgChart, null);
+      res.json(flat);
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/orgChart', (req, res) => {
+  const data = getData();
+  // Flatten tree to find max id
+  const flat = [];
+  function flattenNode(node, parentId) {
+    const { children, ...rest } = node;
+    flat.push({ ...rest, parentId: parentId || null });
+    if (children) children.forEach(c => flattenNode(c, node.id));
+  }
+  if (data.orgChart && data.orgChart.id) flattenNode(data.orgChart, null);
+  const maxId = flat.reduce((m, n) => Math.max(m, n.id), 0);
+  const newNode = { id: maxId + 1, ...req.body };
+  // Add to the tree: find parent and push to its children
+  function addToTree(node) {
+    if (!newNode.parentId) return; // root—shouldn't happen for POST
+    if (node.id == newNode.parentId) {
+      if (!node.children) node.children = [];
+      const { parentId, ...nodeData } = newNode;
+      node.children.push(nodeData);
+      return;
+    }
+    if (node.children) node.children.forEach(c => addToTree(c));
+  }
+  if (newNode.parentId) {
+    addToTree(data.orgChart);
+  }
+  res.status(201).json(newNode);
+});
+
+app.put('/api/orgChart/:id', (req, res) => {
+  const data = getData();
+  function updateInTree(node) {
+    if (node.id == req.params.id) {
+      Object.assign(node, { name: req.body.name, title: req.body.title, avatar: req.body.avatar });
+      return true;
+    }
+    if (node.children) return node.children.some(c => updateInTree(c));
+    return false;
+  }
+  const found = updateInTree(data.orgChart);
+  if (!found) return res.status(404).json({ error: 'Not found' });
+  res.json({ message: 'Updated' });
+});
+
+app.delete('/api/orgChart/:id', (req, res) => {
+  const data = getData();
+  function removeFromTree(node) {
+    if (node.children) {
+      node.children = node.children.filter(c => c.id != req.params.id);
+      node.children.forEach(c => removeFromTree(c));
+    }
+  }
+  removeFromTree(data.orgChart);
+  res.json({ message: 'Deleted' });
+});
+
 // --- CMS: Dashboard Stats ---
 app.get('/api/admin/stats', async (req, res) => {
   try {
