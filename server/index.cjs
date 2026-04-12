@@ -416,6 +416,95 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', database: useSQL ? 'sql-server' : 'json-fallback', timestamp: new Date().toISOString() });
 });
 
+// --- Authentication ---
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const JWT_SECRET = process.env.JWT_SECRET || 'tabreed-portal-secret';
+
+// Test users for JSON fallback mode
+const testUsers = [
+  { id: 1, email: 'admin@sauditabreed.com', password: bcrypt.hashSync('Admin@2024', 10), name: 'System Administrator', nameAr: 'مدير النظام', role: 'admin', title: 'IT Administrator', titleAr: 'مدير تقنية المعلومات', department: 'IT', avatar: '' },
+  { id: 2, email: 'ahmed.qahtani@sauditabreed.com', password: bcrypt.hashSync('Editor@2024', 10), name: 'Ahmed Al-Qahtani', nameAr: 'أحمد القحطاني', role: 'editor', title: 'IT Specialist', titleAr: 'أخصائي تقنية المعلومات', department: 'IT', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face' },
+  { id: 3, email: 'sara.malik@sauditabreed.com', password: bcrypt.hashSync('User@2024', 10), name: 'Sara Al-Malik', nameAr: 'سارة المالك', role: 'user', title: 'VP Human Resources', titleAr: 'نائب رئيس الموارد البشرية', department: 'HR', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face' },
+];
+
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ error: 'Email and password are required' });
+
+    let user = null;
+
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const result = await query(
+        'SELECT Id, Email, PasswordHash, FullNameEn, FullNameAr, TitleEn, TitleAr, Department, Role, Avatar FROM Users WHERE Email = @email AND IsActive = 1',
+        { email }
+      );
+      if (result.recordset.length === 0) return res.status(401).json({ error: 'Invalid email or password' });
+      const row = result.recordset[0];
+      const valid = await bcrypt.compare(password, row.PasswordHash);
+      if (!valid) return res.status(401).json({ error: 'Invalid email or password' });
+      user = { id: row.Id, email: row.Email, name: row.FullNameEn, nameAr: row.FullNameAr, role: row.Role, title: row.TitleEn, titleAr: row.TitleAr, department: row.Department, avatar: row.Avatar };
+    } else {
+      const found = testUsers.find(u => u.email === email);
+      if (!found) return res.status(401).json({ error: 'Invalid email or password' });
+      const valid = await bcrypt.compare(password, found.password);
+      if (!valid) return res.status(401).json({ error: 'Invalid email or password' });
+      user = { id: found.id, email: found.email, name: found.name, nameAr: found.nameAr, role: found.role, title: found.title, titleAr: found.titleAr, department: found.department, avatar: found.avatar };
+    }
+
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '24h' });
+    res.json({ token, user });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/auth/me', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return res.status(401).json({ error: 'No token provided' });
+    const token = authHeader.replace('Bearer ', '');
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const result = await query(
+        'SELECT Id, Email, FullNameEn as name, FullNameAr as nameAr, TitleEn as title, TitleAr as titleAr, Department as department, Role as role, Avatar as avatar FROM Users WHERE Id = @id',
+        { id: decoded.id }
+      );
+      res.json(result.recordset[0] || {});
+    } else {
+      const found = testUsers.find(u => u.id === decoded.id);
+      if (found) {
+        const { password, ...user } = found;
+        res.json(user);
+      } else {
+        res.status(404).json({ error: 'User not found' });
+      }
+    }
+  } catch (err) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+});
+
+// --- Policies (static data for JSON fallback) ---
+app.get('/api/policies', (req, res) => {
+  res.json([
+    { id: 1, title: 'HSE Guidelines & Standards', category: 'HSE', date: '2026-01-15', fileUrl: '#' },
+    { id: 2, title: 'IT Security Policy', category: 'IT', date: '2025-11-20', fileUrl: '#' },
+    { id: 3, title: 'Employee Handbook 2026', category: 'HR', date: '2026-01-01', fileUrl: '#' },
+    { id: 4, title: 'Emergency Response Procedures', category: 'HSE', date: '2025-09-10', fileUrl: '#' },
+    { id: 5, title: 'Data Protection & Privacy Policy', category: 'IT', date: '2025-12-05', fileUrl: '#' },
+    { id: 6, title: 'Travel & Expense Policy', category: 'HR', date: '2025-08-15', fileUrl: '#' },
+    { id: 7, title: 'Code of Conduct', category: 'HR', date: '2025-06-01', fileUrl: '#' },
+    { id: 8, title: 'Work From Home Policy', category: 'HR', date: '2026-02-01', fileUrl: '#' },
+    { id: 9, title: 'Plant Operations Manual', category: 'Operations', date: '2025-10-20', fileUrl: '#' },
+    { id: 10, title: 'Vendor Management Policy', category: 'Operations', date: '2025-07-15', fileUrl: '#' },
+  ]);
+});
+
 // Start
 initDB().then(() => {
   app.listen(PORT, () => {

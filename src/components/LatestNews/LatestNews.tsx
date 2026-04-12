@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Search, Clock, MessageSquare, Share2 } from 'lucide-react';
 import Card from '../common/Card';
 import { useApi } from '../../hooks/useApi';
@@ -9,6 +10,7 @@ import styles from './LatestNews.module.scss';
 
 export default function LatestNews() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { data: news } = useApi<NewsArticle[]>(api.getNews);
   const [search, setSearch] = useState('');
 
@@ -59,7 +61,7 @@ export default function LatestNews() {
                     <MessageSquare size={11} /> {article.comments}
                   </span>
                 </div>
-                <button className={styles.readMore}>{t('news.readMore')}</button>
+                <button className={styles.readMore} onClick={() => navigate(`/news/${article.id}`)}>{t('news.readMore')}</button>
               </div>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../hooks/useApp';
 import {
   Home, Building2, FileText, LayoutGrid, Settings,
@@ -17,6 +18,8 @@ const navItems = [
 
 export default function Sidebar() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { sidebarOpen, setSidebarOpen, toggleSidebar, user, isRTL } = useApp();
 
   const initials = user.name.split(' ').map((n) => n[0]).join('').slice(0, 2);
@@ -50,14 +53,15 @@ export default function Sidebar() {
         <nav className={styles.nav}>
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = item.id === 'home';
+            const isActive = item.path === '/'
+              ? location.pathname === '/'
+              : location.pathname.startsWith(item.path);
             return (
-              <a
+              <button
                 key={item.id}
-                href={item.path}
                 className={`${styles.navItem} ${isActive ? styles.active : ''}`}
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
+                  navigate(item.path);
                   if (window.innerWidth <= 768) setSidebarOpen(false);
                 }}
               >
@@ -66,7 +70,7 @@ export default function Sidebar() {
                 {item.notif > 0 && (
                   <span className={styles.notifCount}>{item.notif}</span>
                 )}
-              </a>
+              </button>
             );
           })}
         </nav>
