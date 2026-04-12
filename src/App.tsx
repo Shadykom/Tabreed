@@ -12,7 +12,7 @@ import ServiceRequest from './pages/ServiceRequest';
 import ChairmanPage from './pages/ChairmanPage';
 import RoomBooking from './pages/RoomBooking';
 import Login from './pages/Login';
-import Admin from './pages/admin/Admin';
+import Admin from './pages/admin/AdminNew';
 import './i18n';
 import './index.scss';
 
