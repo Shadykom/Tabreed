@@ -1,250 +1,175 @@
-import { useState, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
 import {
-  FileText, Search, Download, ShieldCheck, Users,
-  Monitor, Settings2, BookOpen, Clock,
+  FileText, Search, ShieldCheck, Users, Monitor, Settings2,
+  Eye, Download, X, Calendar, BookOpen, Upload,
 } from 'lucide-react';
 import Card from '../components/common/Card';
-import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
 import styles from './PoliciesPage.module.scss';
 
-type PolicyCategory = 'All' | 'HSE' | 'HR' | 'IT' | 'Operations';
+type Category = 'All' | 'HSE' | 'HR' | 'IT' | 'Operations';
 
 interface Policy {
   id: number;
   title: string;
-  category: Exclude<PolicyCategory, 'All'>;
+  category: string;
   date: string;
-  version: string;
   pages: number;
+  description: string;
+  fileUrl: string;
 }
 
-const POLICIES: Policy[] = [
-  {
-    id: 1,
-    title: 'HSE Guidelines & Standards',
-    category: 'HSE',
-    date: 'Mar 2025',
-    version: 'v3.2',
-    pages: 48,
-  },
-  {
-    id: 2,
-    title: 'IT Security Policy',
-    category: 'IT',
-    date: 'Jan 2025',
-    version: 'v2.1',
-    pages: 32,
-  },
-  {
-    id: 3,
-    title: 'Employee Handbook',
-    category: 'HR',
-    date: 'Dec 2024',
-    version: 'v5.0',
-    pages: 120,
-  },
-  {
-    id: 4,
-    title: 'Emergency Procedures',
-    category: 'HSE',
-    date: 'Feb 2025',
-    version: 'v4.1',
-    pages: 24,
-  },
-  {
-    id: 5,
-    title: 'Data Protection Policy',
-    category: 'IT',
-    date: 'Nov 2024',
-    version: 'v1.8',
-    pages: 28,
-  },
-  {
-    id: 6,
-    title: 'Travel & Expense Policy',
-    category: 'HR',
-    date: 'Oct 2024',
-    version: 'v2.3',
-    pages: 18,
-  },
-  {
-    id: 7,
-    title: 'Code of Conduct',
-    category: 'HR',
-    date: 'Jan 2025',
-    version: 'v6.0',
-    pages: 36,
-  },
-  {
-    id: 8,
-    title: 'Work From Home Policy',
-    category: 'HR',
-    date: 'Sep 2024',
-    version: 'v1.5',
-    pages: 14,
-  },
-  {
-    id: 9,
-    title: 'Operations & Maintenance Manual',
-    category: 'Operations',
-    date: 'Apr 2025',
-    version: 'v7.2',
-    pages: 200,
-  },
-  {
-    id: 10,
-    title: 'Risk Assessment Framework',
-    category: 'HSE',
-    date: 'Mar 2025',
-    version: 'v2.0',
-    pages: 54,
-  },
-];
+const TABS: Category[] = ['All', 'HSE', 'HR', 'IT', 'Operations'];
 
-const CATEGORY_TABS: PolicyCategory[] = ['All', 'HSE', 'HR', 'IT', 'Operations'];
-
-const categoryIcon: Record<Exclude<PolicyCategory, 'All'>, React.ElementType> = {
-  HSE: ShieldCheck,
-  HR: Users,
-  IT: Monitor,
-  Operations: Settings2,
+const catIcon: Record<string, typeof FileText> = {
+  HSE: ShieldCheck, HR: Users, IT: Monitor, Operations: Settings2,
 };
-
-const categoryColor: Record<Exclude<PolicyCategory, 'All'>, string> = {
-  HSE: '#EF4444',
-  HR: '#8B5CF6',
-  IT: '#F59E0B',
-  Operations: '#14B8A6',
+const catColor: Record<string, string> = {
+  HSE: '#EF4444', HR: '#8B5CF6', IT: '#F59E0B', Operations: '#14B8A6',
 };
-
-const categoryBg: Record<Exclude<PolicyCategory, 'All'>, string> = {
-  HSE: '#FEE2E2',
-  HR: '#EDE9FE',
-  IT: '#FEF3C7',
-  Operations: '#CCFBF1',
+const catBg: Record<string, string> = {
+  HSE: '#FEE2E2', HR: '#EDE9FE', IT: '#FEF3C7', Operations: '#CCFBF1',
 };
-
-function categoryToBadgeVariant(cat: Exclude<PolicyCategory, 'All'>): 'important' | 'scheduled' | 'announcement' | 'info' {
-  if (cat === 'HSE') return 'important';
-  if (cat === 'Operations') return 'scheduled';
-  if (cat === 'IT') return 'info';
-  return 'announcement';
-}
 
 export default function PoliciesPage() {
-  const { t } = useTranslation();
+  const [policies, setPolicies] = useState<Policy[]>([]);
   const [search, setSearch] = useState('');
-  const [activeTab, setActiveTab] = useState<PolicyCategory>('All');
+  const [activeTab, setActiveTab] = useState<Category>('All');
+  const [viewingPolicy, setViewingPolicy] = useState<Policy | null>(null);
 
-  const filtered = useMemo(() => {
-    return POLICIES.filter((p) => {
-      const matchCat = activeTab === 'All' || p.category === activeTab;
-      const matchSearch = p.title.toLowerCase().includes(search.toLowerCase());
-      return matchCat && matchSearch;
-    });
-  }, [search, activeTab]);
+  useEffect(() => {
+    fetch(`/api/policies?category=${activeTab}&search=${encodeURIComponent(search)}`)
+      .then(r => r.json()).then(setPolicies).catch(() => {});
+  }, [activeTab, search]);
 
   return (
     <div className={styles.page}>
-      <div className={styles.pageHeader}>
-        <div className={styles.headerText}>
-          <h1 className={styles.pageTitle}>{t('nav.policies')}</h1>
-          <p className={styles.pageSubtitle}>
-            Access and download official Saudi Tabreed policies and procedures.
-          </p>
+      <div className={styles.header}>
+        <div>
+          <h1 className={styles.title}>
+            <BookOpen size={24} className={styles.titleIcon} /> Policies & Procedures
+          </h1>
+          <p className={styles.subtitle}>Access and download official Saudi Tabreed policies and documents</p>
         </div>
-        <div className={styles.headerStats}>
-          <div className={styles.statBubble}>
-            <BookOpen size={16} />
-            <span>{POLICIES.length} Documents</span>
-          </div>
-        </div>
+        <span className={styles.count}>{policies.length} Documents</span>
       </div>
 
-      {/* Search + Filter Row */}
+      {/* Search + Tabs */}
       <div className={styles.controls}>
         <div className={styles.searchWrap}>
-          <Search size={16} className={styles.searchIcon} />
+          <Search size={18} className={styles.searchIcon} />
           <input
             className={styles.searchInput}
-            type="text"
-            placeholder="Search policies..."
+            placeholder="Search policies by name, category, or keyword..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          {search && (
+            <button className={styles.clearBtn} onClick={() => setSearch('')}><X size={16} /></button>
+          )}
         </div>
         <div className={styles.tabs}>
-          {CATEGORY_TABS.map((tab) => (
-            <button
-              key={tab}
-              className={`${styles.tab} ${activeTab === tab ? styles.active : ''}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
+          {TABS.map(t => (
+            <button key={t} className={`${styles.tab} ${activeTab === t ? styles.tabActive : ''}`}
+              onClick={() => setActiveTab(t)}>
+              {t}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Policy Grid */}
-      {filtered.length === 0 ? (
-        <div className={styles.empty}>
-          <FileText size={48} />
-          <p>No policies found matching your criteria.</p>
-          <Button variant="outline" onClick={() => { setSearch(''); setActiveTab('All'); }}>
-            Clear filters
-          </Button>
-        </div>
-      ) : (
-        <div className={styles.grid}>
-          {filtered.map((policy) => {
-            const CatIcon = categoryIcon[policy.category];
-            return (
-              <Card key={policy.id} className={styles.policyCard}>
-                <div className={styles.cardTop}>
-                  <div
-                    className={styles.docIcon}
-                    style={{
-                      background: categoryBg[policy.category],
-                      color: categoryColor[policy.category],
-                    }}
-                  >
-                    <CatIcon size={22} />
-                  </div>
-                  <Badge variant={categoryToBadgeVariant(policy.category)}>
-                    {policy.category}
-                  </Badge>
+      {/* Policy Cards Grid */}
+      <div className={styles.grid}>
+        {policies.map(p => {
+          const Icon = catIcon[p.category] || FileText;
+          const color = catColor[p.category] || '#6B7280';
+          const bg = catBg[p.category] || '#F3F4F6';
+          return (
+            <Card key={p.id}>
+              <div className={styles.policyCard}>
+                <div className={styles.policyIcon} style={{ background: bg, color }}>
+                  <Icon size={24} />
                 </div>
-
-                <h3 className={styles.policyTitle}>{policy.title}</h3>
-
+                <h3 className={styles.policyTitle}>{p.title}</h3>
+                <p className={styles.policyDesc}>{p.description}</p>
                 <div className={styles.policyMeta}>
-                  <span className={styles.metaItem}>
-                    <Clock size={12} />
-                    {policy.date}
-                  </span>
-                  <span className={styles.metaItem}>
-                    <FileText size={12} />
-                    {policy.pages} pages
-                  </span>
-                  <span className={styles.versionBadge}>{policy.version}</span>
+                  <span><Calendar size={12} /> {p.date}</span>
+                  <span style={{ color, fontWeight: 600 }}>{p.category}</span>
+                  <span>{p.pages} pages</span>
                 </div>
-
-                <div className={styles.cardFooter}>
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    className={styles.downloadBtn}
-                  >
-                    <Download size={14} />
-                    Download PDF
+                <div className={styles.policyActions}>
+                  <Button variant="primary" size="sm" onClick={() => setViewingPolicy(p)}>
+                    <Eye size={14} /> View
                   </Button>
+                  {p.fileUrl && (
+                    <Button variant="outline" size="sm" onClick={() => window.open(p.fileUrl, '_blank')}>
+                      <Download size={14} /> Download
+                    </Button>
+                  )}
                 </div>
-              </Card>
-            );
-          })}
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+
+      {policies.length === 0 && (
+        <div className={styles.empty}>
+          <FileText size={48} style={{ opacity: 0.2, marginBottom: 12 }} />
+          <p>No policies found matching your search.</p>
+        </div>
+      )}
+
+      {/* In-Browser Document Viewer Modal */}
+      {viewingPolicy && (
+        <div className={styles.viewerOverlay} onClick={() => setViewingPolicy(null)}>
+          <div className={styles.viewer} onClick={e => e.stopPropagation()}>
+            <div className={styles.viewerHeader}>
+              <div>
+                <h2 className={styles.viewerTitle}>{viewingPolicy.title}</h2>
+                <span className={styles.viewerMeta}>{viewingPolicy.category} • {viewingPolicy.date} • {viewingPolicy.pages} pages</span>
+              </div>
+              <div className={styles.viewerActions}>
+                {viewingPolicy.fileUrl && (
+                  <Button variant="outline" size="sm" onClick={() => window.open(viewingPolicy.fileUrl, '_blank')}>
+                    <Download size={14} /> Download
+                  </Button>
+                )}
+                <button className={styles.viewerClose} onClick={() => setViewingPolicy(null)}>
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
+            <div className={styles.viewerBody}>
+              {viewingPolicy.fileUrl ? (
+                <iframe
+                  src={viewingPolicy.fileUrl}
+                  className={styles.viewerFrame}
+                  title={viewingPolicy.title}
+                />
+              ) : (
+                <div className={styles.viewerPlaceholder}>
+                  <FileText size={64} style={{ opacity: 0.15, marginBottom: 16 }} />
+                  <h3>{viewingPolicy.title}</h3>
+                  <p className={styles.viewerDesc}>{viewingPolicy.description}</p>
+                  <div className={styles.viewerInfo}>
+                    <div className={styles.viewerInfoItem}>
+                      <strong>Category</strong><span>{viewingPolicy.category}</span>
+                    </div>
+                    <div className={styles.viewerInfoItem}>
+                      <strong>Last Updated</strong><span>{viewingPolicy.date}</span>
+                    </div>
+                    <div className={styles.viewerInfoItem}>
+                      <strong>Pages</strong><span>{viewingPolicy.pages}</span>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: '0.8125rem', color: '#9CA3AF', marginTop: 20 }}>
+                    <Upload size={14} style={{ verticalAlign: 'middle' }} /> Upload a PDF file from the Admin panel to enable in-browser viewing.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

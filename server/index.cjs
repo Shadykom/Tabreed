@@ -1260,6 +1260,83 @@ app.delete('/api/room-bookings/:id', (req, res) => {
   res.json({ message: 'Cancelled' });
 });
 
+// --- Policies Management ---
+const policiesDir = path.join(__dirname, 'uploads', 'policies');
+if (!require('fs').existsSync(policiesDir)) require('fs').mkdirSync(policiesDir, { recursive: true });
+
+const policyStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, policiesDir),
+  filename: (req, file, cb) => cb(null, `policy-${Date.now()}-${file.originalname}`),
+});
+const policyUpload = multer({ storage: policyStorage, limits: { fileSize: 50 * 1024 * 1024 } });
+
+// In-memory policies store
+let policies = [
+  { id: 1, title: 'HSE Guidelines & Standards', category: 'HSE', date: '2026-01-15', pages: 45, fileUrl: '', description: 'Comprehensive health, safety and environment guidelines for all Saudi Tabreed operations and plants.' },
+  { id: 2, title: 'IT Security Policy', category: 'IT', date: '2025-11-20', pages: 32, fileUrl: '', description: 'Information security policies covering data protection, access control, and cybersecurity measures.' },
+  { id: 3, title: 'Employee Handbook 2026', category: 'HR', date: '2026-01-01', pages: 78, fileUrl: '', description: 'Complete employee handbook with company policies, benefits, code of conduct and workplace procedures.' },
+  { id: 4, title: 'Emergency Response Procedures', category: 'HSE', date: '2025-09-10', pages: 28, fileUrl: '', description: 'Emergency evacuation and response procedures for all office locations and cooling plants.' },
+  { id: 5, title: 'Data Protection & Privacy Policy', category: 'IT', date: '2025-12-05', pages: 22, fileUrl: '', description: 'Data privacy and protection policy in compliance with Saudi data protection regulations.' },
+  { id: 6, title: 'Travel & Expense Policy', category: 'HR', date: '2025-08-15', pages: 18, fileUrl: '', description: 'Guidelines for business travel booking, expense claims, and reimbursement procedures.' },
+  { id: 7, title: 'Code of Conduct', category: 'HR', date: '2025-06-01', pages: 15, fileUrl: '', description: 'Professional and ethical standards expected of all Saudi Tabreed employees.' },
+  { id: 8, title: 'Work From Home Policy', category: 'HR', date: '2026-02-01', pages: 12, fileUrl: '', description: 'Remote work guidelines, eligibility criteria, and expectations for WFH arrangements.' },
+  { id: 9, title: 'Operations & Maintenance Manual', category: 'Operations', date: '2025-10-20', pages: 95, fileUrl: '', description: 'Standard operating procedures for district cooling plant operations and maintenance.' },
+  { id: 10, title: 'Risk Assessment Framework', category: 'Operations', date: '2025-07-15', pages: 54, fileUrl: '', description: 'Risk identification, assessment methodology and mitigation strategies for all projects.' },
+];
+
+app.get('/api/policies', (req, res) => {
+  const { search, category } = req.query;
+  let result = [...policies];
+  if (category && category !== 'All') result = result.filter(p => p.category === category);
+  if (search) {
+    const s = String(search).toLowerCase();
+    result = result.filter(p => p.title.toLowerCase().includes(s) || p.description.toLowerCase().includes(s) || p.category.toLowerCase().includes(s));
+  }
+  res.json(result);
+});
+
+app.get('/api/policies/:id', (req, res) => {
+  const p = policies.find(p => p.id == req.params.id);
+  p ? res.json(p) : res.status(404).json({ error: 'Not found' });
+});
+
+app.post('/api/policies', policyUpload.single('file'), (req, res) => {
+  const maxId = policies.reduce((m, p) => Math.max(m, p.id), 0);
+  const item = {
+    id: maxId + 1,
+    title: req.body.title || 'Untitled',
+    category: req.body.category || 'General',
+    date: new Date().toISOString().split('T')[0],
+    pages: parseInt(req.body.pages) || 0,
+    description: req.body.description || '',
+    fileUrl: req.file ? `/uploads/policies/${req.file.filename}` : '',
+  };
+  policies.push(item);
+  saveData();
+  res.status(201).json(item);
+});
+
+app.put('/api/policies/:id', policyUpload.single('file'), (req, res) => {
+  const idx = policies.findIndex(p => p.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  policies[idx] = {
+    ...policies[idx],
+    title: req.body.title || policies[idx].title,
+    category: req.body.category || policies[idx].category,
+    pages: parseInt(req.body.pages) || policies[idx].pages,
+    description: req.body.description || policies[idx].description,
+    fileUrl: req.file ? `/uploads/policies/${req.file.filename}` : policies[idx].fileUrl,
+  };
+  saveData();
+  res.json(policies[idx]);
+});
+
+app.delete('/api/policies/:id', (req, res) => {
+  policies = policies.filter(p => p.id != req.params.id);
+  saveData();
+  res.json({ message: 'Deleted' });
+});
+
 // Start
 initDB().then(() => {
   app.listen(PORT, () => {
