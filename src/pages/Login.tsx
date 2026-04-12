@@ -77,7 +77,7 @@ export default function Login() {
             Pioneering sustainable district cooling solutions across the Kingdom of Saudi Arabia,
             serving mega developments aligned with Vision 2030.
           </p>
-          <div className={styles.brandStats}>
+          <div className={styles.brandStats} style={{ display: 'none' }}>
             <div className={styles.brandStat}>
               <span className={styles.brandStatNum}>751K</span>
               <span className={styles.brandStatLabel}>TR Capacity</span>
