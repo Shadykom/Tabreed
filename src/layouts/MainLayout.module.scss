@@ -16,12 +16,20 @@
 .content {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   background: var(--color-bg);
-  padding: var(--spacing-lg);
+  padding: 16px 20px;
+  scroll-behavior: smooth;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .content {
-    padding: var(--spacing-md);
+    padding: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .content {
+    padding: 10px;
   }
 }

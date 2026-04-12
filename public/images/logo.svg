@@ -1,33 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50">
-  <defs>
-    <linearGradient id="snowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4A90D9"/>
-      <stop offset="100%" style="stop-color:#88CCFF"/>
-    </linearGradient>
-  </defs>
-  <!-- Tabreed snowflake/cooling symbol -->
-  <g transform="translate(25, 25)">
-    <!-- 6-pointed snowflake -->
-    <line x1="0" y1="-13" x2="0" y2="13" stroke="url(#snowGrad)" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="-11.3" y1="-6.5" x2="11.3" y2="6.5" stroke="url(#snowGrad)" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="-11.3" y1="6.5" x2="11.3" y2="-6.5" stroke="url(#snowGrad)" stroke-width="2.5" stroke-linecap="round"/>
-    <!-- Branches -->
-    <line x1="0" y1="-13" x2="-3.5" y2="-9" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="0" y1="-13" x2="3.5" y2="-9" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="0" y1="13" x2="-3.5" y2="9" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="0" y1="13" x2="3.5" y2="9" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="-11.3" y1="-6.5" x2="-7.8" y2="-8.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="-11.3" y1="-6.5" x2="-10" y2="-2.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="11.3" y1="6.5" x2="7.8" y2="8.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="11.3" y1="6.5" x2="10" y2="2.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="11.3" y1="-6.5" x2="7.8" y2="-8.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="11.3" y1="-6.5" x2="10" y2="-2.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="-11.3" y1="6.5" x2="-7.8" y2="8.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="-11.3" y1="6.5" x2="-10" y2="2.5" stroke="url(#snowGrad)" stroke-width="1.8" stroke-linecap="round"/>
-    <!-- Center dot -->
-    <circle cx="0" cy="0" r="2.5" fill="#4A90D9"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 50">
+  <!-- Saudi Tabreed Logo Recreation -->
+  <!-- ST Letters Mark -->
+  <g transform="translate(0, 3)">
+    <!-- S letter - dark blue -->
+    <path d="M0,30 C0,30 0,20 8,14 C16,8 20,12 20,18 C20,24 12,26 8,30 C4,34 0,36 0,42 L20,42"
+          fill="none" stroke="#1B3A6B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- T letter top bar -->
+    <line x1="22" y1="5" x2="42" y2="5" stroke="#1B3A6B" stroke-width="5" stroke-linecap="round"/>
+    <!-- T letter vertical -->
+    <line x1="32" y1="5" x2="32" y2="42" stroke="#1B3A6B" stroke-width="5" stroke-linecap="round"/>
+    <!-- Accent mark - teal/turquoise -->
+    <rect x="36" y="0" width="8" height="8" rx="1" fill="#2EC4B6"/>
   </g>
-  <!-- Saudi Tabreed text -->
-  <text x="48" y="20" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="white" letter-spacing="0.5">Saudi Tabreed</text>
-  <text x="48" y="36" font-family="Inter, Arial, sans-serif" font-size="7.5" font-weight="400" fill="rgba(255,255,255,0.6)" letter-spacing="1">DISTRICT COOLING COMPANY</text>
+  <!-- Saudi Tabreed text - English -->
+  <text x="55" y="22" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#1B3A6B" letter-spacing="-0.5">saudi tabreed</text>
+  <!-- Arabic text -->
+  <text x="55" y="42" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="500" fill="#1B3A6B" letter-spacing="0.5">تبريد السعودية</text>
 </svg>

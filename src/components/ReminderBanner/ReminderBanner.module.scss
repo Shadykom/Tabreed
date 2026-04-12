@@ -6,7 +6,7 @@
   background: linear-gradient(135deg, #e8f0fe 0%, #dbeafe 100%);
   border: 1px solid rgba(74, 127, 212, 0.15);
   border-radius: var(--radius-xl);
-  margin-block-end: var(--spacing-lg);
+  margin-block-end: 14px;
   animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 8px rgba(74, 127, 212, 0.08);
 }

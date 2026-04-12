@@ -1,79 +1,62 @@
 .dashboard {
   display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: var(--spacing-lg);
-  max-width: 1400px;
+  grid-template-columns: 5fr 3fr;
+  gap: 16px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
-/* Row 1: Latest News (left) + Chairman + Announcements (right) */
+/* Row 1: Latest News spans left, Chairman + Announcements stack right */
 .newsSection {
   grid-row: span 2;
+  min-height: 0;
 }
 
 .chairmanSection {
-  /* auto-placed on right */
+  /* right column, row 1 */
 }
 
 .announcementsSection {
-  /* auto-placed on right, below chairman */
+  /* right column, row 2 */
 }
 
-/* Row 3: Application List (full width) */
+/* Full width rows */
 .appsSection {
   grid-column: 1 / -1;
 }
 
-/* Row 4: Weekly Motivation (left) + Office Locations (right) */
+/* 2-column rows */
 .motivationSection {
-  /* left column */
+  grid-column: 1 / -1;
 }
 
-.locationsSection {
-  /* right column */
-}
-
-/* Row 5: OrgChart (left) + Employee Directory (right) */
-.orgChartSection {
-  /* left column */
-}
-
-.directorySection {
-  /* right column */
-}
-
-/* Row 6: Safe Locations (left) + Meeting Rooms (right) */
-.safeSection {
-  /* left column */
-}
-
+.locationsSection,
+.orgChartSection,
+.directorySection,
+.safeSection,
 .roomsSection {
-  /* right column */
+  /* auto 2-col flow */
 }
 
-/* Tablet: stack everything */
+/* ── Tablet ── */
 @media (max-width: 1024px) {
   .dashboard {
     grid-template-columns: 1fr 1fr;
+    gap: 14px;
   }
 
-  .newsSection { grid-column: span 2; grid-row: span 1; }
-  .chairmanSection { grid-column: span 2; }
-  .announcementsSection { grid-column: span 2; }
-  .appsSection { grid-column: span 2; }
-  .motivationSection { grid-column: span 2; }
-  .locationsSection { grid-column: span 2; }
-  .orgChartSection { grid-column: span 2; }
-  .directorySection { grid-column: span 2; }
-  .safeSection { grid-column: span 2; }
-  .roomsSection { grid-column: span 2; }
+  .newsSection { grid-column: 1 / -1; grid-row: span 1; }
+  .chairmanSection { grid-column: 1 / -1; }
+  .announcementsSection { grid-column: 1 / -1; }
+  .appsSection { grid-column: 1 / -1; }
+  .motivationSection { grid-column: 1 / -1; }
 }
 
-/* Mobile: single column */
+/* ── Mobile ── */
 @media (max-width: 640px) {
   .dashboard {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    gap: 12px;
   }
 
   .newsSection,

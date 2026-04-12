@@ -1,20 +1,24 @@
 .card {
   background: var(--color-card);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
-  padding: var(--spacing-lg);
-  transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  padding: 18px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
   overflow: hidden;
-  animation: fadeIn 0.4s ease both;
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  animation: cardIn 0.35s ease both;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   &:hover {
-    box-shadow: var(--shadow-hover);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border-color: rgba(74, 127, 212, 0.08);
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -22,32 +26,33 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-block-end: var(--spacing-md);
+  margin-block-end: 14px;
+  flex-shrink: 0;
 }
 
 .cardTitle {
-  font-size: 1.0625rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   color: var(--color-text);
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 6px;
+  letter-spacing: -0.01em;
 }
 
 .viewAll {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-accent);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 12px;
+  gap: 3px;
+  padding: 4px 10px;
   border-radius: var(--radius-full);
-  transition: all var(--transition-fast);
+  transition: all 0.15s ease;
 
   &:hover {
     background: var(--color-accent-light);
-    text-decoration: none;
   }
 }

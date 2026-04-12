@@ -32,30 +32,13 @@ export default function Sidebar() {
       />
       <aside className={`${styles.sidebar} ${sidebarOpen ? styles.open : styles.collapsed}`}>
         <div className={styles.logoSection}>
-          <svg className={styles.logoIcon} viewBox="0 0 40 40" fill="none">
-            <defs>
-              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#4A90D9" />
-                <stop offset="100%" stopColor="#88CCFF" />
-              </linearGradient>
-            </defs>
-            {/* Snowflake / Cooling symbol */}
-            <line x1="20" y1="5" x2="20" y2="35" stroke="url(#logoGrad)" strokeWidth="2.5" strokeLinecap="round" />
-            <line x1="7" y1="12.5" x2="33" y2="27.5" stroke="url(#logoGrad)" strokeWidth="2.5" strokeLinecap="round" />
-            <line x1="7" y1="27.5" x2="33" y2="12.5" stroke="url(#logoGrad)" strokeWidth="2.5" strokeLinecap="round" />
-            <line x1="20" y1="5" x2="16" y2="10" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="20" y1="5" x2="24" y2="10" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="20" y1="35" x2="16" y2="30" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="20" y1="35" x2="24" y2="30" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="7" y1="12.5" x2="11" y2="10" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="7" y1="12.5" x2="9" y2="17" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="33" y1="27.5" x2="29" y2="30" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="33" y1="27.5" x2="31" y2="23" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="33" y1="12.5" x2="29" y2="10" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="33" y1="12.5" x2="31" y2="17" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="7" y1="27.5" x2="11" y2="30" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <line x1="7" y1="27.5" x2="9" y2="23" stroke="url(#logoGrad)" strokeWidth="1.8" strokeLinecap="round" />
-            <circle cx="20" cy="20" r="3" fill="#4A90D9" />
+          <svg className={styles.logoIcon} viewBox="0 0 40 44" fill="none">
+            {/* ST Logo Mark - matching real Saudi Tabreed brand */}
+            <path d="M2,30 C2,30 2,19 10,13 C18,7 22,12 22,18 C22,24 14,26 10,30 C6,34 2,36 2,42 L22,42"
+              fill="none" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.95"/>
+            <line x1="24" y1="4" x2="40" y2="4" stroke="white" strokeWidth="4.5" strokeLinecap="round" opacity="0.95"/>
+            <line x1="32" y1="4" x2="32" y2="42" stroke="white" strokeWidth="4.5" strokeLinecap="round" opacity="0.95"/>
+            <rect x="36" y="0" width="6" height="6" rx="1" fill="#2EC4B6"/>
           </svg>
           <div className={styles.logoText}>
             <span className={styles.logoName}>{t('app.name')}</span>

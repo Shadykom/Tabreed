@@ -84,14 +84,14 @@
     { "id": 10, "name": "Microsoft Teams", "category": "Tools", "icon": "users", "color": "#6264A7", "description": "Communication", "url": "#" }
   ],
   "employees": [
-    { "id": 1, "name": "Abdulhamid Aalmansour", "department": "Executive", "title": "CEO", "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face" },
-    { "id": 2, "name": "Khalid Al-Rashidi", "department": "Finance", "title": "VP Finance", "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" },
-    { "id": 3, "name": "Sara Al-Malik", "department": "HR", "title": "VP Human Resources", "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face" },
-    { "id": 4, "name": "Omar Al-Harbi", "department": "Engineering", "title": "VP Projects", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" },
-    { "id": 5, "name": "Fatima Al-Dosari", "department": "Operations", "title": "Operations Mgr", "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" },
-    { "id": 6, "name": "Mohammed Al-Shehri", "department": "Engineering", "title": "Senior Engineer", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" },
-    { "id": 7, "name": "Noura Al-Zahrani", "department": "HSE", "title": "HSE Manager", "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face" },
-    { "id": 8, "name": "Ahmed Al-Qahtani", "department": "IT", "title": "IT Specialist", "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face" }
+    { "id": 1, "name": "Abdulhamid Aalmansour", "department": "Executive", "title": "CEO", "avatar": "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=150&h=150&fit=crop&crop=face" },
+    { "id": 2, "name": "Khalid Al-Rashidi", "department": "Finance", "title": "VP Finance", "avatar": "https://images.unsplash.com/photo-1618568221633-0a45dd10ecb7?w=150&h=150&fit=crop&crop=face" },
+    { "id": 3, "name": "Sara Al-Malik", "department": "HR", "title": "VP Human Resources", "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face" },
+    { "id": 4, "name": "Omar Almidani", "department": "Engineering", "title": "VP Projects", "avatar": "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?w=150&h=150&fit=crop&crop=face" },
+    { "id": 5, "name": "Fatima Al-Dosari", "department": "Operations", "title": "Operations Mgr", "avatar": "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=150&h=150&fit=crop&crop=face" },
+    { "id": 6, "name": "Mohammed Al-Shehri", "department": "Engineering", "title": "Senior Engineer", "avatar": "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=150&h=150&fit=crop&crop=face" },
+    { "id": 7, "name": "Noura Al-Zahrani", "department": "HSE", "title": "HSE Manager", "avatar": "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=150&h=150&fit=crop&crop=face" },
+    { "id": 8, "name": "Ahmed Al-Qahtani", "department": "IT", "title": "IT Specialist", "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" }
   ],
   "meetingRooms": [
     { "id": 1, "name": "Al Rimal", "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop", "capacity": 10, "floor": "2nd Floor", "status": "available" },
@@ -116,7 +116,7 @@
     "name": "Mohammed Abunayyan",
     "title": "Chairman of the Board",
     "message": "We are committed to working together as we move forward in our mission to enhance Saudi Arabia's urban development through innovative, advanced, and highly efficient district cooling solutions. Our position as a market leader continues to strengthen as we support the country's energy transition and sustainability targets aligned with Vision 2030.",
-    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&crop=face"
+    "image": "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=300&h=400&fit=crop&crop=face"
   },
   "reminder": {
     "id": 1,
@@ -132,17 +132,17 @@
     "id": 1,
     "name": "Mohammed Abunayyan",
     "title": "Chairman of the Board",
-    "avatar": "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=80&h=80&fit=crop&crop=face",
+    "avatar": "https://images.unsplash.com/photo-1618568221633-0a45dd10ecb7?w=80&h=80&fit=crop&crop=face",
     "children": [
       {
         "id": 2,
         "name": "Abdulhamid Aalmansour",
         "title": "Chief Executive Officer",
-        "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face",
+        "avatar": "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=80&h=80&fit=crop&crop=face",
         "children": [
-          { "id": 3, "name": "Omar Almidani", "title": "Board Member / Strategy", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" },
-          { "id": 4, "name": "Khalid Al-Rashidi", "title": "VP Finance", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" },
-          { "id": 5, "name": "Sara Al-Malik", "title": "VP Human Resources", "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" }
+          { "id": 3, "name": "Omar Almidani", "title": "Board Member / Strategy", "avatar": "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?w=80&h=80&fit=crop&crop=face" },
+          { "id": 4, "name": "Khalid Al-Rashidi", "title": "VP Finance", "avatar": "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=80&h=80&fit=crop&crop=face" },
+          { "id": 5, "name": "Sara Al-Malik", "title": "VP Human Resources", "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face" }
         ]
       }
     ]

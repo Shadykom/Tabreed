@@ -33,13 +33,13 @@
 .newsList {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: 10px;
 }
 
 .newsItem {
   display: flex;
-  gap: var(--spacing-md);
-  padding-block-end: var(--spacing-md);
+  gap: 12px;
+  padding-block-end: 10px;
   border-block-end: 1px solid var(--color-border-light);
   transition: transform var(--transition-fast);
 
