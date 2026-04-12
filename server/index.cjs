@@ -11,6 +11,30 @@ app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Multer for file uploads
+const multer = require('multer');
+const fs = require('fs');
+const uploadDir = path.join(__dirname, 'uploads', 'avatars');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `avatar-${Date.now()}${ext}`);
+  },
+});
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowed = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (allowed.includes(ext)) cb(null, true);
+    else cb(new Error('Only image files are allowed'));
+  },
+});
+
 // Try SQL Server, fall back to JSON file data
 let useSQL = false;
 
@@ -486,6 +510,27 @@ app.get('/api/auth/me', async (req, res) => {
     }
   } catch (err) {
     res.status(401).json({ error: 'Invalid token' });
+  }
+});
+
+// --- Profile Photo Upload ---
+app.post('/api/auth/avatar', upload.single('avatar'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+
+    const avatarUrl = `/uploads/avatars/${req.file.filename}`;
+
+    // If using SQL, update the user record
+    const authHeader = req.headers.authorization;
+    if (authHeader && useSQL) {
+      const decoded = jwt.verify(authHeader.replace('Bearer ', ''), JWT_SECRET);
+      const { query } = require('./db.cjs');
+      await query('UPDATE Users SET Avatar = @avatar, UpdatedAt = GETUTCDATE() WHERE Id = @id', { avatar: avatarUrl, id: decoded.id });
+    }
+
+    res.json({ avatarUrl });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

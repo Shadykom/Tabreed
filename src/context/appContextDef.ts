@@ -9,6 +9,7 @@ export interface AppContextType {
   toggleLanguage: () => void;
   isRTL: boolean;
   user: CurrentUser;
+  setUserAvatar: (url: string) => void;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);

@@ -166,6 +166,15 @@
   }
 }
 
+.userAvatarImg {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(27, 58, 107, 0.25);
+  border: 2px solid var(--color-accent-light);
+}
+
 .userAvatar {
   width: 36px;
   height: 36px;
@@ -225,6 +234,14 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+}
+
+.dropdownAvatarImg {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 2px solid var(--color-accent-light);
 }
 
 .dropdownAvatar {

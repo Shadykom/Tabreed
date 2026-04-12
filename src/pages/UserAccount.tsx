@@ -1,6 +1,7 @@
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Mail, Phone, Building2, Calendar, Hash,
+  Mail, Phone, Building2, Calendar, Hash, Camera,
   FileText, Users, BarChart3, Clock,
   CheckCircle, Bell, Eye, LogIn,
 } from 'lucide-react';
@@ -79,7 +80,35 @@ const STATS = [
 
 export default function UserAccount() {
   const { i18n } = useTranslation();
-  const { user } = useApp();
+  const { user, setUserAvatar } = useApp();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Show preview immediately
+    const previewUrl = URL.createObjectURL(file);
+    setUserAvatar(previewUrl);
+
+    // Upload to server
+    try {
+      const formData = new FormData();
+      formData.append('avatar', file);
+      const token = localStorage.getItem('token') || '';
+      const res = await fetch('/api/auth/avatar', {
+        method: 'POST',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.avatarUrl) {
+        setUserAvatar(data.avatarUrl);
+      }
+    } catch {
+      // Keep the preview URL as fallback
+    }
+  };
   const isAR = i18n.language === 'ar';
 
   const displayName = isAR ? user.nameAr : user.name;
@@ -124,8 +153,18 @@ export default function UserAccount() {
       <div className={styles.hero}>
         <div className={styles.heroBg} />
         <div className={styles.heroContent}>
-          <div className={styles.heroAvatar}>
+          <div className={styles.heroAvatar} onClick={() => fileInputRef.current?.click()} style={{ cursor: 'pointer', position: 'relative' }}>
             <Avatar name={user.name} src={user.avatar} size="xl" />
+            <div className={styles.avatarOverlay}>
+              <Camera size={18} />
+            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoUpload}
+              style={{ display: 'none' }}
+            />
           </div>
           <div className={styles.heroText}>
             <h1 className={styles.heroName}>{displayName}</h1>

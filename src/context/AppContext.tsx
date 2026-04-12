@@ -13,10 +13,24 @@ const defaultUser: CurrentUser = {
   avatar: '',
 };
 
+function loadSavedAvatar(): string {
+  try {
+    const saved = localStorage.getItem('userAvatar');
+    if (saved) return saved;
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const parsed = JSON.parse(userData);
+      if (parsed.avatar) return parsed.avatar;
+    }
+  } catch { /* ignore */ }
+  return '';
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const { i18n } = useTranslation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState(i18n.language || 'en');
+  const [userAvatar, setUserAvatarState] = useState(loadSavedAvatar);
 
   const isRTL = language === 'ar';
 
@@ -33,6 +47,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     i18n.changeLanguage(newLang);
   };
 
+  const setUserAvatar = (url: string) => {
+    setUserAvatarState(url);
+    localStorage.setItem('userAvatar', url);
+  };
+
+  const user: CurrentUser = { ...defaultUser, avatar: userAvatar };
+
   return (
     <AppContext.Provider
       value={{
@@ -42,7 +63,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         language,
         toggleLanguage,
         isRTL,
-        user: defaultUser,
+        user,
+        setUserAvatar,
       }}
     >
       {children}

@@ -102,7 +102,11 @@ export default function Header() {
         {/* Profile dropdown */}
         <div ref={profileRef} style={{ position: 'relative' }}>
           <button className={styles.userProfile} onClick={() => { setShowProfile(!showProfile); setShowNotif(false); }}>
-            <div className={styles.userAvatar}>{initials}</div>
+            {user.avatar ? (
+              <img src={user.avatar} alt={user.name} className={styles.userAvatarImg} />
+            ) : (
+              <div className={styles.userAvatar}>{initials}</div>
+            )}
             <div className={styles.userDetails}>
               <span className={styles.userName}>{isRTL ? user.nameAr : user.name}</span>
               <span className={styles.userRole}>{isRTL ? user.titleAr : user.title}</span>
@@ -113,7 +117,11 @@ export default function Header() {
           {showProfile && (
             <div className={styles.dropdown}>
               <div className={styles.dropdownHeader}>
-                <div className={styles.dropdownAvatar}>{initials}</div>
+                {user.avatar ? (
+                  <img src={user.avatar} alt={user.name} className={styles.dropdownAvatarImg} />
+                ) : (
+                  <div className={styles.dropdownAvatar}>{initials}</div>
+                )}
                 <div className={styles.dropdownUserInfo}>
                   <div className={styles.dropdownName}>{isRTL ? user.nameAr : user.name}</div>
                   <div className={styles.dropdownEmail}>ahmed.qahtani@tabreed.com</div>
