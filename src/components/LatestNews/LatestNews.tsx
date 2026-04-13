@@ -21,7 +21,7 @@ export default function LatestNews() {
   );
 
   return (
-    <Card title={t('news.title')}>
+    <Card title={t('news.title')} viewAllText="View All" onViewAll={() => navigate('/news')}>
       <div className={styles.searchContainer}>
         <Search className={styles.searchIcon} size={16} />
         <input
