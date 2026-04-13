@@ -7,9 +7,9 @@ import { api } from '../../services/api';
 import type { ChairmanMessage as ChairmanMessageType } from '../../types';
 import styles from './ChairmanMessage.module.scss';
 
-function truncate(text: string, maxLen: number): string {
-  if (!text || text.length <= maxLen) return text;
-  return text.substring(0, maxLen).replace(/\s+\S*$/, '') + '...';
+function truncate(text: string, max: number): string {
+  if (!text || text.length <= max) return text;
+  return text.substring(0, max).replace(/\s+\S*$/, '') + '...';
 }
 
 export default function ChairmanMessage() {
@@ -17,36 +17,26 @@ export default function ChairmanMessage() {
   const navigate = useNavigate();
   const { data: chairman } = useApi<ChairmanMessageType>(api.getChairman);
 
-  const shortMessage = truncate(
-    chairman?.message || 'We are committed to working together as we move forward in our mission to enhance Saudi Arabia\'s urban development through innovative, advanced, and highly efficient district cooling solutions.',
-    250
-  );
+  const msg = truncate(chairman?.message || '', 220);
 
   return (
-    <Card title={t('chairman.title')} className={styles.wrapper}>
-      <div className={styles.accentBar} />
+    <Card title={t('chairman.title')}>
       <div className={styles.container}>
-        <div className={styles.accentShape} />
-
-        <div className={styles.textSide}>
-          <p className={styles.quote}>{shortMessage}</p>
-          <div className={styles.authorDivider} />
-          <div className={styles.authorInfo}>
-            <span className={styles.name}>{chairman?.name || 'Mohammed Abunayyan'}</span>
-            <span className={styles.title}> - {chairman?.title || 'Chairman'}</span>
-          </div>
-          <button className={styles.readBtn} onClick={() => navigate('/chairman')}>
-            {t('chairman.readFull')} <ArrowRight size={14} />
-          </button>
-        </div>
-
         {chairman?.image && (
           <div className={styles.photoSide}>
-            <div className={styles.photoFrame}>
-              <img className={styles.photo} src={chairman.image} alt={chairman.name || ''} loading="lazy" />
-            </div>
+            <img className={styles.photo} src={chairman.image} alt={chairman.name || ''} />
           </div>
         )}
+        <div className={styles.textSide}>
+          <p className={styles.quote}>{msg}</p>
+          <div className={styles.authorInfo}>
+            <span className={styles.name}>{chairman?.name || 'Mohammed Abunayyan'}</span>
+            <span className={styles.title}>- {chairman?.title || 'Chairman'}</span>
+          </div>
+          <button className={styles.readBtn} onClick={() => navigate('/chairman')}>
+            {t('chairman.readFull')} <ArrowRight size={13} />
+          </button>
+        </div>
       </div>
     </Card>
   );
