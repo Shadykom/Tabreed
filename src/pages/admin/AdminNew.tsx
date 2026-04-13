@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {
   BarChart3, Newspaper, Megaphone, Users, DoorOpen, Calendar,
   Network, LayoutGrid, MapPin, Shield, MessageSquare, Sparkles,
-  Bell, UserCog, Headphones, Plus, Edit2, Trash2, Save, ArrowLeft,
+  Bell, UserCog, Headphones, Plus, Edit2, Trash2, Save, ArrowLeft, Eye,
   Search, X,
 } from 'lucide-react';
 import Button from '../../components/common/Button';
@@ -409,24 +409,131 @@ export default function AdminNew() {
           )}
 
           {/* ─── Service Requests ─── */}
-          {section === 'requests' && (
+          {section === 'requests' && !editItem && (
             <div className={styles.card}>
               <div className={styles.cardHeader}><h3 className={styles.cardTitle}>Service Requests</h3></div>
               <div className={styles.tableWrap}>
                 <table className={styles.table}>
-                  <thead><tr><th>ID</th><th>Requester</th><th>Department</th><th>Service</th><th>Priority</th><th>Status</th></tr></thead>
+                  <thead><tr><th>ID</th><th>Requester</th><th>Department</th><th>Service</th><th>Priority</th><th>Status</th><th>Actions</th></tr></thead>
                   <tbody>
                     {requests.map((r: any) => (
-                      <tr key={r.id}>
+                      <tr key={r.id} style={{ cursor: 'pointer' }} onClick={() => setEditItem(r)}>
                         <td>#{r.id}</td><td className={styles.tdBold}>{r.requesterName}</td>
                         <td>{r.department}</td><td>{r.service}</td>
                         <td><span className={`${styles.badge} ${badgeClass(r.priority)}`}>{r.priority}</span></td>
-                        <td><span className={`${styles.badge} ${styles.badgeGreen}`}>{r.status || 'New'}</span></td>
+                        <td><span className={`${styles.badge} ${badgeClass(r.status || 'Pending')}`}>{r.status || 'Pending'}</span></td>
+                        <td><button className={styles.actBtn} onClick={(e) => { e.stopPropagation(); setEditItem(r); }}><Eye size={15} /></button></td>
                       </tr>
                     ))}
-                    {requests.length === 0 && <tr><td colSpan={6} style={{ textAlign: 'center', padding: 32, color: '#9CA3AF' }}>No requests yet</td></tr>}
+                    {requests.length === 0 && <tr><td colSpan={7} style={{ textAlign: 'center', padding: 32, color: '#9CA3AF' }}>No requests yet</td></tr>}
                   </tbody>
                 </table>
+              </div>
+            </div>
+          )}
+
+          {/* ─── Service Request Detail ─── */}
+          {section === 'requests' && editItem && (
+            <div className={styles.card}>
+              <div className={styles.cardHeader}>
+                <h3 className={styles.cardTitle}>Request #{editItem.id}</h3>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <Button variant="ghost" onClick={() => setEditItem(null)}>← Back to List</Button>
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, padding: 20 }}>
+                {/* Left: Requester Info */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  <h4 style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1B3A6B', borderBottom: '2px solid #e5e7eb', paddingBottom: 8 }}>Requester Information</h4>
+                  {[
+                    { label: 'Name', value: editItem.requesterName },
+                    { label: 'Email', value: editItem.requesterEmail },
+                    { label: 'Department', value: editItem.requesterDepartment || editItem.department },
+                    { label: 'Submitted', value: editItem.createdAt ? new Date(editItem.createdAt).toLocaleString() : 'N/A' },
+                  ].map(f => (
+                    <div key={f.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', padding: '6px 0', borderBottom: '1px solid #f3f4f6' }}>
+                      <span style={{ color: '#6B7280', fontWeight: 500 }}>{f.label}</span>
+                      <span style={{ fontWeight: 600, color: '#1B3A6B' }}>{f.value || '—'}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Right: Request Details */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  <h4 style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1B3A6B', borderBottom: '2px solid #e5e7eb', paddingBottom: 8 }}>Request Details</h4>
+                  {[
+                    { label: 'Target Department', value: editItem.department },
+                    { label: 'Service', value: editItem.service },
+                    { label: 'Priority', value: editItem.priority, isBadge: true },
+                  ].map(f => (
+                    <div key={f.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', padding: '6px 0', borderBottom: '1px solid #f3f4f6', alignItems: 'center' }}>
+                      <span style={{ color: '#6B7280', fontWeight: 500 }}>{f.label}</span>
+                      {f.isBadge ? <span className={`${styles.badge} ${badgeClass(f.value)}`}>{f.value}</span> : <span style={{ fontWeight: 600, color: '#1B3A6B' }}>{f.value || '—'}</span>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Summary & Description */}
+              <div style={{ padding: '0 20px 20px' }}>
+                <div style={{ marginBottom: 16 }}>
+                  <h4 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1B3A6B', marginBottom: 6 }}>Summary</h4>
+                  <p style={{ fontSize: '0.875rem', color: '#374151', background: '#f9fafb', padding: 12, borderRadius: 8, border: '1px solid #e5e7eb' }}>{editItem.summary || '—'}</p>
+                </div>
+
+                {editItem.description && (
+                  <div style={{ marginBottom: 16 }}>
+                    <h4 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1B3A6B', marginBottom: 6 }}>Description</h4>
+                    <p style={{ fontSize: '0.875rem', color: '#374151', background: '#f9fafb', padding: 12, borderRadius: 8, border: '1px solid #e5e7eb', whiteSpace: 'pre-line' }}>{editItem.description}</p>
+                  </div>
+                )}
+
+                {/* Attachments */}
+                {editItem.attachments && editItem.attachments.length > 0 && (
+                  <div style={{ marginBottom: 16 }}>
+                    <h4 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1B3A6B', marginBottom: 6 }}>Attachments ({editItem.attachments.length})</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                      {editItem.attachments.map((att: any, i: number) => (
+                        <a key={i} href={att.url || att.path || '#'} target="_blank" rel="noreferrer"
+                          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: '#EBF3FF', borderRadius: 8, textDecoration: 'none', color: '#1B3A6B', fontWeight: 500, fontSize: '0.8125rem' }}>
+                          📎 {att.originalname || att.filename || `Attachment ${i + 1}`}
+                          {att.size && <span style={{ color: '#9CA3AF', fontSize: '0.75rem' }}>({Math.round(att.size / 1024)} KB)</span>}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Status Update */}
+                <div style={{ marginTop: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+                  <h4 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1B3A6B', marginBottom: 12 }}>Update Status</h4>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    {['Pending', 'In Progress', 'Completed', 'Rejected'].map(status => (
+                      <button key={status}
+                        onClick={() => {
+                          const updated = { ...editItem, status };
+                          setEditItem(updated);
+                          setRequests(prev => prev.map(r => r.id === editItem.id ? updated : r));
+                          fetch(`/api/service-requests/${editItem.id}/status`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ status }),
+                          }).catch(() => {});
+                        }}
+                        style={{
+                          padding: '8px 18px', borderRadius: 20, border: 'none', cursor: 'pointer',
+                          fontSize: '0.8125rem', fontWeight: 600, transition: 'all 0.2s',
+                          background: (editItem.status || 'Pending') === status ? (
+                            status === 'Completed' ? '#22C55E' : status === 'Rejected' ? '#EF4444' : status === 'In Progress' ? '#F59E0B' : '#4A7FD4'
+                          ) : '#e5e7eb',
+                          color: (editItem.status || 'Pending') === status ? 'white' : '#6B7280',
+                        }}>
+                        {status}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           )}

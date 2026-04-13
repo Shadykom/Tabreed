@@ -1423,6 +1423,21 @@ app.get('/api/service-requests', (req, res) => {
   res.json(serviceRequests);
 });
 
+// GET single service request
+app.get('/api/service-requests/:id', (req, res) => {
+  const sr = serviceRequests.find(r => r.id == req.params.id);
+  sr ? res.json(sr) : res.status(404).json({ error: 'Not found' });
+});
+
+// Update service request status
+app.put('/api/service-requests/:id/status', (req, res) => {
+  const sr = serviceRequests.find(r => r.id == req.params.id);
+  if (!sr) return res.status(404).json({ error: 'Not found' });
+  sr.status = req.body.status || sr.status;
+  sr.updatedAt = new Date().toISOString();
+  res.json(sr);
+});
+
 // POST /api/service-requests
 app.post('/api/service-requests', upload.array('attachments', 5), async (req, res) => {
   try {
