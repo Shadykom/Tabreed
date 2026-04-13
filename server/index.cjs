@@ -613,73 +613,151 @@ app.get('/api/orgChart', async (req, res) => {
   }
 });
 
-// --- JSON Fallback CRUD for Applications ---
-app.post('/api/applications', (req, res) => {
-  const data = getData();
-  const maxId = data.applications.reduce((m, a) => Math.max(m, a.id), 0);
-  const item = { id: maxId + 1, ...req.body };
-  data.applications.push(item);
-  res.status(201).json(item); saveData();
+// --- CRUD for Applications ---
+app.post('/api/applications', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, description, category, icon, color, url } = req.body;
+      const result = await query(`INSERT INTO Applications (Name, Description, Category, Icon, Color, Url) OUTPUT INSERTED.Id VALUES (@name, @description, @category, @icon, @color, @url)`, { name, description, category, icon, color, url });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      const maxId = data.applications.reduce((m, a) => Math.max(m, a.id), 0);
+      const item = { id: maxId + 1, ...req.body };
+      data.applications.push(item);
+      res.status(201).json(item); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/applications/:id', (req, res) => {
-  const data = getData();
-  const idx = data.applications.findIndex(a => a.id == req.params.id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  data.applications[idx] = { ...data.applications[idx], ...req.body };
-  res.json(data.applications[idx]); saveData();
+app.put('/api/applications/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, description, category, icon, color, url } = req.body;
+      await query(`UPDATE Applications SET Name=@name, Description=@description, Category=@category, Icon=@icon, Color=@color, Url=@url, UpdatedAt=GETUTCDATE() WHERE Id=@id`, { name, description, category, icon, color, url, id: parseInt(req.params.id) });
+      res.json({ message: 'Updated' });
+    } else {
+      const data = getData();
+      const idx = data.applications.findIndex(a => a.id == req.params.id);
+      if (idx === -1) return res.status(404).json({ error: 'Not found' });
+      data.applications[idx] = { ...data.applications[idx], ...req.body };
+      res.json(data.applications[idx]); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/applications/:id', (req, res) => {
-  const data = getData();
-  data.applications = data.applications.filter(a => a.id != req.params.id);
-  res.json({ message: 'Deleted' }); saveData();
+app.delete('/api/applications/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM Applications WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.applications = data.applications.filter(a => a.id != req.params.id);
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// --- JSON Fallback CRUD for Office Locations ---
-app.post('/api/officeLocations', (req, res) => {
-  const data = getData();
-  const maxId = data.officeLocations.reduce((m, l) => Math.max(m, l.id), 0);
-  const item = { id: maxId + 1, ...req.body };
-  data.officeLocations.push(item);
-  res.status(201).json(item); saveData();
+// --- CRUD for Office Locations ---
+app.post('/api/officeLocations', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, city, address, type } = req.body;
+      const result = await query(`INSERT INTO OfficeLocations (NameEn, City, AddressEn, Type) OUTPUT INSERTED.Id VALUES (@name, @city, @address, @type)`, { name, city, address, type });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      const maxId = data.officeLocations.reduce((m, l) => Math.max(m, l.id), 0);
+      const item = { id: maxId + 1, ...req.body };
+      data.officeLocations.push(item);
+      res.status(201).json(item); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/officeLocations/:id', (req, res) => {
-  const data = getData();
-  const idx = data.officeLocations.findIndex(l => l.id == req.params.id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  data.officeLocations[idx] = { ...data.officeLocations[idx], ...req.body };
-  res.json(data.officeLocations[idx]); saveData();
+app.put('/api/officeLocations/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, city, address, type } = req.body;
+      await query(`UPDATE OfficeLocations SET NameEn=@name, City=@city, AddressEn=@address, Type=@type WHERE Id=@id`, { name, city, address, type, id: parseInt(req.params.id) });
+      res.json({ message: 'Updated' });
+    } else {
+      const data = getData();
+      const idx = data.officeLocations.findIndex(l => l.id == req.params.id);
+      if (idx === -1) return res.status(404).json({ error: 'Not found' });
+      data.officeLocations[idx] = { ...data.officeLocations[idx], ...req.body };
+      res.json(data.officeLocations[idx]); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/officeLocations/:id', (req, res) => {
-  const data = getData();
-  data.officeLocations = data.officeLocations.filter(l => l.id != req.params.id);
-  res.json({ message: 'Deleted' }); saveData();
+app.delete('/api/officeLocations/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM OfficeLocations WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.officeLocations = data.officeLocations.filter(l => l.id != req.params.id);
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// --- JSON Fallback CRUD for Safe Locations ---
-app.post('/api/safeLocations', (req, res) => {
-  const data = getData();
-  const maxId = data.safeLocations.reduce((m, l) => Math.max(m, l.id), 0);
-  const item = { id: maxId + 1, ...req.body };
-  data.safeLocations.push(item);
-  res.status(201).json(item); saveData();
+// --- CRUD for Safe Locations ---
+app.post('/api/safeLocations', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, address, image } = req.body;
+      const result = await query(`INSERT INTO SafeLocations (NameEn, AddressEn, ImageUrl) OUTPUT INSERTED.Id VALUES (@name, @address, @image)`, { name, address, image });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      const maxId = data.safeLocations.reduce((m, l) => Math.max(m, l.id), 0);
+      const item = { id: maxId + 1, ...req.body };
+      data.safeLocations.push(item);
+      res.status(201).json(item); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/safeLocations/:id', (req, res) => {
-  const data = getData();
-  const idx = data.safeLocations.findIndex(l => l.id == req.params.id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  data.safeLocations[idx] = { ...data.safeLocations[idx], ...req.body };
-  res.json(data.safeLocations[idx]); saveData();
+app.put('/api/safeLocations/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, address, image } = req.body;
+      await query(`UPDATE SafeLocations SET NameEn=@name, AddressEn=@address, ImageUrl=@image WHERE Id=@id`, { name, address, image, id: parseInt(req.params.id) });
+      res.json({ message: 'Updated' });
+    } else {
+      const data = getData();
+      const idx = data.safeLocations.findIndex(l => l.id == req.params.id);
+      if (idx === -1) return res.status(404).json({ error: 'Not found' });
+      data.safeLocations[idx] = { ...data.safeLocations[idx], ...req.body };
+      res.json(data.safeLocations[idx]); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/safeLocations/:id', (req, res) => {
-  const data = getData();
-  data.safeLocations = data.safeLocations.filter(l => l.id != req.params.id);
-  res.json({ message: 'Deleted' }); saveData();
+app.delete('/api/safeLocations/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM SafeLocations WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.safeLocations = data.safeLocations.filter(l => l.id != req.params.id);
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // --- PUT for Motivation ---
@@ -752,60 +830,57 @@ app.get('/api/orgChart/flat', async (req, res) => {
   }
 });
 
-app.post('/api/orgChart', (req, res) => {
-  const data = getData();
-  // Flatten tree to find max id
-  const flat = [];
-  function flattenNode(node, parentId) {
-    const { children, ...rest } = node;
-    flat.push({ ...rest, parentId: parentId || null });
-    if (children) children.forEach(c => flattenNode(c, node.id));
-  }
-  if (data.orgChart && data.orgChart.id) flattenNode(data.orgChart, null);
-  const maxId = flat.reduce((m, n) => Math.max(m, n.id), 0);
-  const newNode = { id: maxId + 1, ...req.body };
-  // Add to the tree: find parent and push to its children
-  function addToTree(node) {
-    if (!newNode.parentId) return; // root—shouldn't happen for POST
-    if (node.id == newNode.parentId) {
-      if (!node.children) node.children = [];
-      const { parentId, ...nodeData } = newNode;
-      node.children.push(nodeData);
-      return;
+app.post('/api/orgChart', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, title, avatar, parentId } = req.body;
+      const result = await query(`INSERT INTO OrgChart (NameEn, TitleEn, Avatar, ParentId) OUTPUT INSERTED.Id VALUES (@name, @title, @avatar, @parentId)`, { name, title, avatar, parentId: parentId || null });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      const flat = [];
+      function flattenNode(node, pid) { const { children, ...rest } = node; flat.push({ ...rest, parentId: pid || null }); if (children) children.forEach(c => flattenNode(c, node.id)); }
+      if (data.orgChart && data.orgChart.id) flattenNode(data.orgChart, null);
+      const maxId = flat.reduce((m, n) => Math.max(m, n.id), 0);
+      const newNode = { id: maxId + 1, ...req.body };
+      function addToTree(node) { if (node.id == newNode.parentId) { if (!node.children) node.children = []; const { parentId, ...nd } = newNode; node.children.push(nd); return; } if (node.children) node.children.forEach(c => addToTree(c)); }
+      if (newNode.parentId) addToTree(data.orgChart);
+      res.status(201).json(newNode); saveData();
     }
-    if (node.children) node.children.forEach(c => addToTree(c));
-  }
-  if (newNode.parentId) {
-    addToTree(data.orgChart);
-  }
-  res.status(201).json(newNode);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/orgChart/:id', (req, res) => {
-  const data = getData();
-  function updateInTree(node) {
-    if (node.id == req.params.id) {
-      Object.assign(node, { name: req.body.name, title: req.body.title, avatar: req.body.avatar });
-      return true;
+app.put('/api/orgChart/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, title, avatar } = req.body;
+      await query(`UPDATE OrgChart SET NameEn=@name, TitleEn=@title, Avatar=@avatar WHERE Id=@id`, { name, title, avatar, id: parseInt(req.params.id) });
+      res.json({ message: 'Updated' });
+    } else {
+      const data = getData();
+      function updateInTree(node) { if (node.id == req.params.id) { Object.assign(node, { name: req.body.name, title: req.body.title, avatar: req.body.avatar }); return true; } if (node.children) return node.children.some(c => updateInTree(c)); return false; }
+      updateInTree(data.orgChart);
+      res.json({ message: 'Updated' }); saveData();
     }
-    if (node.children) return node.children.some(c => updateInTree(c));
-    return false;
-  }
-  const found = updateInTree(data.orgChart);
-  if (!found) return res.status(404).json({ error: 'Not found' });
-  res.json({ message: 'Updated' }); saveData();
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/orgChart/:id', (req, res) => {
-  const data = getData();
-  function removeFromTree(node) {
-    if (node.children) {
-      node.children = node.children.filter(c => c.id != req.params.id);
-      node.children.forEach(c => removeFromTree(c));
+app.delete('/api/orgChart/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM OrgChart WHERE ParentId=@id', { id: parseInt(req.params.id) });
+      await query('DELETE FROM OrgChart WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      function removeFromTree(node) { if (node.children) { node.children = node.children.filter(c => c.id != req.params.id); node.children.forEach(c => removeFromTree(c)); } }
+      removeFromTree(data.orgChart);
+      res.json({ message: 'Deleted' }); saveData();
     }
-  }
-  removeFromTree(data.orgChart);
-  res.json({ message: 'Deleted' }); saveData();
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // --- CMS: Dashboard Stats ---
