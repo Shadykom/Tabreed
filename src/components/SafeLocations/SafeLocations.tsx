@@ -6,25 +6,7 @@ import { api } from '../../services/api';
 import type { SafeLocation } from '../../types';
 import styles from './SafeLocations.module.scss';
 
-// Saudi Tabreed locations for Google Maps embed
-const mapLocations = [
-  { name: 'Khobar HQ', lat: 26.2172, lng: 50.1971 },
-  { name: 'Dhahran', lat: 26.2361, lng: 50.0393 },
-  { name: 'Riyadh KAFD', lat: 24.7648, lng: 46.6460 },
-  { name: 'Makkah', lat: 21.4225, lng: 39.8262 },
-];
-
-// Build Google Maps embed URL with markers
-function getMapUrl() {
-  // Center on Saudi Arabia
-  const center = '24.5,44.5';
-  const zoom = '5';
-  // Use Google Maps embed with markers
-  const markers = mapLocations.map(l => `${l.lat},${l.lng}`).join('|');
-  return `https://www.google.com/maps/embed/v1/view?key=&center=${center}&zoom=${zoom}`;
-}
-
-// Fallback: Use OpenStreetMap (no API key needed)
+// OpenStreetMap embed (no API key needed)
 function getOSMUrl() {
   return `https://www.openstreetmap.org/export/embed.html?bbox=36.0,18.0,56.0,32.0&layer=mapnik&marker=26.2172,50.1971`;
 }
