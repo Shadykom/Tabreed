@@ -13,26 +13,51 @@ const defaultUser: CurrentUser = {
   avatar: '',
 };
 
-function loadSavedAvatar(): string {
+function getStoredUser(): CurrentUser {
   try {
-    const saved = localStorage.getItem('userAvatar');
-    if (saved) return saved;
     const userData = localStorage.getItem('user');
     if (userData) {
       const parsed = JSON.parse(userData);
-      if (parsed.avatar) return parsed.avatar;
+      return { ...defaultUser, ...parsed };
     }
   } catch { /* ignore */ }
-  return '';
+  return defaultUser;
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const { i18n } = useTranslation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState(i18n.language || 'en');
-  const [userAvatar, setUserAvatarState] = useState(loadSavedAvatar);
+  const [currentUser, setCurrentUser] = useState<CurrentUser>(getStoredUser);
 
   const isRTL = language === 'ar';
+
+  // Load user profile from database on mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetch('/api/auth/me', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (data) {
+            const user = {
+              id: data.id || defaultUser.id,
+              name: data.name || defaultUser.name,
+              nameAr: data.nameAr || defaultUser.nameAr,
+              title: data.title || defaultUser.title,
+              titleAr: data.titleAr || defaultUser.titleAr,
+              department: data.department || defaultUser.department,
+              avatar: data.avatar || '',
+            };
+            setCurrentUser(user);
+            localStorage.setItem('user', JSON.stringify(user));
+          }
+        })
+        .catch(() => {});
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
@@ -48,11 +73,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const setUserAvatar = (url: string) => {
-    setUserAvatarState(url);
-    localStorage.setItem('userAvatar', url);
+    setCurrentUser(prev => ({ ...prev, avatar: url }));
+    // Also update in localStorage as cache
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      try {
+        const parsed = JSON.parse(userData);
+        parsed.avatar = url;
+        localStorage.setItem('user', JSON.stringify(parsed));
+      } catch { /* ignore */ }
+    }
   };
-
-  const user: CurrentUser = { ...defaultUser, avatar: userAvatar };
 
   return (
     <AppContext.Provider
@@ -63,7 +94,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         language,
         toggleLanguage,
         isRTL,
-        user,
+        user: currentUser,
         setUserAvatar,
       }}
     >

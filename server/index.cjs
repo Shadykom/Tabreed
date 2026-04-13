@@ -1083,17 +1083,42 @@ app.post('/api/auth/avatar', upload.single('avatar'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
-    const avatarUrl = `/uploads/avatars/${req.file.filename}`;
-
-    // If using SQL, update the user record
+    const avatarUrl = `/api/auth/avatar-image/${Date.now()}`;
     const authHeader = req.headers.authorization;
+
     if (authHeader && useSQL) {
       const decoded = jwt.verify(authHeader.replace('Bearer ', ''), JWT_SECRET);
-      const { query } = require('./db.cjs');
-      await query('UPDATE Users SET Avatar = @avatar, UpdatedAt = GETUTCDATE() WHERE Id = @id', { avatar: avatarUrl, id: decoded.id });
+      const { query, sql } = require('./db.cjs');
+      const fs = require('fs');
+      const imageBuffer = fs.readFileSync(req.file.path);
+      const request = (await require('./db.cjs').getPool()).request();
+      request.input('blob', sql.VarBinary(sql.MAX), imageBuffer);
+      request.input('mime', req.file.mimetype);
+      request.input('avatar', `/api/auth/avatar-image/${decoded.id}`);
+      request.input('id', decoded.id);
+      await request.query('UPDATE Users SET AvatarBlob = @blob, AvatarMimeType = @mime, Avatar = @avatar, UpdatedAt = GETUTCDATE() WHERE Id = @id');
     }
 
     res.json({ avatarUrl });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Serve avatar image from database BLOB
+app.get('/api/auth/avatar-image/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const result = await query('SELECT AvatarBlob, AvatarMimeType FROM Users WHERE Id = @id', { id: parseInt(req.params.id) });
+      if (result.recordset.length > 0 && result.recordset[0].AvatarBlob) {
+        res.set('Content-Type', result.recordset[0].AvatarMimeType || 'image/jpeg');
+        res.set('Cache-Control', 'public, max-age=3600');
+        res.send(result.recordset[0].AvatarBlob);
+        return;
+      }
+    }
+    res.status(404).json({ error: 'No avatar found' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
