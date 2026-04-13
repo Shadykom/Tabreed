@@ -1,4 +1,4 @@
-import { Zap } from 'lucide-react';
+import { Zap, Briefcase, Users } from 'lucide-react';
 import ReminderBanner from '../../components/ReminderBanner/ReminderBanner';
 import LatestNews from '../../components/LatestNews/LatestNews';
 import ChairmanMessage from '../../components/ChairmanMessage/ChairmanMessage';
@@ -13,39 +13,39 @@ import MeetingRooms from '../../components/MeetingRooms/MeetingRooms';
 import styles from './ThemeMinimal.module.scss';
 
 export default function ThemeMinimal() {
-  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
   return (
     <>
-      <div className={styles.welcome}>
-        <div className={styles.welcomeLeft}>
-          <h1>Good morning, Ahmed</h1>
-          <p>Here's what's happening at Saudi Tabreed today</p>
+      {/* Pill-shaped top bar instead of gradient hero */}
+      <div className={styles.topBar}>
+        <div className={styles.topBarLeft}>
+          <h1>Welcome back, Ahmed</h1>
+          <p>Saudi Tabreed District Cooling Company</p>
         </div>
-        <span className={styles.welcomeDate}>{today}</span>
-      </div>
-
-      <div className={styles.spotlight}>
-        <div className={styles.spotlightIcon}><Zap size={22} /></div>
-        <div className={styles.spotlightText}>
-          <h3>751,000 TR Cooling Capacity</h3>
-          <p>Serving 8+ mega developments across Saudi Arabia aligned with Vision 2030</p>
+        <div className={styles.topBarRight}>
+          <div className={styles.pill}><span className={styles.pillIcon}><Zap size={13} /></span> 751K TR</div>
+          <div className={styles.pill}><span className={styles.pillIcon}><Briefcase size={13} /></span> 8 Projects</div>
+          <div className={styles.pill}><span className={styles.pillIcon}><Users size={13} /></span> 394</div>
         </div>
       </div>
 
       <ReminderBanner />
 
-      <div className={styles.masonry}>
-        <div className={styles.masonryItem}><ChairmanMessage /></div>
-        <div className={styles.masonryItem}><LatestNews /></div>
-        <div className={styles.masonryItem}><Announcements /></div>
-        <div className={styles.masonryItem}><ApplicationList /></div>
-        <div className={styles.masonryItem}><OrgChart /></div>
-        <div className={styles.masonryItem}><EmployeeDirectory /></div>
-        <div className={styles.masonryItem}><WeeklyMotivation /></div>
-        <div className={styles.masonryItem}><OfficeLocations /></div>
-        <div className={styles.masonryItem}><MeetingRooms /></div>
-        <div className={styles.masonryItem}><SafeLocations /></div>
+      {/* Bento grid - Apple widget style layout */}
+      <div className={styles.bento}>
+        <div className={styles.bentoWide}><ChairmanMessage /></div>
+        <div className={styles.bentoWide}><LatestNews /></div>
+
+        <div className={styles.bentoFull}><ApplicationList /></div>
+
+        <div className={styles.bentoTriple}><Announcements /></div>
+        <div><OrgChart /></div>
+
+        <div className={styles.bentoFull}><WeeklyMotivation /></div>
+
+        <div><OfficeLocations /></div>
+        <div><EmployeeDirectory /></div>
+        <div><MeetingRooms /></div>
+        <div><SafeLocations /></div>
       </div>
     </>
   );

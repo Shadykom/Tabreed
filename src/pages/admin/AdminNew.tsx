@@ -546,9 +546,9 @@ export default function AdminNew() {
               <p style={{ padding: '0 20px 12px', color: '#6B7280', fontSize: '0.875rem' }}>Choose a homepage layout for all portal users. Changes apply instantly.</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, padding: '0 20px 20px' }}>
                 {[
-                  { id: 'modern', name: '🔵 Modern Blue', desc: 'Blue theme with gradient welcome bar, rounded cards, Inter font, cool shadows. The default Saudi Tabreed look.', color: '#4A7FD4', preview: 'linear-gradient(135deg, #EEF2FB, #dbeafe)' },
-                  { id: 'executive', name: '🟡 Executive Gold', desc: 'Dark navy & gold accents, serif font (Georgia), sharp corners, luxury corporate feel. Ideal for formal presentations.', color: '#C9A227', preview: 'linear-gradient(135deg, #F5F3EE, #FDF6E3)' },
-                  { id: 'minimal', name: '🟢 Minimal Teal', desc: 'Teal green palette, extra-rounded corners (28px), soft mint backgrounds, nature-inspired. Clean and refreshing.', color: '#14B8A6', preview: 'linear-gradient(135deg, #F0FDFA, #CCFBF1)' },
+                  { id: 'modern', name: '🔵 Modern', desc: 'Gradient welcome bar with stats, 2-column grid, hover glass effects. The default balanced layout.', color: '#4A7FD4', preview: 'linear-gradient(135deg, #EEF2FB, #dbeafe)' },
+                  { id: 'executive', name: '📰 Executive', desc: 'Newspaper-style 3-column grid, sharp corners, left-border hero with stats row. Corporate boardroom feel.', color: '#1B3A6B', preview: 'linear-gradient(135deg, #0a1628, #2EC4B6)' },
+                  { id: 'minimal', name: '✨ Minimal', desc: 'Bento grid (Apple widgets), pill-shaped top bar, ultra-rounded corners, no shadows, clean and spacious.', color: '#2EC4B6', preview: 'linear-gradient(135deg, #f0f7ff, #e8f0fe)' },
                 ].map(t => {
                   const isActive = (form.activeTheme || 'modern') === t.id;
                   return (
