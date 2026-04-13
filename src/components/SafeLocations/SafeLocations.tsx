@@ -6,9 +6,11 @@ import { api } from '../../services/api';
 import type { SafeLocation } from '../../types';
 import styles from './SafeLocations.module.scss';
 
-// OpenStreetMap embed (no API key needed)
+// OpenStreetMap embed centered on Saudi Arabia east coast (Khobar/Dhahran/Riyadh/Makkah)
 function getOSMUrl() {
-  return `https://www.openstreetmap.org/export/embed.html?bbox=36.0,18.0,56.0,32.0&layer=mapnik&marker=26.2172,50.1971`;
+  // bbox = left,bottom,right,top (lon,lat,lon,lat)
+  // Shows eastern Saudi Arabia from Makkah to Khobar
+  return `https://www.openstreetmap.org/export/embed.html?bbox=38.5,20.5,51.5,27.5&layer=mapnik&marker=26.2172,50.1971`;
 }
 
 export default function SafeLocations() {
