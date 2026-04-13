@@ -10,7 +10,7 @@ import Button from '../../components/common/Button';
 import styles from './AdminNew.module.scss';
 
 // ─── Types ───
-type Section = 'dashboard'|'news'|'announcements'|'employees'|'rooms'|'bookings'|'orgchart'|'applications'|'locations'|'safelocations'|'chairman'|'motivation'|'reminders'|'users'|'requests';
+type Section = 'dashboard'|'news'|'announcements'|'employees'|'rooms'|'bookings'|'orgchart'|'applications'|'locations'|'safelocations'|'chairman'|'motivation'|'reminders'|'users'|'requests'|'themes';
 
 interface NavEntry { key: Section; label: string; icon: React.ElementType; }
 
@@ -28,6 +28,7 @@ const NAV: NavEntry[] = [
   { key: 'chairman', label: "Chairman's Message", icon: MessageSquare },
   { key: 'motivation', label: 'Weekly Motivation', icon: Sparkles },
   { key: 'reminders', label: 'Reminders', icon: Bell },
+  { key: 'themes', label: 'Homepage Themes', icon: LayoutGrid },
   { key: 'users', label: 'User Management', icon: UserCog },
   { key: 'requests', label: 'Service Requests', icon: Headphones },
 ];
@@ -121,6 +122,7 @@ export default function AdminNew() {
     if (section === 'motivation') fetch('/api/motivation').then(r => r.json()).then(d => { setMotivation(d); setForm(d); }).catch(() => {});
     if (section === 'reminders') fetch('/api/reminder').then(r => r.json()).then(d => { setReminder(d); setForm(d); }).catch(() => {});
     if (section === 'bookings') fetch('/api/room-bookings').then(r => r.json()).then(setBookings).catch(() => setBookings([]));
+    if (section === 'themes') fetch('/api/theme').then(r => r.json()).then(d => setForm(p => ({ ...p, activeTheme: d.theme }))).catch(() => {});
     if (section === 'requests') fetch('/api/service-requests').then(r => r.json()).then(setRequests).catch(() => setRequests([]));
   }, [section]);
 
@@ -537,6 +539,58 @@ export default function AdminNew() {
               </div>
             </div>
           )}
+          {/* ─── Homepage Themes ─── */}
+          {section === 'themes' && (
+            <div className={styles.card}>
+              <div className={styles.cardHeader}><h3 className={styles.cardTitle}>Homepage Themes</h3></div>
+              <p style={{ padding: '0 20px 12px', color: '#6B7280', fontSize: '0.875rem' }}>Choose a homepage layout for all portal users. Changes apply instantly.</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, padding: '0 20px 20px' }}>
+                {[
+                  { id: 'modern', name: 'Modern', desc: 'Gradient welcome bar, 2-column grid, glass effects, staggered animations', color: '#4A7FD4', preview: 'linear-gradient(135deg, #EEF2FB, #dbeafe)' },
+                  { id: 'executive', name: 'Executive', desc: 'Dark hero banner, corporate stats, bold layout, professional look', color: '#1B3A6B', preview: 'linear-gradient(135deg, #0a1628, #1a3f7a)' },
+                  { id: 'minimal', name: 'Minimal', desc: 'Clean masonry layout, light greeting, spotlight stats, airy design', color: '#14B8A6', preview: 'linear-gradient(135deg, #f0fdf4, #ccfbf1)' },
+                ].map(t => {
+                  const isActive = (form.activeTheme || 'modern') === t.id;
+                  return (
+                    <div key={t.id} onClick={() => {
+                      setForm(p => ({ ...p, activeTheme: t.id }));
+                      fetch('/api/theme', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ theme: t.id }) });
+                      setSaved(true); setTimeout(() => setSaved(false), 2500);
+                    }}
+                    style={{
+                      border: isActive ? `2px solid ${t.color}` : '2px solid #e5e7eb',
+                      borderRadius: 14, overflow: 'hidden', cursor: 'pointer',
+                      transition: 'all 0.25s', transform: isActive ? 'scale(1.02)' : 'none',
+                      boxShadow: isActive ? `0 8px 24px ${t.color}25` : 'none',
+                    }}>
+                      {/* Theme Preview */}
+                      <div style={{ height: 120, background: t.preview, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {isActive && (
+                          <div style={{ background: t.color, color: 'white', padding: '4px 14px', borderRadius: 20, fontSize: '0.6875rem', fontWeight: 700, position: 'absolute', top: 8, right: 8 }}>
+                            ACTIVE
+                          </div>
+                        )}
+                        <div style={{ width: '80%', height: '70%', background: 'rgba(255,255,255,0.6)', borderRadius: 8, backdropFilter: 'blur(4px)', display: 'flex', gap: 4, padding: 8 }}>
+                          <div style={{ flex: 2, background: 'rgba(255,255,255,0.8)', borderRadius: 4 }} />
+                          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                            <div style={{ flex: 1, background: 'rgba(255,255,255,0.8)', borderRadius: 4 }} />
+                            <div style={{ flex: 1, background: 'rgba(255,255,255,0.8)', borderRadius: 4 }} />
+                          </div>
+                        </div>
+                      </div>
+                      {/* Theme Info */}
+                      <div style={{ padding: 14 }}>
+                        <h4 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#1B3A6B', marginBottom: 4 }}>{t.name}</h4>
+                        <p style={{ fontSize: '0.75rem', color: '#6B7280', lineHeight: 1.5 }}>{t.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {saved && <p style={{ textAlign: 'center', color: '#22C55E', fontWeight: 600, fontSize: '0.875rem', paddingBottom: 16 }}>Theme applied successfully!</p>}
+            </div>
+          )}
+
         </div>
       </div>
     </div>

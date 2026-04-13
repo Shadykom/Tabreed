@@ -1,0 +1,38 @@
+/* Executive Theme - Dark, Bold, Corporate */
+.hero {
+  background: linear-gradient(135deg, #0a1628 0%, #132d5e 50%, #1a3f7a 100%);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  min-height: 160px;
+}
+.heroBg {
+  position: absolute; inset: 0; opacity: 0.06;
+  background: radial-gradient(circle at 80% 20%, rgba(46,196,182,0.4), transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(74,127,212,0.3), transparent 50%);
+}
+.heroContent { position: relative; z-index: 1; flex: 1; }
+.heroTitle { font-size: 1.375rem; font-weight: 800; margin-bottom: 4px; }
+.heroSub { font-size: 0.875rem; opacity: 0.7; }
+.heroStats { display: flex; gap: 24px; margin-top: 16px; }
+.heroStat { text-align: center; }
+.heroStatNum { font-size: 1.5rem; font-weight: 800; display: block; }
+.heroStatLabel { font-size: 0.625rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; }
+.heroLogo { width: 80px; height: 80px; filter: brightness(10); opacity: 0.3; position: absolute; right: 32px; top: 50%; transform: translateY(-50%); }
+
+.grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+.gridFull { grid-column: 1 / -1; }
+.gridRow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .gridRow { grid-template-columns: 1fr; }
+  .hero { flex-direction: column; text-align: center; }
+  .heroStats { justify-content: center; }
+}

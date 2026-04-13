@@ -1653,6 +1653,18 @@ app.delete('/api/policies/:id', (req, res) => {
   res.json({ message: 'Deleted' });
 });
 
+// --- Theme Management ---
+let activeTheme = 'modern'; // default: 'modern' | 'executive' | 'minimal'
+
+app.get('/api/theme', (req, res) => {
+  res.json({ theme: activeTheme });
+});
+
+app.put('/api/theme', (req, res) => {
+  activeTheme = req.body.theme || 'modern';
+  res.json({ theme: activeTheme, message: 'Theme updated' });
+});
+
 // Start
 initDB().then(() => {
   app.listen(PORT, () => {
