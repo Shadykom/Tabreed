@@ -546,15 +546,16 @@ export default function AdminNew() {
               <p style={{ padding: '0 20px 12px', color: '#6B7280', fontSize: '0.875rem' }}>Choose a homepage layout for all portal users. Changes apply instantly.</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, padding: '0 20px 20px' }}>
                 {[
-                  { id: 'modern', name: 'Modern', desc: 'Gradient welcome bar, 2-column grid, glass effects, staggered animations', color: '#4A7FD4', preview: 'linear-gradient(135deg, #EEF2FB, #dbeafe)' },
-                  { id: 'executive', name: 'Executive', desc: 'Dark hero banner, corporate stats, bold layout, professional look', color: '#1B3A6B', preview: 'linear-gradient(135deg, #0a1628, #1a3f7a)' },
-                  { id: 'minimal', name: 'Minimal', desc: 'Clean masonry layout, light greeting, spotlight stats, airy design', color: '#14B8A6', preview: 'linear-gradient(135deg, #f0fdf4, #ccfbf1)' },
+                  { id: 'modern', name: '🔵 Modern Blue', desc: 'Blue theme with gradient welcome bar, rounded cards, Inter font, cool shadows. The default Saudi Tabreed look.', color: '#4A7FD4', preview: 'linear-gradient(135deg, #EEF2FB, #dbeafe)' },
+                  { id: 'executive', name: '🟡 Executive Gold', desc: 'Dark navy & gold accents, serif font (Georgia), sharp corners, luxury corporate feel. Ideal for formal presentations.', color: '#C9A227', preview: 'linear-gradient(135deg, #F5F3EE, #FDF6E3)' },
+                  { id: 'minimal', name: '🟢 Minimal Teal', desc: 'Teal green palette, extra-rounded corners (28px), soft mint backgrounds, nature-inspired. Clean and refreshing.', color: '#14B8A6', preview: 'linear-gradient(135deg, #F0FDFA, #CCFBF1)' },
                 ].map(t => {
                   const isActive = (form.activeTheme || 'modern') === t.id;
                   return (
                     <div key={t.id} onClick={() => {
                       setForm(p => ({ ...p, activeTheme: t.id }));
                       fetch('/api/theme', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ theme: t.id }) });
+                      document.documentElement.setAttribute('data-theme', t.id === 'modern' ? '' : t.id);
                       setSaved(true); setTimeout(() => setSaved(false), 2500);
                     }}
                     style={{

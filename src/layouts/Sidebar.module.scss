@@ -1,7 +1,7 @@
 .sidebar {
   width: var(--sidebar-width);
   height: 100vh;
-  background: linear-gradient(180deg, #0a1628 0%, #132d5e 50%, #1a3f7a 100%);
+  background: linear-gradient(180deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%);
   color: white;
   display: flex;
   flex-direction: column;
