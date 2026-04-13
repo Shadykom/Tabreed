@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Mail, MessageCircle, User, X } from 'lucide-react';
 import Card from '../common/Card';
 import Avatar from '../common/Avatar';
@@ -15,6 +16,7 @@ function getEmployeeEmail(name: string) {
 
 export default function EmployeeDirectory() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { data: employees } = useApi<Employee[]>(api.getEmployees);
   const [activeDot, setActiveDot] = useState(0);
   const [selectedEmp, setSelectedEmp] = useState<Employee | null>(null);
@@ -104,7 +106,7 @@ export default function EmployeeDirectory() {
                 <MessageCircle size={15} color="#8B5CF6" /> Teams Chat
               </a>
               <button
-                onClick={() => setSelectedEmp(null)}
+                onClick={() => { setSelectedEmp(null); navigate(`/employee/${selectedEmp.id}`); }}
                 style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 14px', background: '#F3F4F6', borderRadius: 8, border: 'none', cursor: 'pointer', color: '#1B3A6B', fontWeight: 500, fontSize: 14 }}
               >
                 <User size={15} color="#6b7280" /> View Profile

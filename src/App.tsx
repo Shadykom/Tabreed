@@ -4,6 +4,7 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import NewsDetail from './pages/NewsDetail';
 import AllNews from './pages/AllNews';
+import EmployeeProfile from './pages/EmployeeProfile';
 import Departments from './pages/Departments';
 import PoliciesPage from './pages/PoliciesPage';
 import ApplicationsPage from './pages/ApplicationsPage';
@@ -30,6 +31,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/news" element={<AllNews />} />
                 <Route path="/news/:id" element={<NewsDetail />} />
+                <Route path="/employee/:id" element={<EmployeeProfile />} />
                 <Route path="/departments" element={<Departments />} />
                 <Route path="/policies" element={<PoliciesPage />} />
                 <Route path="/applications" element={<ApplicationsPage />} />

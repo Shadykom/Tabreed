@@ -102,7 +102,7 @@ export default function Header() {
         {/* Profile dropdown */}
         <div ref={profileRef} style={{ position: 'relative' }}>
           <button className={styles.userProfile} onClick={() => { setShowProfile(!showProfile); setShowNotif(false); }}>
-            {user.avatar ? (
+            {user.avatar && user.avatar.startsWith("http") ? (
               <img src={user.avatar} alt={user.name} className={styles.userAvatarImg} />
             ) : (
               <div className={styles.userAvatar}>{initials}</div>
@@ -117,7 +117,7 @@ export default function Header() {
           {showProfile && (
             <div className={styles.dropdown}>
               <div className={styles.dropdownHeader}>
-                {user.avatar ? (
+                {user.avatar && user.avatar.startsWith("http") ? (
                   <img src={user.avatar} alt={user.name} className={styles.dropdownAvatarImg} />
                 ) : (
                   <div className={styles.dropdownAvatar}>{initials}</div>
