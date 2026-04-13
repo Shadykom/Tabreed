@@ -52,7 +52,7 @@ export default function ChairmanPage() {
       {/* Full Message */}
       <div className={styles.messageCard}>
         <div className={styles.messageBody}>
-          {fullMessage.split('\n\n').map((paragraph, i) => (
+          {(chairman?.message || fullMessage).split('\n\n').map((paragraph, i) => (
             <p key={i}>{paragraph}</p>
           ))}
         </div>
