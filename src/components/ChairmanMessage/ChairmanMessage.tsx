@@ -9,17 +9,10 @@ import styles from './ChairmanMessage.module.scss';
 
 function getFirstParagraph(text: string): string {
   if (!text) return '';
-  // Split by double newline (paragraph break) and take first paragraph
   const paragraphs = text.split(/\n\n|\r\n\r\n/);
   const first = paragraphs[0] || text;
-  // If first paragraph is too short and there's more, add second too
-  if (first.length < 200 && paragraphs.length > 1) {
-    return first + '\n\n' + paragraphs[1];
-  }
-  // If still one big block, truncate at ~400 chars
-  if (first.length > 450) {
-    return first.substring(0, 450).replace(/\s+\S*$/, '') + '...';
-  }
+  if (first.length < 200 && paragraphs.length > 1) return first + '\n\n' + paragraphs[1];
+  if (first.length > 350) return first.substring(0, 350).replace(/\s+\S*$/, '') + '...';
   return first + (paragraphs.length > 1 ? '...' : '');
 }
 
@@ -33,11 +26,6 @@ export default function ChairmanMessage() {
   return (
     <Card title={t('chairman.title')}>
       <div className={styles.container}>
-        {chairman?.image && (
-          <div className={styles.photoSide}>
-            <img className={styles.photo} src={chairman.image} alt={chairman.name || ''} />
-          </div>
-        )}
         <div className={styles.textSide}>
           <p className={styles.quote}>{msg}</p>
           <div className={styles.authorInfo}>
@@ -48,6 +36,11 @@ export default function ChairmanMessage() {
             {t('chairman.readFull')} <ArrowRight size={13} />
           </button>
         </div>
+        {chairman?.image && (
+          <div className={styles.photoSide}>
+            <img className={styles.photo} src={chairman.image} alt={chairman.name || ''} />
+          </div>
+        )}
       </div>
     </Card>
   );
