@@ -347,96 +347,202 @@ app.put('/api/chairman', async (req, res) => {
   }
 });
 
-// --- JSON Fallback CRUD for News ---
-app.post('/api/news', (req, res) => {
-  const data = getData();
-  const maxId = data.news.reduce((m, n) => Math.max(m, n.id), 0);
-  const item = { id: maxId + 1, comments: 0, likes: 0, date: 'Just now', ...req.body };
-  data.news.unshift(item);
-  res.status(201).json(item); saveData();
+// --- CRUD for News ---
+app.post('/api/news', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { title, summary, category, author, image } = req.body;
+      const result = await query(`INSERT INTO News (TitleEn, SummaryEn, Category, Author, ImageUrl) OUTPUT INSERTED.Id VALUES (@title, @summary, @category, @author, @image)`, { title, summary, category, author, image });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      const maxId = data.news.reduce((m, n) => Math.max(m, n.id), 0);
+      const item = { id: maxId + 1, comments: 0, likes: 0, date: 'Just now', ...req.body };
+      data.news.unshift(item);
+      res.status(201).json(item); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/news/:id', (req, res) => {
-  const data = getData();
-  const idx = data.news.findIndex(n => n.id == req.params.id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  data.news[idx] = { ...data.news[idx], ...req.body };
-  res.json(data.news[idx]); saveData();
+app.put('/api/news/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { title, summary, category, author, image } = req.body;
+      await query(`UPDATE News SET TitleEn=@title, SummaryEn=@summary, Category=@category, Author=@author, ImageUrl=@image, UpdatedAt=GETUTCDATE() WHERE Id=@id`, { title, summary, category, author, image, id: parseInt(req.params.id) });
+      res.json({ message: 'Updated' });
+    } else {
+      const data = getData();
+      const idx = data.news.findIndex(n => n.id == req.params.id);
+      if (idx === -1) return res.status(404).json({ error: 'Not found' });
+      data.news[idx] = { ...data.news[idx], ...req.body };
+      res.json(data.news[idx]); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/news/:id', (req, res) => {
-  const data = getData();
-  data.news = data.news.filter(n => n.id != req.params.id);
-  res.json({ message: 'Deleted' }); saveData();
+app.delete('/api/news/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM NewsComments WHERE NewsId=@id', { id: parseInt(req.params.id) });
+      await query('DELETE FROM News WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.news = data.news.filter(n => n.id != req.params.id);
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// --- JSON Fallback CRUD for Announcements ---
-app.post('/api/announcements', (req, res) => {
-  const data = getData();
-  const maxId = data.announcements.reduce((m, a) => Math.max(m, a.id), 0);
-  const item = { id: maxId + 1, date: 'Just now', ...req.body };
-  data.announcements.unshift(item);
-  res.status(201).json(item); saveData();
+// --- CRUD for Announcements ---
+app.post('/api/announcements', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { title, type, department } = req.body;
+      const result = await query(`INSERT INTO Announcements (TitleEn, Type, Department) OUTPUT INSERTED.Id VALUES (@title, @type, @department)`, { title, type, department });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      const maxId = data.announcements.reduce((m, a) => Math.max(m, a.id), 0);
+      const item = { id: maxId + 1, date: 'Just now', ...req.body };
+      data.announcements.unshift(item);
+      res.status(201).json(item); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/announcements/:id', (req, res) => {
-  const data = getData();
-  const idx = data.announcements.findIndex(a => a.id == req.params.id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  data.announcements[idx] = { ...data.announcements[idx], ...req.body };
-  res.json(data.announcements[idx]); saveData();
+app.put('/api/announcements/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { title, type, department } = req.body;
+      await query(`UPDATE Announcements SET TitleEn=@title, Type=@type, Department=@department, UpdatedAt=GETUTCDATE() WHERE Id=@id`, { title, type, department, id: parseInt(req.params.id) });
+      res.json({ message: 'Updated' });
+    } else {
+      const data = getData();
+      const idx = data.announcements.findIndex(a => a.id == req.params.id);
+      if (idx === -1) return res.status(404).json({ error: 'Not found' });
+      data.announcements[idx] = { ...data.announcements[idx], ...req.body };
+      res.json(data.announcements[idx]); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/announcements/:id', (req, res) => {
-  const data = getData();
-  data.announcements = data.announcements.filter(a => a.id != req.params.id);
-  res.json({ message: 'Deleted' }); saveData();
+app.delete('/api/announcements/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM Announcements WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.announcements = data.announcements.filter(a => a.id != req.params.id);
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// --- JSON Fallback CRUD for Employees ---
-app.post('/api/employees', (req, res) => {
-  const data = getData();
-  const maxId = data.employees.reduce((m, e) => Math.max(m, e.id), 0);
-  const item = { id: maxId + 1, ...req.body };
-  data.employees.push(item);
-  res.status(201).json(item); saveData();
+// --- CRUD for Employees ---
+app.post('/api/employees', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, department, title, avatar } = req.body;
+      const result = await query(`INSERT INTO Employees (FullNameEn, Department, TitleEn, Avatar) OUTPUT INSERTED.Id VALUES (@name, @department, @title, @avatar)`, { name, department, title, avatar });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      const maxId = data.employees.reduce((m, e) => Math.max(m, e.id), 0);
+      const item = { id: maxId + 1, ...req.body };
+      data.employees.push(item);
+      res.status(201).json(item); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/employees/:id', (req, res) => {
-  const data = getData();
-  const idx = data.employees.findIndex(e => e.id == req.params.id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  data.employees[idx] = { ...data.employees[idx], ...req.body };
-  res.json(data.employees[idx]); saveData();
+app.put('/api/employees/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, department, title, avatar } = req.body;
+      await query(`UPDATE Employees SET FullNameEn=@name, Department=@department, TitleEn=@title, Avatar=@avatar, UpdatedAt=GETUTCDATE() WHERE Id=@id`, { name, department, title, avatar, id: parseInt(req.params.id) });
+      res.json({ message: 'Updated' });
+    } else {
+      const data = getData();
+      const idx = data.employees.findIndex(e => e.id == req.params.id);
+      if (idx === -1) return res.status(404).json({ error: 'Not found' });
+      data.employees[idx] = { ...data.employees[idx], ...req.body };
+      res.json(data.employees[idx]); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/employees/:id', (req, res) => {
-  const data = getData();
-  data.employees = data.employees.filter(e => e.id != req.params.id);
-  res.json({ message: 'Deleted' }); saveData();
+app.delete('/api/employees/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM Employees WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.employees = data.employees.filter(e => e.id != req.params.id);
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// --- JSON Fallback CRUD for Meeting Rooms ---
-app.post('/api/meetingRooms', (req, res) => {
-  const data = getData();
-  const maxId = data.meetingRooms.reduce((m, r) => Math.max(m, r.id), 0);
-  const item = { id: maxId + 1, status: 'available', ...req.body };
-  data.meetingRooms.push(item);
-  res.status(201).json(item); saveData();
+// --- CRUD for Meeting Rooms ---
+app.post('/api/meetingRooms', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, image, capacity, floor } = req.body;
+      const result = await query(`INSERT INTO MeetingRooms (Name, ImageUrl, Capacity, Floor) OUTPUT INSERTED.Id VALUES (@name, @image, @capacity, @floor)`, { name, image, capacity: parseInt(capacity) || 0, floor });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      const maxId = data.meetingRooms.reduce((m, r) => Math.max(m, r.id), 0);
+      const item = { id: maxId + 1, status: 'available', ...req.body };
+      data.meetingRooms.push(item);
+      res.status(201).json(item); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.put('/api/meetingRooms/:id', (req, res) => {
-  const data = getData();
-  const idx = data.meetingRooms.findIndex(r => r.id == req.params.id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  data.meetingRooms[idx] = { ...data.meetingRooms[idx], ...req.body };
-  res.json(data.meetingRooms[idx]); saveData();
+app.put('/api/meetingRooms/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, image, capacity, floor } = req.body;
+      await query(`UPDATE MeetingRooms SET Name=@name, ImageUrl=@image, Capacity=@capacity, Floor=@floor WHERE Id=@id`, { name, image, capacity: parseInt(capacity) || 0, floor, id: parseInt(req.params.id) });
+      res.json({ message: 'Updated' });
+    } else {
+      const data = getData();
+      const idx = data.meetingRooms.findIndex(r => r.id == req.params.id);
+      if (idx === -1) return res.status(404).json({ error: 'Not found' });
+      data.meetingRooms[idx] = { ...data.meetingRooms[idx], ...req.body };
+      res.json(data.meetingRooms[idx]); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.delete('/api/meetingRooms/:id', (req, res) => {
-  const data = getData();
-  data.meetingRooms = data.meetingRooms.filter(r => r.id != req.params.id);
-  res.json({ message: 'Deleted' }); saveData();
+app.delete('/api/meetingRooms/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM RoomBookings WHERE RoomId=@id', { id: parseInt(req.params.id) });
+      await query('DELETE FROM MeetingRooms WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.meetingRooms = data.meetingRooms.filter(r => r.id != req.params.id);
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // --- Reminder ---
