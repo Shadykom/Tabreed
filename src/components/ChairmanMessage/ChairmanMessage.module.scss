@@ -1,8 +1,8 @@
 .container {
   display: flex;
-  gap: 20px;
-  align-items: center;
-  min-height: 180px;
+  gap: 16px;
+  align-items: flex-start;
+  height: 100%;
 }
 
 .photoSide {
@@ -10,11 +10,11 @@
 }
 
 .photo {
-  width: 110px;
-  height: 140px;
-  border-radius: 14px;
+  width: 100px;
+  height: 130px;
+  border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
 }
 
 .textSide {
@@ -22,29 +22,28 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  height: 100%;
 }
 
 .quote {
-  font-size: 0.875rem;
-  line-height: 1.75;
+  font-size: 0.8125rem;
+  line-height: 1.7;
   color: var(--color-text);
   font-style: italic;
-  margin-block-end: 14px;
-  position: relative;
-  padding-inline-start: 16px;
+  margin-block-end: 10px;
+  padding-inline-start: 14px;
   border-inline-start: 3px solid #2EC4B6;
-}
-
-.authorDivider {
-  display: none;
+  flex: 1;
 }
 
 .authorInfo {
   display: flex;
   align-items: baseline;
   gap: 6px;
-  margin-block-end: 14px;
+  margin-block-end: 10px;
 }
+
+.authorDivider { display: none; }
 
 .name {
   font-size: 0.8125rem;
@@ -53,15 +52,15 @@
 }
 
 .title {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   color: var(--color-text-secondary);
 }
 
 .readBtn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 16px;
+  gap: 5px;
+  padding: 6px 14px;
   border: 1.5px solid var(--color-accent);
   border-radius: var(--radius-full);
   background: transparent;
@@ -71,6 +70,7 @@
   cursor: pointer;
   transition: all 0.2s;
   align-self: flex-start;
+  margin-top: auto;
 
   &:hover {
     background: var(--color-accent);
@@ -78,18 +78,12 @@
   }
 }
 
-.wrapper, .accentBar, .accentShape {
-  /* unused - clean */
-}
+.wrapper, .accentBar, .accentShape { }
 
 @media (max-width: 640px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+  .container { flex-direction: column; align-items: center; text-align: center; }
   .photo { width: 80px; height: 100px; }
-  .quote { border-inline-start: none; padding-inline-start: 0; }
+  .quote { border-inline-start: none; padding-inline-start: 0; flex: unset; }
   .readBtn { align-self: center; }
   .authorInfo { justify-content: center; }
 }

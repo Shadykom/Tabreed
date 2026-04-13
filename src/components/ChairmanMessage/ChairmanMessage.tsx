@@ -17,7 +17,7 @@ export default function ChairmanMessage() {
   const navigate = useNavigate();
   const { data: chairman } = useApi<ChairmanMessageType>(api.getChairman);
 
-  const msg = truncate(chairman?.message || '', 220);
+  const msg = truncate(chairman?.message || '', 400);
 
   return (
     <Card title={t('chairman.title')}>
