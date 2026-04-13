@@ -95,8 +95,8 @@
       "category": "Favorites",
       "icon": "building",
       "color": "#4A90D9",
-      "description": "Facility Management",
-      "url": "#"
+      "description": "CMMS Software",
+      "url": "https://facilio.com"
     },
     {
       "id": 2,
@@ -104,7 +104,7 @@
       "category": "Favorites",
       "icon": "shield",
       "color": "#14B8A6",
-      "description": "Cybersecurity",
+      "description": "Security Awareness Training",
       "url": "#"
     },
     {
@@ -113,17 +113,17 @@
       "category": "Favorites",
       "icon": "pen-tool",
       "color": "#22C55E",
-      "description": "Digital Signatures",
+      "description": "Digital Signing Platform",
       "url": "#"
     },
     {
       "id": 4,
-      "name": "Outlook",
+      "name": "E-mail",
       "category": "Favorites",
       "icon": "mail",
       "color": "#0078D4",
       "description": "Email & Calendar",
-      "url": "#"
+      "url": "https://outlook.office.com"
     },
     {
       "id": 5,
@@ -131,53 +131,71 @@
       "category": "Core Systems",
       "icon": "box",
       "color": "#1B3A6B",
-      "description": "ERP System",
+      "description": "ERP - Finance, Supply Chain, HCM",
       "url": "#"
     },
     {
       "id": 6,
-      "name": "SAP",
-      "category": "Core Systems",
-      "icon": "database",
-      "color": "#0FAAFF",
-      "description": "Enterprise Planning",
-      "url": "#"
-    },
-    {
-      "id": 7,
       "name": "ManageEngine",
       "category": "Core Systems",
       "icon": "settings",
       "color": "#EF4444",
-      "description": "IT Service Mgmt",
+      "description": "IT Service Management",
+      "url": "#"
+    },
+    {
+      "id": 7,
+      "name": "Culture Amp",
+      "category": "Core Systems",
+      "icon": "bar-chart-3",
+      "color": "#8B5CF6",
+      "description": "Performance Management",
       "url": "#"
     },
     {
       "id": 8,
-      "name": "SharePoint",
-      "category": "Tools",
-      "icon": "layout",
-      "color": "#0078D4",
-      "description": "Document Mgmt",
+      "name": "Teradix",
+      "category": "Core Systems",
+      "icon": "database",
+      "color": "#F59E0B",
+      "description": "Procurement Software",
       "url": "#"
     },
     {
       "id": 9,
+      "name": "SharePoint",
+      "category": "Tools",
+      "icon": "layout",
+      "color": "#0078D4",
+      "description": "Document Management",
+      "url": "https://sharepoint.com"
+    },
+    {
+      "id": 10,
       "name": "Power BI",
       "category": "Tools",
       "icon": "bar-chart-3",
       "color": "#F2C811",
-      "description": "Analytics",
+      "description": "Business Analytics",
       "url": "#"
     },
     {
-      "id": 10,
+      "id": 11,
       "name": "Microsoft Teams",
       "category": "Tools",
       "icon": "users",
       "color": "#6264A7",
-      "description": "Communication",
-      "url": "#"
+      "description": "Communication & Collaboration",
+      "url": "https://teams.microsoft.com"
+    },
+    {
+      "id": 12,
+      "name": "OneDrive",
+      "category": "Tools",
+      "icon": "database",
+      "color": "#0078D4",
+      "description": "Cloud File Storage",
+      "url": "https://onedrive.com"
     }
   ],
   "employees": [
