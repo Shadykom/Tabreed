@@ -141,7 +141,7 @@ export default function PoliciesPage() {
               </div>
             </div>
             <div className={styles.viewerBody}>
-              {viewingPolicy.fileUrl ? (
+              {viewingPolicy.fileUrl && (viewingPolicy.fileUrl.endsWith('.pdf') || viewingPolicy.fileUrl.includes('/uploads/')) ? (
                 <iframe
                   src={viewingPolicy.fileUrl}
                   className={styles.viewerFrame}
