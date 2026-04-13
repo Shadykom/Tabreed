@@ -7,9 +7,20 @@ import { api } from '../../services/api';
 import type { ChairmanMessage as ChairmanMessageType } from '../../types';
 import styles from './ChairmanMessage.module.scss';
 
-function truncate(text: string, max: number): string {
-  if (!text || text.length <= max) return text;
-  return text.substring(0, max).replace(/\s+\S*$/, '') + '...';
+function getFirstParagraph(text: string): string {
+  if (!text) return '';
+  // Split by double newline (paragraph break) and take first paragraph
+  const paragraphs = text.split(/\n\n|\r\n\r\n/);
+  const first = paragraphs[0] || text;
+  // If first paragraph is too short and there's more, add second too
+  if (first.length < 200 && paragraphs.length > 1) {
+    return first + '\n\n' + paragraphs[1];
+  }
+  // If still one big block, truncate at ~400 chars
+  if (first.length > 450) {
+    return first.substring(0, 450).replace(/\s+\S*$/, '') + '...';
+  }
+  return first + (paragraphs.length > 1 ? '...' : '');
 }
 
 export default function ChairmanMessage() {
@@ -17,7 +28,7 @@ export default function ChairmanMessage() {
   const navigate = useNavigate();
   const { data: chairman } = useApi<ChairmanMessageType>(api.getChairman);
 
-  const msg = truncate(chairman?.message || '', 400);
+  const msg = getFirstParagraph(chairman?.message || '');
 
   return (
     <Card title={t('chairman.title')}>
