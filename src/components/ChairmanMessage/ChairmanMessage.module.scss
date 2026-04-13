@@ -18,6 +18,21 @@
   font-style: italic;
   margin-block-end: 12px;
   flex: 1;
+  position: relative;
+  padding-top: 20px;
+
+  &::before {
+    content: '\201C\201C';
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    font-size: 2rem;
+    font-style: normal;
+    font-family: Georgia, serif;
+    color: #2EC4B6;
+    line-height: 1;
+    opacity: 0.6;
+  }
 }
 
 .authorDivider { display: none; }
