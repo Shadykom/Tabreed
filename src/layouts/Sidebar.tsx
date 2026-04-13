@@ -71,11 +71,11 @@ export default function Sidebar() {
         </button>
 
         <div className={styles.userSection}>
-          {user.avatar && user.avatar.startsWith('http') ? (
+          {user.avatar ? (
             <img src={user.avatar} alt={user.name} className={`${styles.userAvatarImg} ${styles.onlineDot}`}
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; (e.target as HTMLImageElement).nextElementSibling?.removeAttribute('style'); }} />
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; const next = (e.target as HTMLImageElement).nextElementSibling as HTMLElement; if (next) next.style.display = 'flex'; }} />
           ) : null}
-          <div className={`${styles.userAvatar} ${styles.onlineDot}`} style={user.avatar && user.avatar.startsWith('http') ? { display: 'none' } : {}}>{initials}</div>
+          <div className={`${styles.userAvatar} ${styles.onlineDot}`} style={user.avatar ? { display: 'none' } : {}}>{initials}</div>
           <div className={styles.userInfo}>
             <span className={styles.userName}>{isRTL ? user.nameAr : user.name}</span>
             <span className={styles.userTitle}>{isRTL ? user.titleAr : user.title}</span>
