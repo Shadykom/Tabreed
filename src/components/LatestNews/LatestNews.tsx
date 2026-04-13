@@ -34,7 +34,7 @@ export default function LatestNews() {
       </div>
 
       <div className={styles.newsList}>
-        {filtered.map((article) => (
+        {filtered.slice(0, 3).map((article) => (
           <div key={article.id} className={styles.newsItem}>
             <img
               className={styles.thumbnail}
