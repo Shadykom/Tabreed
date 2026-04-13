@@ -760,7 +760,37 @@ app.delete('/api/safeLocations/:id', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// --- PUT for Motivation ---
+// --- CRUD for Chairman Message ---
+app.post('/api/chairman', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { name, title, message, image } = req.body;
+      const result = await query(`INSERT INTO ChairmanMessage (NameEn, TitleEn, MessageEn, ImageUrl, IsActive) OUTPUT INSERTED.Id VALUES (@name, @title, @message, @image, 1)`, { name, title, message, image });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      Object.assign(data.chairman, req.body);
+      res.status(201).json(data.chairman); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.delete('/api/chairman/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM ChairmanMessage WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.chairman = { name: '', title: '', message: '', image: '' };
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// --- CRUD for Motivation ---
 app.put('/api/motivation', async (req, res) => {
   try {
     if (useSQL) {
@@ -782,7 +812,36 @@ app.put('/api/motivation', async (req, res) => {
   }
 });
 
-// --- PUT for Reminder ---
+app.post('/api/motivation', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { quote, author, backgroundImage } = req.body;
+      const result = await query(`INSERT INTO WeeklyMotivation (QuoteEn, Author, BackgroundImageUrl, IsActive, WeekStartDate) OUTPUT INSERTED.Id VALUES (@quote, @author, @backgroundImage, 1, CAST(GETUTCDATE() AS DATE))`, { quote, author, backgroundImage });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      Object.assign(data.motivation, req.body);
+      res.status(201).json(data.motivation); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.delete('/api/motivation/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM WeeklyMotivation WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.motivation = { quote: '', author: '', backgroundImage: '' };
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// --- CRUD for Reminder ---
 app.put('/api/reminder', async (req, res) => {
   try {
     if (useSQL) {
@@ -802,6 +861,35 @@ app.put('/api/reminder', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+app.post('/api/reminder', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      const { message, type } = req.body;
+      const result = await query(`INSERT INTO Reminders (MessageEn, Type, IsActive) OUTPUT INSERTED.Id VALUES (@message, @type, 1)`, { message, type: type || 'info' });
+      res.status(201).json({ id: result.recordset[0].Id, ...req.body });
+    } else {
+      const data = getData();
+      Object.assign(data.reminder, req.body);
+      res.status(201).json(data.reminder); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.delete('/api/reminder/:id', async (req, res) => {
+  try {
+    if (useSQL) {
+      const { query } = require('./db.cjs');
+      await query('DELETE FROM Reminders WHERE Id=@id', { id: parseInt(req.params.id) });
+      res.json({ message: 'Deleted' });
+    } else {
+      const data = getData();
+      data.reminder = { id: 0, message: '', active: false };
+      res.json({ message: 'Deleted' }); saveData();
+    }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // --- Org Chart flat endpoint & CRUD ---
